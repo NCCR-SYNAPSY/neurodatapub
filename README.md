@@ -1,5 +1,7 @@
 # synapsy-neurodata-publishing-tool
 
+**Suggested name:** *NeuroDataPub*
+
 This tool should facilitate the conversion to a Datalad dataset, the publication of the dataset repository (only metadata) to GitHub and its annexed data on a SSH data server of the institution.
 
 It should take as input:

@@ -64,3 +64,28 @@ it should follow the following features and design principles:
 * The user wants to "publish only" an existing datalad dataset:
  * status should be checked and an error raised if not up-to-date
  * siblings should be checked and if the siblings are not existing, they are created
+
+## Road Map
+
+- [ ] Code architecture (Class / method / ...)
+
+- [ ] Creation of code prototype (Class / method /)
+
+- [ ] Employ setup.py for installation
+
+- [ ] Add continuos integration testing that:
+ * test the creattion of PyPI wheel and the installation via `pip install`
+ * run the `pytest` tests
+
+- [ ] Add documentation on readthedocs that shows:
+ * how to install
+ * how to use the three modes
+
+When code is ready to be version released:
+
+- [ ] Add zenodo
+
+- [ ] Test publication of PyPI package to testing PyPI server.
+
+- [ ] Add publication rule to main PyPI in CircleCI
+

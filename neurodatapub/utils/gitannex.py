@@ -6,7 +6,6 @@
 
 """NeuroDataPub utils functions for Git-annex."""
 
-import os
 from .datalad import DEFAULT_SSH_REMOTE_NAME
 from .process import run
 
@@ -32,7 +31,7 @@ def init_ssh_special_sibling(
                 'remote_sibling_dir': "/path/to/remote/sibling/directory/.git"
             }
 
-    ssh_special_remote_name : string
+    ssh_special_sibling_name : string
         Name of the created special remote sibling
 
     Returns
@@ -44,16 +43,16 @@ def init_ssh_special_sibling(
     cmd = 'git annex initremote '
     cmd += f'{ssh_special_sibling_name} '
     cmd += f'type=git '
-    cmd += f'location={ssh_special_sibling_args.remote_ssh_url}'
-    cmd += f'{ssh_special_sibling_args.remote_sibling_dir} '
+    cmd += f'location={ssh_special_sibling_args["remote_ssh_url"]}'
+    cmd += f'{ssh_special_sibling_args["remote_sibling_dir"]} '
     cmd += 'autoenable=True '
 
     # Execute the git annex initremote command in the dataset directory
     try:
         print(f'... cmd: {cmd}')
         proc = run(cmd, cwd=f'{datalad_dataset_dir}')
+        return proc
     except Exception as e:
         print('Failed')
         print(e)
-
-    return proc
+        return None

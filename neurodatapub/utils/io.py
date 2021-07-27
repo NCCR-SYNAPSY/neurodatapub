@@ -41,8 +41,8 @@ def copy_content_to_datalad_dataset(
     try:
         print(f'... cmd: {cmd}')
         proc = run(cmd)
+        return proc
     except Exception as e:
         print('Failed')
         print(e)
-
-    return proc
+        return None

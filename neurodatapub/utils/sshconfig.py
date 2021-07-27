@@ -18,7 +18,8 @@ def update_ssh_config(
     Parameters
     -----------
     sshurl : str
-        SSH URL of the git-annex special remote
+        SSH URL of the git-annex special remote in the form
+        `ssh://server.example.org`
 
     user : str
         User login for authentification the git-annex special remote
@@ -28,12 +29,10 @@ def update_ssh_config(
     lines : string
         Entry added to SSH config
     """
-    ssh_config_path = '~/.ssh/config'
-
-    if 'ssh://' in sshurl:
-        sshurl = sshurl.replace('ssh://', '')
+    sshurl = sshurl.replace('ssh://', '')
 
     lines = None
+    ssh_config_path = '~/.ssh/config'
     with open(ssh_config_path, 'a') as ssh_config:
         # Add the entry if it does not exist
         if f'Host {sshurl}' not in ssh_config.read():

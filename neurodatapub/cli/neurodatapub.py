@@ -12,7 +12,6 @@
 import sys
 
 # Own imports
-from neurodatapub.info import __version__
 from neurodatapub.parser import get_parser
 from neurodatapub.project import NeuroDataPubProject
 
@@ -45,6 +44,7 @@ def main():
     try:
         exit_code = 0
     except Exception as e:
+        print(e)
         exit_code = 1
 
     return exit_code

@@ -78,7 +78,7 @@ def enable_ssh_special_sibling(
         Output of `subprocess.run()`
     """
     # Create the git annex command
-    cmd = 'git annex enabletremote '
+    cmd = 'git annex enableremote '
     cmd += f'{ssh_special_sibling_name}'
 
     # Execute the git annex enableremote command in the dataset directory

@@ -9,7 +9,10 @@
 """This module defines the entrypoint script of the commandline interface of `neurodatapub`."""
 
 # General imports
+import os
 import sys
+
+from bids import BIDSLayout
 
 # Own imports
 from neurodatapub.parser import get_parser
@@ -33,8 +36,28 @@ def main():
     parser = get_parser()
     args = parser.parse_args()
 
-    # Validate sibling configuration files if given
-    # Exit if the json schema of the file is invalid
+    #####################
+    # Input sanity check
+    #####################
+
+    # 1. Check if the BIDS directory exists
+    if not os.path.exists(args.bids_dir):
+        print(
+            f"The provided BIDS directory ({args.bids_dir}) does not exists"
+        )
+        exit_code = 1
+        return exit_code
+    # 2. Check if the BIDS dataset is successfully loaded by pybids
+    try:
+        layout = BIDSLayout(args.bids_dir)
+        print(f'PyBIDS summary of input dataset:\n{layout}')
+    except Exception as e:
+        print(f'{e}')
+        exit_code = 1
+        return exit_code
+
+    # 3. Validate sibling configuration files if given
+    #    Exit if the json schema of the file is invalid
     if args.git_annex_ssh_special_sibling_config:
         if not validate_json_sibling_config(
             json_file=args.git_annex_ssh_special_sibling_config,
@@ -51,6 +74,10 @@ def main():
             exit_code = 1
             return exit_code
 
+    ############################
+    # Execution of the two modes
+    ############################
+
     # Commandline mode
     if not args.gui:
         # Create a NeuroDataPubProject
@@ -63,7 +90,10 @@ def main():
         print(neurodatapub_project)
         exit_code = 0
         print('Success')
-
+    else:
+        # GUI mode
+        print('GUI')
+        exit_code = 0
     return exit_code
 
 

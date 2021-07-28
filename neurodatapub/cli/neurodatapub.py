@@ -35,17 +35,17 @@ def main():
 
     # Validate sibling configuration files if given
     # Exit if the json schema of the file is invalid
-    if args['git-annex-ssh-special-sibling-config']:
+    if args.git_annex_ssh_special_sibling_config:
         if not validate_json_sibling_config(
-            json_file=args['git-annex-ssh-special-sibling-config'],
+            json_file=args.git_annex_ssh_special_sibling_config,
             sibling_type='git-annex-special-sibling'
         ):
             exit_code = 1
             return exit_code
 
-    if args['github-sibling-config']:
+    if args.github_sibling_config:
         if not validate_json_sibling_config(
-            json_file=args['github-sibling-config'],
+            json_file=args.github_sibling_config,
             sibling_type='github-sibling'
         ):
             exit_code = 1
@@ -55,10 +55,10 @@ def main():
     if not args['gui']:
         # Create a NeuroDataPubProject
         neurodatapub_project = NeuroDataPubProject(
-            bids_dir=args['bids_dir'],
-            datalad_dataset_dir=args['datalad_dir'],
-            git_annex_special_sibling_config=args['git-annex-ssh-special-sibling-config'],
-            github_sibling_config=args['github-sibling-config']
+            bids_dir=args.bids_dir,
+            datalad_dataset_dir=args.datalad_dir,
+            git_annex_special_sibling_config=args.git_annex_ssh_special_sibling_config,
+            github_sibling_config=args.github_sibling_config
         )
         exit_code = 0
         print('Success')

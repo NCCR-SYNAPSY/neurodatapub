@@ -30,14 +30,14 @@ def get_parser():
         required=True
     )
     p.add_argument(
-        "--git-annex-ssh-special-sibling-config",
+        "--git_annex_ssh_special_sibling_config",
         help="Path to a JSON file containing configuration "
              "parameters for the git-annex SSH special remote dataset sibling",
         required='--gui' not in " ".join(sys.argv),
         type=str
     )
     p.add_argument(
-        "--github-sibling-config",
+        "--github_sibling_config",
         help="Path to a JSON file containing configuration "
              "parameters for the GitHub dataset repository sibling",
         required='--gui' not in " ".join(sys.argv),

@@ -44,7 +44,7 @@ GITHUB_SIBLING_CONFIG_SCHEMA = {
             "pattern": "[A-Za-z0-9]+"
         },
     },
-    "required": ["github_token", "github_repo_name"]
+    "required": ["github_login", "github_repo_name"]
 }
 
 

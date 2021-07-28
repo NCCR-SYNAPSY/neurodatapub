@@ -88,8 +88,13 @@ def main():
             github_sibling_config=args.github_sibling_config
         )
         print(neurodatapub_project)
-        exit_code = 0
-        print('Success')
+        res = neurodatapub_project.create_datalad_dataset()
+        if res:
+            exit_code = 0
+            print('Success')
+        else:
+            exit_code = 1
+            print('An error occurred during the creation of the Datalad dataset')
     else:
         # GUI mode
         print('GUI')

@@ -73,6 +73,7 @@ def create_ssh_sibling(
         f'{ssh_special_sibling_args["remote_sibling_dir"]}',
         name=datalad_sibling_name,
         dataset=datalad_dataset_dir,
+        existing='skip'
     )
     return res
 
@@ -113,6 +114,7 @@ def create_github_sibling(
         publish_depends=ssh_special_remote_name,
         private=True,
         dataset=datalad_dataset_dir,
+        existing='skip'
     )
     return res
 

@@ -14,12 +14,18 @@ class NeuroDataPubProject(HasTraits):
 
     Attributes
     ----------
+    input_bids_dir : Directory
+        Absolute path of the original BIDS dataset directory
+
+    output_datalad_dataset_dir : Directory
+        Absolute path of the datalad dataset to be created
+
     git_annex_special_sibling_config : File
-        Path of Json file that describes configuration of the
+        Absolute path of the Json file that describes configuration of the
         git-annex special sibling
 
     github_sibling_config : File
-        Path of Json file that describes configuration of the
+        Absolute path of the Json file that describes configuration of the
         github sibling
 
     github_token : Str
@@ -36,22 +42,47 @@ class NeuroDataPubProject(HasTraits):
         in the form of `ssh://server.example.org`
 
     remote_sibling_dir : Directory
-        Remote path of the sibling dataset on the git-annex special sibling
+        Remote absolute path of the sibling dataset on the git-annex special sibling
 
     remote_sibling_name : Str
         Datalad sibling name of the git-annex special sibling
     """
 
-    input_bids_dir = Directory(exists=True)
-    output_datalad_dataset_dir = Directory
-    git_annex_special_sibling_config = File
-    github_sibling_config = File
-    github_token = Str
-    github_repo_name = Str
-    remote_ssh_login = Str
-    remote_ssh_url = Str
-    remote_sibling_dir = Directory
-    remote_sibling_name = Str
+    input_bids_dir = Directory(
+        exists=True,
+        desc='Absolute path of the original BIDS dataset directory'
+    )
+    output_datalad_dataset_dir = Directory(
+        desc='Absolute path of the datalad dataset to be created'
+    )
+    git_annex_special_sibling_config = File(
+        desc='Absolute path of the Json file that describes '
+             'configuration of the git-annex special sibling'
+    )
+    github_sibling_config = File(
+        desc='Absolute path of the Json file that describes '
+             'configuration of the github sibling'
+    )
+    github_token = Str(
+        desc='User token to authenticate in GitHub'
+    )
+    github_repo_name = Str(
+        desc='Name of the dataset repository published on GitHub'
+    )
+    remote_ssh_login = Str(
+        desc='User login to the git-annex special sibling'
+    )
+    remote_ssh_url = Str(
+        desc='SSH URL to the git-annex special sibling '
+             'in the form of `ssh://server.example.org`'
+    )
+    remote_sibling_dir = Directory(
+        desc='Remote absolute path of the sibling dataset on '
+             'the git-annex special sibling'
+    )
+    remote_sibling_name = Str(
+        desc='Datalad sibling name of the git-annex special sibling'
+    )
 
     def __init__(
         self,

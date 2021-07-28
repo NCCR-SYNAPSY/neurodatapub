@@ -45,7 +45,7 @@ def init_ssh_special_sibling(
     cmd += f'type=git '
     cmd += f'location={ssh_special_sibling_args["remote_ssh_url"]}'
     cmd += f'{ssh_special_sibling_args["remote_sibling_dir"]} '
-    cmd += 'autoenable=True '
+    cmd += 'autoenable=true'
 
     # Execute the git annex initremote command in the dataset directory
     try:

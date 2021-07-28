@@ -47,7 +47,8 @@ def run(command, env=None, cwd=None):
         shell=True,
         env=merged_env,
         cwd=cwd,
-        capture_output=True
+        capture_output=True,
+        check=True
     )
 
     return process

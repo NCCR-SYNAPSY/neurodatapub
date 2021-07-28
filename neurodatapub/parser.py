@@ -19,6 +19,15 @@ def get_parser():
     )
 
     p.add_argument(
+        "--mode",
+        help="Mode in which `neurodatapub` is run: "
+             '`"create-only"` creates the datalad dataset only, '
+             '`"publish-only"` creates the datalad dataset only, '
+             '`"all"` creates the datalad dataset only, ',
+        choices=["all", "create-only", "publish-only"],
+        required='--gui' not in " ".join(sys.argv),
+    )
+    p.add_argument(
         "--bids_dir",
         help="The directory with the input dataset "
              "formatted according to the BIDS standard.",

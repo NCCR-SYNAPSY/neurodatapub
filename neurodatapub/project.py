@@ -157,12 +157,14 @@ class NeuroDataPubProject(HasTraits):
         if proc is not None:
             print(f'{proc.stdout}')
         print(f'> Save dataset state...')
-        datalad.api.save(
+        proc = datalad.api.save(
             dataset=self.output_datalad_dataset_dir,
             message=f'Save dataset state after performing the command {cmd} '
                     f'with neurodatapub {__version__}',
             jobs='auto'
         )
+        if proc:
+            print(f'{proc}')
         return True
 
     def configure_siblings(self):

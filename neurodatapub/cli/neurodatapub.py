@@ -91,20 +91,16 @@ def main():
 
         if args.mode == "create-only" or args.mode == "all":
             print(
-                """
-                ######################################
-                # Creation of Datalad Dataset
-                ######################################
-                """
+                "######################################\n"
+                "# Creation of Datalad Dataset\n"
+                "######################################\n"
             )
             res = neurodatapub_project.create_datalad_dataset()
         if args.mode == "publish-only" or args.mode == "all":
             print(
-                """
-                ######################################
-                # Publication of Datalad Dataset
-                ######################################
-                """
+                "######################################\n"
+                "# Publication of Datalad Dataset\n"
+                "######################################\n"
             )
             neurodatapub_project.configure_siblings()
             neurodatapub_project.publish_datalad_dataset()

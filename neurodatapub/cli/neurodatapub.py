@@ -52,7 +52,7 @@ def main():
             return exit_code
 
     # Commandline mode
-    if not args['gui']:
+    if not args.gui:
         # Create a NeuroDataPubProject
         neurodatapub_project = NeuroDataPubProject(
             bids_dir=args.bids_dir,

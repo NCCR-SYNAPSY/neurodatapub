@@ -70,7 +70,7 @@ def create_ssh_sibling(
     """
     res = datalad.api.create_sibling(
         sshurl=f'{ssh_special_sibling_args["remote_ssh_url"]}:' +
-        f'{ssh_special_sibling_args["remote_sibling_dir"]} ',
+        f'{ssh_special_sibling_args["remote_sibling_dir"]}',
         name=datalad_sibling_name,
         dataset=datalad_dataset_dir,
     )

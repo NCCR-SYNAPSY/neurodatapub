@@ -120,16 +120,16 @@ class NeuroDataPubProject(HasTraits):
 
     def __str__(self):
         desc = f"""
-        NeuroDataPubProject object attributes:\n
-        \tinput_bids_dir : {self.input_bids_dir}\n
-        \toutput_datalad_dataset_dir : {self.output_datalad_dataset_dir}\n
-        \tgit_annex_special_sibling_config : {self.git_annex_special_sibling_config}\n
-        \tgithub_sibling_config : {self.github_sibling_config}\n
-        \tgithub_token : {self.github_token}\n
-        \tgithub_repo_name : {self.github_repo_name}\n
-        \tremote_ssh_login : {self.remote_ssh_login}\n
-        \tremote_ssh_url : {self.remote_ssh_url}\n
-        \tremote_sibling_dir : {self.remote_sibling_dir}\n
-        \tremote_sibling_name : {self.remote_sibling_name}\n
+        NeuroDataPubProject object attribute summary:
+        \tinput_bids_dir : {self.input_bids_dir}
+        \toutput_datalad_dataset_dir : {self.output_datalad_dataset_dir}
+        \tgit_annex_special_sibling_config : {self.git_annex_special_sibling_config}
+        \tgithub_sibling_config : {self.github_sibling_config}
+        \tgithub_token : {self.github_token}
+        \tgithub_repo_name : {self.github_repo_name}
+        \tremote_ssh_login : {self.remote_ssh_login}
+        \tremote_ssh_url : {self.remote_ssh_url}
+        \tremote_sibling_dir : {self.remote_sibling_dir}
+        \tremote_sibling_name : {self.remote_sibling_name}
         """
         return desc

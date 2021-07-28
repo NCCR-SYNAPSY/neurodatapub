@@ -107,7 +107,7 @@ def create_github_sibling(
         Output of `datalad.api.create_sibling_github()
     """
     res = datalad.api.create_sibling_github(
-        reponame=github_sibling_args["github_reponame"],
+        reponame=github_sibling_args["github_repo_name"],
         github_login=github_sibling_args["github_token"],
         github_organization='NCCR-SYNAPSY',
         publish_depends=ssh_special_remote_name,

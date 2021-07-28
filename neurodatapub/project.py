@@ -96,6 +96,7 @@ class NeuroDataPubProject(HasTraits):
         self.output_datalad_dataset_dir = datalad_dataset_dir
 
         if os.path.exists(git_annex_special_sibling_config):
+            self.git_annex_special_sibling_config = git_annex_special_sibling_config
             # Opening JSON file for the special remote sibling
             with open(git_annex_special_sibling_config, 'r') as f:
                 git_annex_special_sibling_config_dict = json.load(f)
@@ -107,6 +108,7 @@ class NeuroDataPubProject(HasTraits):
                     self.remote_sibling_dir = git_annex_special_sibling_config_dict['remote_sibling_dir']
 
         if os.path.exists(github_sibling_config):
+            self.github_sibling_config = github_sibling_config
             # Opening JSON file for the GitHub sibling
             with open(github_sibling_config, 'r') as f:
                 github_sibling_config_dict = json.load(f)

@@ -186,7 +186,7 @@ class NeuroDataPubProject(HasTraits):
             ssh_special_sibling_args=git_annex_special_sibling_config_dict
         )
         if proc is not None:
-            print(proc.std)
+            print(proc.stdout)
         # Configuration of Github sibling to host dataset repository
         with open(self.git_annex_special_sibling_config, 'r') as f:
             github_sibling_config_dict = json.load(f)

@@ -25,7 +25,7 @@ SPECIAL_REMOTE_SIBLING_CONFIG_SCHEMA = {
         },
         "remote_sibling_dir": {
             "type": "string",
-            "pattern": ".git/$"
+            "pattern": "/.git$"
         },
 
     },

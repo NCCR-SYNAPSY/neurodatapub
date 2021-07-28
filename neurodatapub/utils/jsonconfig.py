@@ -17,15 +17,15 @@ SPECIAL_REMOTE_SIBLING_CONFIG_SCHEMA = {
     "properties": {
         "remote_ssh_login": {
             "type": "string",
-            "pattern": "[A-Za-z0-9]+"
+            "pattern": "^[A-Za-z0-9]+"
         },
         "remote_ssh_url": {
             "type": "string",
-            "pattern": "ssh?://+"
+            "pattern": "^ssh?://+"
         },
         "remote_sibling_dir": {
             "type": "string",
-            "pattern": "/.git$"
+            "pattern": "^+/.git$"
         },
 
     },

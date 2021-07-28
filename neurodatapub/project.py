@@ -8,6 +8,12 @@ import os
 import json
 from traits.api import File, Directory, Str, HasTraits
 
+import datalad.api
+
+from neurodatapub.info import __version__
+from neurodatapub.utils.datalad import create_bids_dataset
+from neurodatapub.utils.io import copy_content_to_datalad_dataset
+
 
 class NeuroDataPubProject(HasTraits):
     """Object that represents, manages and executes a NeuroDataPub project.
@@ -92,6 +98,7 @@ class NeuroDataPubProject(HasTraits):
         github_sibling_config=None
     ):
         """Constructor of :class:`NeuroDataPubProject` object"""
+        HasTraits.__init__(self)
         self.input_bids_dir = bids_dir
         self.output_datalad_dataset_dir = datalad_dataset_dir
 
@@ -133,3 +140,35 @@ class NeuroDataPubProject(HasTraits):
         \tremote_sibling_name : {self.remote_sibling_name}
         """
         return desc
+
+    def create_datalad_dataset(self):
+        """Create the Datalad dataset."""
+        print(f'> Initialize the Datalad dataset {self.output_datalad_dataset_dir}')
+        proc = create_bids_dataset(
+            datalad_dataset_dir=self.output_datalad_dataset_dir
+        )
+        if proc:
+            print(f'{proc}')
+        print(f'> Copy content of {self.input_bids_dir} to {self.output_datalad_dataset_dir}')
+        proc, cmd = copy_content_to_datalad_dataset(
+            bids_dir=self.input_bids_dir,
+            datalad_dataset_dir=self.output_datalad_dataset_dir
+        )
+        if proc is not None:
+            print(f'{proc.stdout}')
+        print(f'> Save dataset state...')
+        datalad.api.save(
+            dataset=self.output_datalad_dataset_dir,
+            message=f'Save dataset state after performing the command {cmd} '
+                    f'with neurodatapub {__version__}',
+            jobs='auto'
+        )
+        return True
+
+    def configure_siblings(self):
+        """Configure the siblings of the Datalad dataset for publication."""
+        pass
+
+    def publish_datalad_dataset(self):
+        """Publish the Datalad dataset."""
+        pass

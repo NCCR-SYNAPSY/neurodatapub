@@ -35,7 +35,7 @@ SPECIAL_REMOTE_SIBLING_CONFIG_SCHEMA = {
 GITHUB_SIBLING_CONFIG_SCHEMA = {
     "type": "object",
     "properties": {
-        "github_token": {
+        "github_login": {
             "type": "string",
             "pattern": "[A-Za-z0-9]+"
         },

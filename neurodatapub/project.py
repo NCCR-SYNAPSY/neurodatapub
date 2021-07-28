@@ -14,7 +14,7 @@ from neurodatapub.info import __version__
 from neurodatapub.utils.datalad import (
     create_bids_dataset, create_ssh_sibling, create_github_sibling
 )
-from neurodatapub.utils.gitannex import init_ssh_special_sibling
+from neurodatapub.utils.gitannex import init_ssh_special_sibling, enable_ssh_special_sibling
 from neurodatapub.utils.io import copy_content_to_datalad_dataset
 
 
@@ -183,7 +183,15 @@ class NeuroDataPubProject(HasTraits):
         print(f'> Make the ssh remote sibling "special git-annex remote"')
         proc, cmd = init_ssh_special_sibling(
             datalad_dataset_dir=self.output_datalad_dataset_dir,
-            ssh_special_sibling_args=git_annex_special_sibling_config_dict
+            ssh_special_sibling_args=git_annex_special_sibling_config_dict,
+            ssh_special_sibling_name='ssh_remote'
+        )
+        if proc is not None:
+            print(proc.stdout)
+        print(f'> Enable the ssh remote sibling "special git-annex remote"')
+        proc, cmd = enable_ssh_special_sibling(
+            datalad_dataset_dir=self.output_datalad_dataset_dir,
+            ssh_special_sibling_name='ssh_remote'
         )
         if proc is not None:
             print(proc.stdout)

@@ -15,9 +15,19 @@ from jsonschema import validate
 SPECIAL_REMOTE_SIBLING_CONFIG_SCHEMA = {
     "type": "object",
     "properties": {
-        "remote_ssh_login": {"type": "string"},
-        "remote_ssh_url": {"type": "string"},
-        "remote_sibling_dir": {"type": "string"},
+        "remote_ssh_login": {
+            "type": "string",
+            "pattern": "[A-Za-z0-9]+"
+        },
+        "remote_ssh_url": {
+            "type": "string",
+            "pattern": "ssh?://+"
+        },
+        "remote_sibling_dir": {
+            "type": "string",
+            "pattern": ".git/$"
+        },
+
     },
     "required": ["remote_ssh_login", "remote_ssh_url", "remote_sibling_dir"]
 }
@@ -25,8 +35,14 @@ SPECIAL_REMOTE_SIBLING_CONFIG_SCHEMA = {
 GITHUB_SIBLING_CONFIG_SCHEMA = {
     "type": "object",
     "properties": {
-        "github_token": {"type": "string"},
-        "github_repo_name": {"type": "string"},
+        "github_token": {
+            "type": "string",
+            "pattern": "[A-Za-z0-9]+"
+        },
+        "github_repo_name": {
+            "type": "string",
+            "pattern": "[A-Za-z0-9]+"
+        },
     },
     "required": ["github_token", "github_repo_name"]
 }

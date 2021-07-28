@@ -117,3 +117,19 @@ class NeuroDataPubProject(HasTraits):
                 self.github_token = github_sibling_config_dict['github_token']
             if 'github_repo_name' in github_sibling_config_dict.keys():
                 self.github_repo_name = github_sibling_config_dict['github_repo_name']
+
+    def __str__(self):
+        desc = f"""
+        NeuroDataPubProject object attributes:\n
+        \tinput_bids_dir : {self.input_bids_dir}\n
+        \toutput_datalad_dataset_dir : {self.output_datalad_dataset_dir}\n
+        \tgit_annex_special_sibling_config : {self.git_annex_special_sibling_config}\n
+        \tgithub_sibling_config : {self.github_sibling_config}\n
+        \tgithub_token : {self.github_token}\n
+        \tgithub_repo_name : {self.github_repo_name}\n
+        \tremote_ssh_login : {self.remote_ssh_login}\n
+        \tremote_ssh_url : {self.remote_ssh_url}\n
+        \tremote_sibling_dir : {self.remote_sibling_dir}\n
+        \tremote_sibling_name : {self.remote_sibling_name}\n
+        """
+        return desc

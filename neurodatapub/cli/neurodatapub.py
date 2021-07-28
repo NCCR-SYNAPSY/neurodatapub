@@ -60,6 +60,7 @@ def main():
             git_annex_special_sibling_config=args.git_annex_ssh_special_sibling_config,
             github_sibling_config=args.github_sibling_config
         )
+        print(neurodatapub_project)
         exit_code = 0
         print('Success')
 

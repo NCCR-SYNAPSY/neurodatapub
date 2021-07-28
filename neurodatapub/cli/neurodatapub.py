@@ -88,7 +88,27 @@ def main():
             github_sibling_config=args.github_sibling_config
         )
         print(neurodatapub_project)
-        res = neurodatapub_project.create_datalad_dataset()
+
+        if args.mode == "create-only" or args.mode == "all":
+            print(
+                """
+                ######################################
+                # Creation of Datalad Dataset
+                ######################################
+                """
+            )
+            res = neurodatapub_project.create_datalad_dataset()
+        if args.mode == "publish-only" or args.mode == "all":
+            print(
+                """
+                ######################################
+                # Publication of Datalad Dataset
+                ######################################
+                """
+            )
+            neurodatapub_project.configure_siblings()
+            neurodatapub_project.publish_datalad_dataset()
+
         if res:
             exit_code = 0
             print('Success')

@@ -34,7 +34,7 @@ def copy_content_to_datalad_dataset(
         bids_dir += '/'
 
     cmd = 'rsync -vrL '
-    cmd += f'{bids_dir}'
+    cmd += f'{bids_dir} '
     cmd += f'{datalad_dataset_dir}'
 
     # Execute the rsync command

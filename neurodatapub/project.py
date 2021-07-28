@@ -12,7 +12,8 @@ import datalad.api
 
 from neurodatapub.info import __version__
 from neurodatapub.utils.datalad import (
-    create_bids_dataset, create_ssh_sibling, create_github_sibling
+    create_bids_dataset, create_ssh_sibling, create_github_sibling,
+    publish_dataset
 )
 from neurodatapub.utils.gitannex import init_ssh_special_sibling, enable_ssh_special_sibling
 from neurodatapub.utils.io import copy_content_to_datalad_dataset
@@ -209,4 +210,11 @@ class NeuroDataPubProject(HasTraits):
 
     def publish_datalad_dataset(self):
         """Publish the Datalad dataset."""
-        return "Not implemented yet!"
+        print(f'> Publish the dataset repo to {self.github_repo_name} and '
+              f'the annexed files to {self.remote_ssh_url}:{self.remote_sibling_dir}')
+        proc = publish_dataset(
+            datalad_dataset_dir=self.output_datalad_dataset_dir
+        )
+        if proc:
+            print(str(proc))
+        return True

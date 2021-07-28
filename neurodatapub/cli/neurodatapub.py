@@ -102,6 +102,7 @@ def main():
             else:
                 exit_code = 1
                 print('An error occurred during the creation of the Datalad dataset')
+                return exit_code
         if args.mode == "publish-only" or args.mode == "all":
             print(
                 "######################################\n"
@@ -109,12 +110,10 @@ def main():
                 "######################################\n"
             )
             res = neurodatapub_project.configure_siblings()
-            if res:
-                exit_code = 0
-                print('Success')
-            else:
+            if not res:
                 exit_code = 1
                 print('An error occurred during the configuration of the publication siblings')
+                return exit_code
             print(
                 "######################################\n"
                 "# Publication of Datalad Dataset\n"

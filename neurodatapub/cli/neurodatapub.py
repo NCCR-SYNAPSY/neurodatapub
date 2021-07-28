@@ -96,21 +96,37 @@ def main():
                 "######################################\n"
             )
             res = neurodatapub_project.create_datalad_dataset()
+            if res:
+                exit_code = 0
+                print('Success')
+            else:
+                exit_code = 1
+                print('An error occurred during the creation of the Datalad dataset')
         if args.mode == "publish-only" or args.mode == "all":
+            print(
+                "######################################\n"
+                "# Configuration of the publication siblings\n"
+                "######################################\n"
+            )
+            res = neurodatapub_project.configure_siblings()
+            if res:
+                exit_code = 0
+                print('Success')
+            else:
+                exit_code = 1
+                print('An error occurred during the configuration of the publication siblings')
             print(
                 "######################################\n"
                 "# Publication of Datalad Dataset\n"
                 "######################################\n"
             )
-            neurodatapub_project.configure_siblings()
-            neurodatapub_project.publish_datalad_dataset()
-
-        if res:
-            exit_code = 0
-            print('Success')
-        else:
-            exit_code = 1
-            print('An error occurred during the creation of the Datalad dataset')
+            res = neurodatapub_project.publish_datalad_dataset()
+            if res:
+                exit_code = 0
+                print('Success')
+            else:
+                exit_code = 1
+                print('An error occurred during the publication of the Datalad dataset')
     else:
         # GUI mode
         print('GUI')

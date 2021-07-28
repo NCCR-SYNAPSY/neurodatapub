@@ -11,7 +11,10 @@ from traits.api import File, Directory, Str, HasTraits
 import datalad.api
 
 from neurodatapub.info import __version__
-from neurodatapub.utils.datalad import create_bids_dataset
+from neurodatapub.utils.datalad import (
+    create_bids_dataset, create_ssh_sibling, create_github_sibling
+)
+from neurodatapub.utils.gitannex import init_ssh_special_sibling
 from neurodatapub.utils.io import copy_content_to_datalad_dataset
 
 
@@ -167,8 +170,35 @@ class NeuroDataPubProject(HasTraits):
 
     def configure_siblings(self):
         """Configure the siblings of the Datalad dataset for publication."""
-        pass
+        # Configuration of git-annex special remote sibling to host annexed files
+        with open(self.git_annex_special_sibling_config, 'r') as f:
+            git_annex_special_sibling_config_dict = json.load(f)
+        print(f'> Create the ssh remote sibling to {self.remote_ssh_url}')
+        proc = create_ssh_sibling(
+            datalad_dataset_dir=self.output_datalad_dataset_dir,
+            ssh_special_sibling_args=git_annex_special_sibling_config_dict
+        )
+        if proc:
+            print(proc)
+        print(f'> Make the ssh remote sibling "special git-annex remote"')
+        proc, cmd = init_ssh_special_sibling(
+            datalad_dataset_dir=self.output_datalad_dataset_dir,
+            ssh_special_sibling_args=git_annex_special_sibling_config_dict
+        )
+        if proc is not None:
+            print(proc.std)
+        # Configuration of Github sibling to host dataset repository
+        with open(self.git_annex_special_sibling_config, 'r') as f:
+            github_sibling_config_dict = json.load(f)
+        print(f'> Create the {self.github_repo_name} github sibling')
+        proc = create_github_sibling(
+            datalad_dataset_dir=self.output_datalad_dataset_dir,
+            github_sibling_args=github_sibling_config_dict
+        )
+        if proc:
+            print(proc)
+        return True
 
     def publish_datalad_dataset(self):
         """Publish the Datalad dataset."""
-        pass
+        return "Not implemented yet!"

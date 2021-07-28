@@ -51,8 +51,8 @@ def init_ssh_special_sibling(
     try:
         print(f'... cmd: {cmd}')
         proc = run(cmd, cwd=f'{datalad_dataset_dir}')
-        return proc
+        return proc, cmd
     except Exception as e:
         print('Failed')
         print(e)
-        return None
+        return None, cmd

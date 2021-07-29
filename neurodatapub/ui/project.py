@@ -17,6 +17,59 @@ from neurodatapub.info import __version__
 from neurodatapub.project import NeuroDataPubProject
 
 
+# global style_sheet
+style_sheet = '''
+            QLabel {
+                font: 12pt "Verdana";
+                margin-left: 5px;
+                background-color: transparent;
+            }
+            QPushButton {
+                border: 0px solid lightgray;
+                border-radius: 4px;
+                color: transparent;
+                background-color: transparent;
+                min-width: 90px;
+                icon-size: 90px;
+                font: 12pt "Verdana";
+                margin: 0px 0px 0px 0px;
+                padding:0px 0px;
+            }
+            QPushButton:pressed {
+                background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                                  stop: 0 #dadbde, stop: 1 #f6f7fa);
+            }
+            
+            QMainWindow {
+                background-color: yellow;
+            }
+            QMainWindow::separator {
+                background: yellow;
+                width: 1px; /* when vertical */
+                height: 1px; /* when horizontal */
+            }
+            QMainWindow::separator:hover {
+                background: red;
+            }
+            QListView::item:selected {
+                border: 1px solid #6a6ea9;
+            }
+            QListView::item:selected:!active {
+                background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                            stop: 0 #ABAFE5, stop: 1 #8588B2);
+            }
+            QListView::item:selected:active {
+                background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                            stop: 0 #6a6ea9, stop: 1 #888dd9);
+            }
+            QListView::item:hover {
+                background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                            stop: 0 #FAFBFE, stop: 1 #DCDEF1);
+            }
+
+            '''
+
+
 class NeuroDataPubProjectUI(NeuroDataPubProject):
     """Object that extends a `NeuroDataPubProject` object with a graphical component.
 
@@ -125,7 +178,8 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
         icon=None,
         image=None,
         width=800,
-        height=450
+        height=450,
+        style_sheet=style_sheet
     )
 
     def _check_config_fired(self):

@@ -10,6 +10,7 @@ import json
 from traitsui.api import View, Item, Group, HGroup, VGroup
 
 # Own imports
+from neurodatapub.info import __version__
 from neurodatapub.project import NeuroDataPubProject
 
 
@@ -88,5 +89,11 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
             ),
             # Group option to layout the subgroups as tabs
             layout='tabbed'
-        )
+        ),
+        resizable=True,
+        title=f'NeuroDataPub GUI (Version:{__version__})',
+        icon=None,
+        image=None,
+        width=800,
+        height=440
     )

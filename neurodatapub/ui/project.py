@@ -28,14 +28,14 @@ style_sheet = '''
             QPushButton {
                 border: 0px solid gray;
                 border-radius: 4px;
-                background-color: #40E0D0;
+                background-color: gray;
                 min-width: 20px;
                 icon-size: 20px;
                 font: 12pt "Verdana";
                 font-weight: bold;
-                color: #ff0000;
+                color: #ffff00;
                 margin: 10px;
-                padding:0px 0px;
+                padding:5px 5px;
             }
             QPushButton:pressed {
                 background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,

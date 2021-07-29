@@ -9,7 +9,8 @@ import os
 import json
 import re
 from bids import BIDSLayout
-from traitsui.api import View, Item, Group, HGroup, VGroup, spring
+from traitsui.qt4.extra.qt_view import QtView
+from traitsui.api import Item, Group, HGroup, VGroup, spring
 from traits.api import Button, Str, Bool
 
 # Own imports
@@ -128,7 +129,7 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
 
     version = Str(__version__)
 
-    traits_view = View(
+    traits_view = QtView(
         VGroup(
             Group(
                 VGroup(

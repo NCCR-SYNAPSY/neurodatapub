@@ -193,3 +193,48 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
             f"\n{message}\n"
             "############################################\n"
         )
+
+    def _create_only_button_fired(self):
+        """Executed when `create_only_button` is clicked."""
+        print(
+            "############################################\n"
+            "# Creation of Datalad Dataset\n"
+            "############################################\n"
+        )
+        self.create_datalad_dataset()
+
+    def _publish_only_button_fired(self):
+        """Executed when `publish_only_button` is clicked."""
+        print(
+            "############################################\n"
+            "# Configuration of the publication siblings\n"
+            "############################################\n"
+        )
+        self.configure_siblings()
+        print(
+            "############################################\n"
+            "# Publication of Datalad Dataset\n"
+            "############################################\n"
+        )
+        self.publish_datalad_dataset()
+
+    def _create_and_publish_button_fired(self):
+        """Executed when `create_and_publish_button` is clicked."""
+        print(
+            "############################################\n"
+            "# Creation of Datalad Dataset\n"
+            "############################################\n"
+        )
+        self.create_datalad_dataset()
+        print(
+            "############################################\n"
+            "# Configuration of the publication siblings\n"
+            "############################################\n"
+        )
+        self.configure_siblings()
+        print(
+            "############################################\n"
+            "# Publication of Datalad Dataset\n"
+            "############################################\n"
+        )
+        self.publish_datalad_dataset()

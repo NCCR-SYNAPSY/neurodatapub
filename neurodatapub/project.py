@@ -104,8 +104,10 @@ class NeuroDataPubProject(HasTraits):
     remote_sibling_name = Str(
         desc='Datalad sibling name of the git-annex special sibling'
     )
+    _modes = List(["all", "create-only", "publish-only"])
     mode = Enum(
-        values=List(["all", "create-only", "publish-only"]),
+        "all",
+        values=_modes,
         desc='Mode in which `neurodatapub` operates'
     )
 

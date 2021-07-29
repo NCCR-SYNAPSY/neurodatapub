@@ -28,10 +28,8 @@ style_sheet = '''
             QPushButton {
                 border: 0px solid lightgray;
                 border-radius: 4px;
-                color: transparent;
-                background-color: transparent;
-                min-width: 90px;
-                icon-size: 90px;
+                min-width: 10px;
+                icon-size: 10px;
                 font: 12pt "Verdana";
                 margin: 0px 0px 0px 0px;
                 padding:0px 0px;
@@ -42,10 +40,10 @@ style_sheet = '''
             }
             
             QMainWindow {
-                background-color: yellow;
+                background-color: #dadbde;
             }
             QMainWindow::separator {
-                background: yellow;
+                background: #dadbde;
                 width: 1px; /* when vertical */
                 height: 1px; /* when horizontal */
             }

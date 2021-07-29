@@ -9,6 +9,7 @@
 import os
 import datalad.api
 
+GITHUB_ORGANIZATION='NCCR-SYNAPSY'
 DEFAULT_SSH_REMOTE_NAME = 'ssh_remote'
 DEFAULT_DATALAD_SSH_SIBLING_NAME = 'datalad_ssh_sibling'
 
@@ -110,7 +111,7 @@ def create_github_sibling(
     res = datalad.api.create_sibling_github(
         reponame=github_sibling_args["github_repo_name"],
         github_login=github_sibling_args["github_login"],
-        github_organization='NCCR-SYNAPSY',
+        github_organization=GITHUB_ORGANIZATION,
         publish_depends=ssh_special_remote_name,
         private=True,
         dataset=datalad_dataset_dir,

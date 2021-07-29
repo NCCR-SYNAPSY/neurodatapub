@@ -207,7 +207,7 @@ class NeuroDataPubProject(HasTraits):
         git_annex_special_sibling_config_dict = dict(
             {
                 "remote_ssh_login": self.remote_ssh_login,
-                "remote_ssh_login": self.remote_ssh_url,
+                "remote_ssh_url": self.remote_ssh_url,
                 "remote_sibling_dir": self.remote_sibling_dir
             }
         )

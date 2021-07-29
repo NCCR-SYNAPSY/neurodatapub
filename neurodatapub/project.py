@@ -6,7 +6,7 @@
 
 import os
 import json
-from traits.api import File, Directory, Str, HasTraits
+from traits.api import HasTraits, File, Directory, Str, Enum
 
 import datalad.api
 
@@ -52,10 +52,21 @@ class NeuroDataPubProject(HasTraits):
         in the form of `ssh://server.example.org`
 
     remote_sibling_dir : Directory
-        Remote absolute path of the sibling dataset on the git-annex special sibling
+        Remote absolute path of the sibling dataset on
+        the git-annex special sibling
 
     remote_sibling_name : Str
         Datalad sibling name of the git-annex special sibling
+
+    mode : {"publish-only","create-only","all"}
+        Mode in which neurodatapub operates:
+          * `"create-only"`: Only create the Datalad dataset,
+            copy the content and save the state.
+          * `"publish-only"`: Only configure the publication siblings
+            if they do not exist yet and publish the Datalad dataset.
+          * `"all"`: Perform all steps of `"create-only"` followed by
+            all steps of `"publish-only"`, from Datalad dataset creation
+            to publication.
     """
 
     input_bids_dir = Directory(
@@ -93,16 +104,26 @@ class NeuroDataPubProject(HasTraits):
     remote_sibling_name = Str(
         desc='Datalad sibling name of the git-annex special sibling'
     )
+    mode = Enum(
+        "all",
+        values=["all", "create-only", "publish-only"],
+        desc='Mode in which `neurodatapub` operates'
+    )
 
     def __init__(
         self,
         bids_dir,
         datalad_dataset_dir,
         git_annex_special_sibling_config=None,
-        github_sibling_config=None
+        github_sibling_config=None,
+        mode=None
     ):
         """Constructor of :class:`NeuroDataPubProject` object"""
         HasTraits.__init__(self)
+
+        if mode is not None:
+            self.mode = mode
+
         self.input_bids_dir = bids_dir
         self.output_datalad_dataset_dir = datalad_dataset_dir
 
@@ -153,7 +174,10 @@ class NeuroDataPubProject(HasTraits):
         )
         if proc:
             print(f'{proc}')
-        print(f'> Copy content of {self.input_bids_dir} to {self.output_datalad_dataset_dir}')
+        print(
+            f'> Copy content of {self.input_bids_dir} to '
+            f'{self.output_datalad_dataset_dir}'
+        )
         proc, cmd = copy_content_to_datalad_dataset(
             bids_dir=self.input_bids_dir,
             datalad_dataset_dir=self.output_datalad_dataset_dir
@@ -210,6 +234,14 @@ class NeuroDataPubProject(HasTraits):
 
     def publish_datalad_dataset(self):
         """Publish the Datalad dataset."""
+        if self.mode == "publish-only":
+            print(f'> Save dataset state...')
+            datalad.api.save(
+                    dataset=self.output_datalad_dataset_dir,
+                    message=f'Save dataset state before publication '
+                            f'with neurodatapub {__version__} ("publish-only" mode)',
+                    jobs='auto'
+            )
         print(f'> Publish the dataset repo to {self.github_repo_name} and '
               f'the annexed files to {self.remote_ssh_url}:{self.remote_sibling_dir}')
         proc = publish_dataset(

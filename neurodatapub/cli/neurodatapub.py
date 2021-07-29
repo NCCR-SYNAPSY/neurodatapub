@@ -85,7 +85,8 @@ def main():
             bids_dir=args.bids_dir,
             datalad_dataset_dir=args.datalad_dir,
             git_annex_special_sibling_config=args.git_annex_ssh_special_sibling_config,
-            github_sibling_config=args.github_sibling_config
+            github_sibling_config=args.github_sibling_config,
+            mode=args.mode
         )
         print(neurodatapub_project)
 

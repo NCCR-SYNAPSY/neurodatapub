@@ -131,51 +131,65 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
     def _check_config_fired(self):
         """Executed when button check_config is clicked to check if all config parameters are set."""
         self.config_is_valid = True
-
+        print(
+            "############################################\n"
+            "# Check configuration\n"
+            "############################################\n"
+        )
         if not os.path.exists(self.input_bids_dir):
             print(
-                    f"\tinput_bids_dir ({self.input_bids_dir}) does not exists"
+                f"\t* input_bids_dir ({self.input_bids_dir}) does not exists"
             )
             self.config_is_valid = False
 
         try:
             layout = BIDSLayout(self.input_bids_dir)
-            print(f'\tPyBIDS summary of input dataset:\n{layout}')
+            print(f'\t* PyBIDS summary:\n\t{layout}')
         except Exception as e:
-            print(f'{e}')
+            print(f'\t* BIDS ERROR: {e}')
             self.config_is_valid = False
 
         if not self.remote_ssh_login:
-            print(f'\tremote_ssh_login: UNDEFINED')
+            print(f'\t* remote_ssh_login: UNDEFINED')
             self.config_is_valid = False
         else:
-            print(f'\tremote_ssh_login: {self.remote_ssh_login}')
+            print(f'\t* remote_ssh_login: {self.remote_ssh_login}')
 
         if not self.remote_ssh_url:
-            print(f'\tremote_ssh_url: UNDEFINED')
+            print(f'\t* remote_ssh_url: UNDEFINED')
             self.config_is_valid = False
         else:
             if not bool(re.match("^ssh?://+", self.remote_ssh_url)):
-                print(f'\tremote_ssh_url ({self.remote_ssh_url}) is '
+                print(f'\t* remote_ssh_url ({self.remote_ssh_url}) is '
                       'not valid (expected format: "^ssh?://+")')
                 self.config_is_valid = False
             else:
-                print(f'\tremote_ssh_url: {self.remote_ssh_url}')
+                print(f'\t* remote_ssh_url: {self.remote_ssh_url}')
 
         if not self.remote_sibling_dir:
-            print(f'\tremote_sibling_dir: UNDEFINED')
+            print(f'\t* remote_sibling_dir: UNDEFINED')
             self.config_is_valid = False
         else:
-            print(f'\tremote_sibling_dir: {self.remote_sibling_dir}')
+            print(f'\t* remote_sibling_dir: {self.remote_sibling_dir}')
 
         if not self.github_login:
-            print(f'\tgithub_login: UNDEFINED')
+            print(f'\t* github_login: UNDEFINED')
             self.config_is_valid = False
         else:
-            print(f'\tgithub_login: {self.github_login}')
+            print(f'\t* github_login: {self.github_login}')
 
         if not self.github_repo_name:
-            print(f'\tgithub_repo_name: UNDEFINED')
+            print(f'\t* github_repo_name: UNDEFINED')
             self.config_is_valid = False
         else:
-            print(f'\tgithub_repo_name: {self.github_repo_name}')
+            print(f'\t* github_repo_name: {self.github_repo_name}')
+
+        if self.config_is_valid:
+            message = "Configuration is valid!"
+        else:
+            message = 'Sorry to tell you but there is a problem '\
+                      + 'with your actual configuration.'
+        print(
+            f"\n{message}\n"
+            "############################################\n"
+        )

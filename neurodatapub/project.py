@@ -38,7 +38,7 @@ class NeuroDataPubProject(HasTraits):
         Absolute path of the Json file that describes configuration of the
         github sibling
 
-    github_token : Str
+    github_login : Str
         Token to authenticate in GitHub
 
     github_repo_name : Str
@@ -84,7 +84,7 @@ class NeuroDataPubProject(HasTraits):
         desc='Absolute path of the Json file that describes '
              'configuration of the github sibling'
     )
-    github_token = Str(
+    github_login = Str(
         desc='User token to authenticate in GitHub'
     )
     github_repo_name = Str(
@@ -153,8 +153,8 @@ class NeuroDataPubProject(HasTraits):
             with open(github_sibling_config, 'r') as f:
                 github_sibling_config_dict = json.load(f)
 
-            if 'github_token' in github_sibling_config_dict.keys():
-                self.github_token = github_sibling_config_dict['github_token']
+            if 'github_login' in github_sibling_config_dict.keys():
+                self.github_login = github_sibling_config_dict['github_login']
             if 'github_repo_name' in github_sibling_config_dict.keys():
                 self.github_repo_name = github_sibling_config_dict['github_repo_name']
 
@@ -165,7 +165,7 @@ class NeuroDataPubProject(HasTraits):
         \toutput_datalad_dataset_dir : {self.output_datalad_dataset_dir}
         \tgit_annex_special_sibling_config : {self.git_annex_special_sibling_config}
         \tgithub_sibling_config : {self.github_sibling_config}
-        \tgithub_token : {self.github_token}
+        \tgithub_login : {self.github_login}
         \tgithub_repo_name : {self.github_repo_name}
         \tremote_ssh_login : {self.remote_ssh_login}
         \tremote_ssh_url : {self.remote_ssh_url}

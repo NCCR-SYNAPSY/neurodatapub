@@ -8,7 +8,7 @@
 import os
 import json
 from traitsui.api import View, Item, Group, HGroup, VGroup, spring
-from traits.api import Button
+from traits.api import Button, Str
 
 # Own imports
 from neurodatapub.info import __version__
@@ -68,6 +68,8 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
     publish_only_button = Button('Publish dataset')
     create_and_publish_button = Button('Create and publish dataset')
 
+    version = Str(__version__)
+
     traits_view = View(
         VGroup(
             Group(
@@ -94,7 +96,7 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
                 ),
                 VGroup(
                     VGroup(
-                        Item('version', label='Version'),
+                        Item('version', style='readonly', label='Version'),
                         label="About NeuroDataPub"
                     ),
                     label="About"
@@ -113,7 +115,7 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
             )
         ),
         resizable=True,
-        title=f'NeuroDataPub GUI (Version:{__version__})',
+        title=f'NeuroDataPub Assistant',
         icon=None,
         image=None,
         width=800,

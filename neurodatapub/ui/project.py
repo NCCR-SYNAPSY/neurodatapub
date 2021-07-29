@@ -7,6 +7,8 @@
 # General imports
 import os
 import json
+import re
+from bids import BIDSLayout
 from traitsui.api import View, Item, Group, HGroup, VGroup, spring
 from traits.api import Button, Str
 
@@ -64,9 +66,12 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
             all steps of `"publish-only"`, from Datalad dataset creation
             to publication.
     """
+    check_config = Button('Check config')
     create_only_button = Button('Create dataset')
     publish_only_button = Button('Publish dataset')
     create_and_publish_button = Button('Create and publish dataset')
+
+    config_is_valid = False
 
     version = Str(__version__)
 
@@ -107,11 +112,12 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
             spring,
             HGroup(
                 spring,
-                Item('create_and_publish_button', width=90), spring,
-                Item('create_only_button', width=90), spring,
-                Item('publish_only_button', width=90),
+                Item('check_config', width=90), spring,
+                Item('create_and_publish_button', width=90, enabled_when='config_is_valid'), spring,
+                Item('create_only_button', width=90, enabled_when='config_is_valid'), spring,
+                Item('publish_only_button', width=90, enabled_when='config_is_valid'),
                 spring,
-                show_labels=False
+                show_labels=False,
             )
         ),
         resizable=True,
@@ -121,3 +127,55 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
         width=800,
         height=450
     )
+
+    def _check_config_fired(self):
+        """Executed when button check_config is clicked to check if all config parameters are set."""
+        self.config_is_valid = True
+
+        if not os.path.exists(self.input_bids_dir):
+            print(
+                    f"\tinput_bids_dir ({self.input_bids_dir}) does not exists"
+            )
+            self.config_is_valid = False
+
+        try:
+            layout = BIDSLayout(self.input_bids_dir)
+            print(f'\tPyBIDS summary of input dataset:\n{layout}')
+        except Exception as e:
+            print(f'{e}')
+            self.config_is_valid = False
+
+        if not self.remote_ssh_login:
+            print(f'\tremote_ssh_login: UNDEFINED')
+            self.config_is_valid = False
+        else:
+            print(f'\tremote_ssh_login: {self.remote_ssh_login}')
+
+        if not self.remote_ssh_url:
+            print(f'\tremote_ssh_url: UNDEFINED')
+            self.config_is_valid = False
+        else:
+            if not bool(re.match("^ssh?://+", self.remote_ssh_url)):
+                print(f'\tremote_ssh_url ({self.remote_ssh_url}) is '
+                      'not valid (expected format: "^ssh?://+")')
+                self.config_is_valid = False
+            else:
+                print(f'\tremote_ssh_url: {self.remote_ssh_url}')
+
+        if not self.remote_sibling_dir:
+            print(f'\tremote_sibling_dir: UNDEFINED')
+            self.config_is_valid = False
+        else:
+            print(f'\tremote_sibling_dir: {self.remote_sibling_dir}')
+
+        if not self.github_login:
+            print(f'\tgithub_login: UNDEFINED')
+            self.config_is_valid = False
+        else:
+            print(f'\tgithub_login: {self.github_login}')
+
+        if not self.github_repo_name:
+            print(f'\tgithub_repo_name: UNDEFINED')
+            self.config_is_valid = False
+        else:
+            print(f'\tgithub_repo_name: {self.github_repo_name}')

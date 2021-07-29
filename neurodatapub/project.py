@@ -123,7 +123,12 @@ class NeuroDataPubProject(HasTraits):
         if mode is not None:
             print(f'mode: {mode}')
             print("".join(mode))
-            self.mode = "".join(mode)
+            if "create-only" in mode:
+                self.mode = "create-only"
+            if "publish-only" in mode:
+                self.mode = "publish-only"
+            if "create-only" in mode:
+                self.mode = "all"
             print(f'self.mode: {self.mode}')
 
         self.input_bids_dir = bids_dir

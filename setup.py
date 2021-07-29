@@ -17,6 +17,7 @@ if os.path.exists('MANIFEST'):
 packages = [
         "neurodatapub",
         "neurodatapub.cli",
+        "neurodatapub.ui",
         "neurodatapub.utils",
 ]
 

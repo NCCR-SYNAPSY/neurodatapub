@@ -28,12 +28,10 @@ style_sheet = '''
             QPushButton {
                 border: 0px solid #3D3D3D;
                 border-radius: 4px;
-                background-color: gray;
                 min-width: 20px;
                 icon-size: 20px;
                 font: 12pt "Verdana";
                 font-weight: bold;
-                color: #C1C1C1;
                 margin: 10px;
                 padding:5px 5px;
             }

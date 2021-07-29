@@ -26,12 +26,13 @@ style_sheet = '''
                 background-color: transparent;
             }
             QPushButton {
-                border: 0px solid lightgray;
+                border: 0px solid gray;
                 border-radius: 4px;
-                min-width: 10px;
-                icon-size: 10px;
+                background-color: orange;
+                min-width: 20px;
+                icon-size: 20px;
                 font: 12pt "Verdana";
-                margin: 0px 0px 0px 0px;
+                margin: 3px;
                 padding:0px 0px;
             }
             QPushButton:pressed {

@@ -9,7 +9,7 @@
 """This module defines the entrypoint script of the commandline interface of `neurodatapub`."""
 
 from traits.etsconfig.api import ETSConfig
-ETSConfig.toolkit = 'PySide2'
+ETSConfig.toolkit = 'qt'
 
 # General imports
 import os

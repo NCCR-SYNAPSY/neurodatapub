@@ -8,6 +8,7 @@
 import os
 import json
 from traitsui.api import View, Item, Group, HGroup, VGroup
+from traits.api import Button
 
 # Own imports
 from neurodatapub.info import __version__
@@ -63,37 +64,47 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
             all steps of `"publish-only"`, from Datalad dataset creation
             to publication.
     """
+    create_only_button = Button('Create dataset')
+    publish_only_button = Button('Publish dataset')
+    create_and_publish_button = Button('Create and publish dataset')
 
     traits_view = View(
-        Group(
-            VGroup(
-                Item('input_bids_dir'),
-                Item('output_datalad_dataset_dir'),
-                label="Configuration of Directories"
+        VGroup(
+            Group(
+                VGroup(
+                    Item('input_bids_dir'),
+                    Item('output_datalad_dataset_dir'),
+                    label="Configuration of Directories"
+                ),
+                HGroup(
+                    VGroup(
+                        Item('remote_ssh_login'),
+                        Item('remote_ssh_url'),
+                        Item('remote_sibling_dir'),
+                        Item('git_annex_special_sibling_config'),
+                        label="Git-annex special SSH remote sibling"
+                    ),
+                    VGroup(
+                        Item('github_login'),
+                        Item('github_repo_name'),
+                        Item('github_sibling_config'),
+                        label="GitHub sibling"
+                    ),
+                    label="Configuration of Siblings"
+                ),
+                # Group option to layout the subgroups as tabs
+                layout='tabbed'
             ),
             HGroup(
-                VGroup(
-                    Item('remote_ssh_login'),
-                    Item('remote_ssh_url'),
-                    Item('remote_sibling_dir'),
-                    Item('git_annex_special_sibling_config'),
-                    label="Git-annex special SSH remote sibling"
-                ),
-                VGroup(
-                    Item('github_login'),
-                    Item('github_repo_name'),
-                    Item('github_sibling_config'),
-                    label="GitHub sibling"
-                ),
-                label="Configuration of Siblings"
-            ),
-            # Group option to layout the subgroups as tabs
-            layout='tabbed'
+                Item('create_and_publish_button'),
+                Item('create_only_button'),
+                Item('publish_only_button'),
+            )
         ),
         resizable=True,
         title=f'NeuroDataPub GUI (Version:{__version__})',
         icon=None,
         image=None,
         width=800,
-        height=440
+        height=600
     )

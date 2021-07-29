@@ -76,7 +76,7 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
                     Item('output_datalad_dataset_dir'),
                     label="Configuration of Directories"
                 ),
-                HGroup(
+                VGroup(
                     VGroup(
                         Item('remote_ssh_login'),
                         Item('remote_ssh_url'),
@@ -96,9 +96,9 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
                 layout='tabbed'
             ),
             HGroup(
-                Item('create_and_publish_button'),
-                Item('create_only_button'),
-                Item('publish_only_button'),
+                Item('create_and_publish_button', label=''),
+                Item('create_only_button', label=''),
+                Item('publish_only_button', label=''),
             )
         ),
         resizable=True,
@@ -106,5 +106,5 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
         icon=None,
         image=None,
         width=800,
-        height=600
+        height=500
     )

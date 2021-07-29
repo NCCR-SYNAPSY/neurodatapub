@@ -7,7 +7,7 @@
 # General imports
 import os
 import json
-from traitsui.api import View, Item, Group, HGroup, VGroup
+from traitsui.api import View, Item, Group, HGroup, VGroup, spring
 from traits.api import Button
 
 # Own imports
@@ -95,10 +95,13 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
                 # Group option to layout the subgroups as tabs
                 layout='tabbed'
             ),
+            spring,
             HGroup(
-                Item('create_and_publish_button'),
-                Item('create_only_button'),
-                Item('publish_only_button'),
+                spring,
+                Item('create_and_publish_button', width=90),
+                Item('create_only_button', width=90),
+                Item('publish_only_button', width=90),
+                spring,
                 show_labels=False
             )
         ),
@@ -107,5 +110,5 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
         icon=None,
         image=None,
         width=800,
-        height=500
+        height=450
     )

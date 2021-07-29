@@ -26,6 +26,7 @@ def get_parser():
              '`"all"` creates the datalad dataset only, ',
         choices=["all", "create-only", "publish-only"],
         required='--gui' not in " ".join(sys.argv),
+        type=str
     )
     p.add_argument(
         "--bids_dir",

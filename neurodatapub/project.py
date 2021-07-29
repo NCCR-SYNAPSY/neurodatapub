@@ -204,8 +204,13 @@ class NeuroDataPubProject(HasTraits):
     def configure_siblings(self):
         """Configure the siblings of the Datalad dataset for publication."""
         # Configuration of git-annex special remote sibling to host annexed files
-        with open(self.git_annex_special_sibling_config, 'r') as f:
-            git_annex_special_sibling_config_dict = json.load(f)
+        git_annex_special_sibling_config_dict = dict(
+            {
+                "remote_ssh_login": self.remote_ssh_login,
+                "remote_ssh_login": self.remote_ssh_url,
+                "remote_sibling_dir": self.remote_sibling_dir
+            }
+        )
         print(f'> Create the ssh remote sibling to {self.remote_ssh_url}')
         proc = create_ssh_sibling(
             datalad_dataset_dir=self.output_datalad_dataset_dir,
@@ -229,8 +234,12 @@ class NeuroDataPubProject(HasTraits):
         if proc is not None:
             print(proc.stdout)
         # Configuration of Github sibling to host dataset repository
-        with open(self.github_sibling_config, 'r') as f:
-            github_sibling_config_dict = json.load(f)
+        github_sibling_config_dict = dict(
+            {
+                "github_login": self.github_login,
+                "github_repo_name": self.github_repo_name
+            }
+        )
         print(f'> Create the {self.github_repo_name} github sibling')
         proc = create_github_sibling(
             datalad_dataset_dir=self.output_datalad_dataset_dir,

@@ -6,7 +6,7 @@
 
 import os
 import json
-from traits.api import HasTraits, File, Directory, Str, Enum
+from traits.api import HasTraits, File, Directory, Str, Enum, List
 
 import datalad.api
 
@@ -105,7 +105,7 @@ class NeuroDataPubProject(HasTraits):
         desc='Datalad sibling name of the git-annex special sibling'
     )
     mode = Enum(
-        values=["all", "create-only", "publish-only"],
+        values=List(["all", "create-only", "publish-only"]),
         desc='Mode in which `neurodatapub` operates'
     )
 

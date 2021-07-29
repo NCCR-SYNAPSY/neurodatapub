@@ -96,9 +96,9 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
                 layout='tabbed'
             ),
             HGroup(
-                Item('create_and_publish_button', label=''),
-                Item('create_only_button', label=''),
-                Item('publish_only_button', label=''),
+                Item('create_and_publish_button', show_labels=False),
+                Item('create_only_button', show_labels=False),
+                Item('publish_only_button', show_labels=False),
             )
         ),
         resizable=True,

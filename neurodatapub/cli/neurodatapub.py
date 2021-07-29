@@ -8,12 +8,16 @@
 
 """This module defines the entrypoint script of the commandline interface of `neurodatapub`."""
 
-from traits.etsconfig.api import ETSConfig
-ETSConfig.toolkit = 'qt'
-
 # General imports
 import os
 import sys
+
+# Configuration of the graphical backend of traitsui
+# Note: Should be at the very beginning before any
+# import of traits
+from traits.etsconfig.api import ETSConfig
+ETSConfig.toolkit = 'qt'  # noqa: E402
+os.environ['QT_API'] = 'pyqt5'  # noqa: E402
 
 from bids import BIDSLayout
 

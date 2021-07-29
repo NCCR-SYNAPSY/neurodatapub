@@ -17,6 +17,7 @@ from bids import BIDSLayout
 # Own imports
 from neurodatapub.parser import get_parser
 from neurodatapub.project import NeuroDataPubProject
+from neurodatapub.ui.project import NeuroDataPubProjectUI
 from neurodatapub.utils.jsonconfig import validate_json_sibling_config
 
 
@@ -130,6 +131,19 @@ def main():
     else:
         # GUI mode
         print('GUI')
+        # Create a NeuroDataPubProjectUI
+        neurodatapub_project_gui = NeuroDataPubProjectUI(
+                bids_dir=args.bids_dir,
+                datalad_dataset_dir=args.datalad_dir,
+                git_annex_special_sibling_config=args.git_annex_ssh_special_sibling_config,
+                github_sibling_config=args.github_sibling_config,
+                mode=args.mode
+        )
+        print(neurodatapub_project_gui)
+
+        # Launch the GUI
+        neurodatapub_project_gui.configure_traits()
+        print('GUI exited!')
         exit_code = 0
     return exit_code
 

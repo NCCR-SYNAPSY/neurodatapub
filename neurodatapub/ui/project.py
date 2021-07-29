@@ -10,7 +10,7 @@ import json
 import re
 from bids import BIDSLayout
 from traitsui.api import View, Item, Group, HGroup, VGroup, spring
-from traits.api import Button, Str
+from traits.api import Button, Str, Bool
 
 # Own imports
 from neurodatapub.info import __version__
@@ -71,7 +71,7 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
     publish_only_button = Button('Publish dataset')
     create_and_publish_button = Button('Create and publish dataset')
 
-    config_is_valid = False
+    config_is_valid = Bool(False)
 
     version = Str(__version__)
 

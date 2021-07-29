@@ -106,8 +106,7 @@ class NeuroDataPubProject(HasTraits):
     )
     _modes = List(["all", "create-only", "publish-only"])
     mode = Enum(
-        "all",
-        values=_modes,
+        values='_modes',
         desc='Mode in which `neurodatapub` operates'
     )
 

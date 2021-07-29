@@ -235,7 +235,7 @@ class NeuroDataPubProject(HasTraits):
     def publish_datalad_dataset(self):
         """Publish the Datalad dataset."""
         if self.mode == "publish-only":
-            print(f'> Save dataset state...')
+            print(f'> Save dataset state ("publish-only" mode)...')
             datalad.api.save(
                     dataset=self.output_datalad_dataset_dir,
                     message=f'Save dataset state before publication '

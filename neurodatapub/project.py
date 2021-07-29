@@ -105,7 +105,6 @@ class NeuroDataPubProject(HasTraits):
         desc='Datalad sibling name of the git-annex special sibling'
     )
     mode = Enum(
-        "all",
         values=["all", "create-only", "publish-only"],
         desc='Mode in which `neurodatapub` operates'
     )

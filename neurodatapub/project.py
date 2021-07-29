@@ -122,6 +122,7 @@ class NeuroDataPubProject(HasTraits):
         HasTraits.__init__(self)
 
         if mode is not None:
+            print(f'mode: {mode}')
             self.mode = mode
 
         self.input_bids_dir = bids_dir

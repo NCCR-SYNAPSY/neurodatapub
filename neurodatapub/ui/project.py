@@ -92,14 +92,21 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
                     ),
                     label="Configuration of Siblings"
                 ),
+                VGroup(
+                    VGroup(
+                        Item('version', label='Version'),
+                        label="About NeuroDataPub"
+                    ),
+                    label="About"
+                ),
                 # Group option to layout the subgroups as tabs
                 layout='tabbed'
             ),
             spring,
             HGroup(
                 spring,
-                Item('create_and_publish_button', width=90),
-                Item('create_only_button', width=90),
+                Item('create_and_publish_button', width=90), spring,
+                Item('create_only_button', width=90), spring,
                 Item('publish_only_button', width=90),
                 spring,
                 show_labels=False

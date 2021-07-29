@@ -123,7 +123,7 @@ class NeuroDataPubProject(HasTraits):
 
         if mode is not None:
             print(f'mode: {mode}')
-            self.mode = mode
+            self.mode = str(mode)
 
         self.input_bids_dir = bids_dir
         self.output_datalad_dataset_dir = datalad_dataset_dir

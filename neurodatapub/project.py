@@ -123,8 +123,9 @@ class NeuroDataPubProject(HasTraits):
 
         if mode is not None:
             print(f'mode: {mode}')
-            print(mode[0])
-            self.mode = mode
+            print("".join(mode))
+            self.mode = "".join(mode)
+            print(f'self.mode: {self.mode}')
 
         self.input_bids_dir = bids_dir
         self.output_datalad_dataset_dir = datalad_dataset_dir

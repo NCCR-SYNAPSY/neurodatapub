@@ -6,6 +6,7 @@
 
 # General imports
 import os
+import pkg_resources
 import json
 import re
 from bids import BIDSLayout
@@ -175,8 +176,14 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
         ),
         resizable=True,
         title=f'NeuroDataPub Assistant',
-        icon=None,
-        image=None,
+        icon=pkg_resources.resource_filename(
+            'neurodatapub',
+            "resources/neurodatapub_logo_100x100.png"
+        ),
+        image=pkg_resources.resource_filename(
+            'neurodatapub',
+            "resources/neurodatapub_logo_100x100.png"
+        ),
         width=800,
         height=450,
         style_sheet=style_sheet

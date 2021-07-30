@@ -13,9 +13,11 @@ from bids import BIDSLayout
 from traitsui.qt4.extra.qt_view import QtView, View
 from traitsui.api import (
     Item, Group, HGroup, VGroup, spring,
-    FileEditor, DirectoryEditor
+    # FileEditor, DirectoryEditor
 )
 from traits.api import Button, Str, Bool
+
+from pyface.api import FileDialog, OK
 
 # Own imports
 from neurodatapub.info import __version__, __license__, __copyright__
@@ -287,22 +289,33 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
         self.publish_datalad_dataset()
 
     def _save_special_sibling_config_button_fired(self):
-        save_git_annex_special_sibling_config_view = View(
-            Group(
-                Item('git_annex_special_sibling_config',
-                     style='custom',
-                     editor=FileEditor(dialog_style='save'),
-                     show_label=False),
-            ),
-            title='Save the configuration of the git-annex special '
-                  'remote sibling to a JSON file as...',
-            kind='modal',
-            resizable=True,
-            buttons=['OK', 'Cancel']
+        print(
+            "\n############################################\n"
+            "# Save special remote sibling configuration\n"
+            "############################################\n"
         )
-        self.configure_traits(view=save_git_annex_special_sibling_config_view)
+        dlg = FileDialog(action='save as')
+        if dlg.open() == OK:
+            self.git_annex_special_sibling_config = dlg.path
+            print(f'> Saved as {self.git_annex_special_sibling_config}')
+        print(
+            "\n############################################\n"
+        )
 
     def _save_github_sibling_config_button_fired(self):
+        print(
+                "\n############################################\n"
+                "# Save GitHub sibling configuration\n"
+                "############################################\n"
+        )
+        dlg = FileDialog(action='save as')
+        if dlg.open() == OK:
+            self.github_sibling_config = dlg.path
+            print(f'> Saved as {self.github_sibling_config}')
+        print(
+            "\n############################################\n"
+        )
+
         save_github_sibling_config_view = View(
             Group(
                 Item('github_sibling_config',

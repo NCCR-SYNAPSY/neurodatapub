@@ -79,8 +79,13 @@ style_sheet = '''
             
             /* Style the tab using the tab sub-control. Note that
                 it reads QTabBar _not_ QTabWidget */
-            QTabBar::tab {
+            QTabBar {
                 font: bold 12pt "Verdana";
+            }
+            
+            /* Style the tab using the tab sub-control. Note that
+                it reads QTabBar _not_ QTabWidget */
+            QTabBar::tab {
                 background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                             stop: 0 #E1E1E1, stop: 0.4 #DDDDDD,
                                             stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);
@@ -88,7 +93,6 @@ style_sheet = '''
                 border-bottom-color: #C2C7CB; /* same as the pane color */
                 border-top-left-radius: 4px;
                 border-top-right-radius: 4px;
-                min-width: 20ex;
                 padding: 2px;
             }
             

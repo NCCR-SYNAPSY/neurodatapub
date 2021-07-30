@@ -108,6 +108,7 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
                             Item('save_special_sibling_config_button',
                                  style_sheet=return_save_json_button_style_sheet(),
                                  show_label=False),
+                            spring,
                         ),
                     ),
                     HGroup(
@@ -122,6 +123,7 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
                             Item('save_github_sibling_config_button',
                                  style_sheet=return_save_json_button_style_sheet(),
                                  show_label=False),
+                            spring,
                         ),
                     ),
                     label="Configuration of Siblings"

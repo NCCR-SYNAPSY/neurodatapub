@@ -294,14 +294,25 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
             "# Save special remote sibling configuration\n"
             "############################################\n"
         )
-        dlg = FileDialog(
-            action='save as',
-            style='modal',
-            title='Save special remote sibling configuration as...'
-        )
+        if self.git_annex_special_sibling_config:
+            dlg = FileDialog(
+                action='save as',
+                style='modal',
+                default_filename=self.git_annex_special_sibling_config,
+                title='Save special remote sibling configuration as...'
+            )
+        else:
+            dlg = FileDialog(
+                action='save as',
+                style='modal',
+                default_directory=self.input_bids_dir,
+                title='Save special remote sibling configuration as...'
+            )
         if dlg.open() == OK:
             self.git_annex_special_sibling_config = dlg.path
             print(f'> Saved as {self.git_annex_special_sibling_config}')
+        else:
+            print('> Operation was cancelled!')
         print(
             "\n############################################\n"
         )
@@ -312,14 +323,25 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
                 "# Save GitHub sibling configuration\n"
                 "############################################\n"
         )
-        dlg = FileDialog(
-            action='save as',
-            style='modal',
-            title='Save GitHub sibling configuration as...'
-        )
+        if self.github_sibling_config:
+            dlg = FileDialog(
+                action='save as',
+                style='modal',
+                default_filename=self.github_sibling_config,
+                title='Save GitHub sibling configuration as...'
+            )
+        else:
+            dlg = FileDialog(
+                action='save as',
+                style='modal',
+                default_directory=self.input_bids_dir,
+                title='Save GitHub sibling configuration as...'
+            )
         if dlg.open() == OK:
             self.github_sibling_config = dlg.path
             print(f'> Saved as {self.github_sibling_config}')
+        else:
+            print('> Operation was cancelled!')
         print(
             "\n############################################\n"
         )

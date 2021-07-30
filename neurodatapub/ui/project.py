@@ -143,6 +143,7 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
                     VGroup(
                         Item('version', style='readonly', label='Version'),
                         Item('license', style='readonly', label='License'),
+                        spring,
                         Item('copyright', style='readonly', show_label=False),
                         label="About NeuroDataPub"
                     ),

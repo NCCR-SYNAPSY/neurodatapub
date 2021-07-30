@@ -71,6 +71,10 @@ style_sheet = '''
             
             QTabBar::tab {
                 font: bold 12pt "Verdana";
+                border-top-left-radius: 4px;
+                border-top-right-radius: 4px;
+                min-width: 8ex;
+                padding: 2px;
             }
             '''
 

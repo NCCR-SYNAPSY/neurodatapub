@@ -181,7 +181,7 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
         """Executed when button check_config is clicked to check if all config parameters are set."""
         self.config_is_valid = True
         print(
-            "############################################\n"
+            "\n############################################\n"
             "# Check configuration\n"
             "############################################\n"
         )
@@ -246,7 +246,7 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
     def _create_only_button_fired(self):
         """Executed when `create_only_button` is clicked."""
         print(
-            "############################################\n"
+            "\n############################################\n"
             "# Creation of Datalad Dataset\n"
             "############################################\n"
         )
@@ -255,13 +255,13 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
     def _publish_only_button_fired(self):
         """Executed when `publish_only_button` is clicked."""
         print(
-            "############################################\n"
+            "\n############################################\n"
             "# Configuration of the publication siblings\n"
             "############################################\n"
         )
         self.configure_siblings()
         print(
-            "############################################\n"
+            "\n############################################\n"
             "# Publication of Datalad Dataset\n"
             "############################################\n"
         )
@@ -270,19 +270,19 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
     def _create_and_publish_button_fired(self):
         """Executed when `create_and_publish_button` is clicked."""
         print(
-            "############################################\n"
+            "\n############################################\n"
             "# Creation of Datalad Dataset\n"
             "############################################\n"
         )
         self.create_datalad_dataset()
         print(
-            "############################################\n"
+            "\n############################################\n"
             "# Configuration of the publication siblings\n"
             "############################################\n"
         )
         self.configure_siblings()
         print(
-            "############################################\n"
+            "\n############################################\n"
             "# Publication of Datalad Dataset\n"
             "############################################\n"
         )

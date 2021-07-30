@@ -227,7 +227,7 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
                     VGroup(
                         Item('remote_ssh_login'),
                         Item('remote_ssh_url'),
-                        Item('remote_sibling_dir'),
+                        Item('remote_sibling_dir', style_sheet=style_sheet_folder_button),
                         Item('git_annex_special_sibling_config', style_sheet=style_sheet_folder_button),
                         label="Git-annex special SSH remote sibling"
                     ),

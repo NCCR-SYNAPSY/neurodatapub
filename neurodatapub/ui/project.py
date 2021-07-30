@@ -70,7 +70,7 @@ style_sheet = '''
             }
             
             QTabWidget::pane { /* The tab widget frame */
-                border-top: 2px solid #C2C7CB;
+                border-top: 2px solid #dadbde;
             }
             
             QTabWidget::tab-bar {
@@ -90,10 +90,10 @@ style_sheet = '''
                                             stop: 0 #E1E1E1, stop: 0.4 #DDDDDD,
                                             stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);
                 border: 2px solid #C4C4C3;
-                border-bottom-color: #C2C7CB; /* same as the pane color */
+                border-bottom-color: #dadbde; /* same as the pane color */
                 border-top-left-radius: 4px;
                 border-top-right-radius: 4px;
-                padding: 2px;
+                padding: 6px;
             }
             
             QTabBar::tab:selected, QTabBar::tab:hover {
@@ -104,7 +104,7 @@ style_sheet = '''
             
             QTabBar::tab:selected {
                 border-color: #9B9B9B;
-                border-bottom-color: #C2C7CB; /* same as pane color */
+                border-bottom-color: #dadbde; /* same as pane color */
             }
             
             QTabBar::tab:!selected {

@@ -100,7 +100,7 @@ def main():
 
         if args.mode == "create-only" or args.mode == "all":
             print(
-                "############################################\n"
+                "\n############################################\n"
                 "# Creation of Datalad Dataset\n"
                 "############################################\n"
             )
@@ -114,7 +114,7 @@ def main():
                 return exit_code
         if args.mode == "publish-only" or args.mode == "all":
             print(
-                "############################################\n"
+                "\n############################################\n"
                 "# Configuration of the publication siblings\n"
                 "############################################\n"
             )
@@ -124,7 +124,7 @@ def main():
                 print('An error occurred during the configuration of the publication siblings')
                 return exit_code
             print(
-                "############################################\n"
+                "\n############################################\n"
                 "# Publication of Datalad Dataset\n"
                 "############################################\n"
             )

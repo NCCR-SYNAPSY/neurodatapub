@@ -13,7 +13,7 @@ from bids import BIDSLayout
 from traitsui.qt4.extra.qt_view import QtView, View
 from traitsui.api import (
     Item, Group, HGroup, VGroup, spring,
-    # FileEditor, DirectoryEditor
+    DirectoryEditor  # FileEditor
 )
 from traits.api import Button, Str, Bool
 

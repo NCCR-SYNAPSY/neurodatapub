@@ -17,143 +17,11 @@ from traits.api import Button, Str, Bool
 # Own imports
 from neurodatapub.info import __version__, __license__, __copyright__
 from neurodatapub.project import NeuroDataPubProject
-
-
-# global style_sheet
-style_sheet = '''
-            QLabel {
-                font: 12pt "Verdana";
-                margin-left: 5px;
-                background-color: transparent;
-            }
-            QPushButton {
-                background-color: #3D3D3D;
-                border-style: outset;
-                border: 2px solid #555555;
-                border-radius: 4px;
-                min-width: 20px;
-                icon-size: 20px;
-                font: bold 12pt "Verdana";
-                margin: 10px;
-                padding:6px 6px;
-                color: #FFFFFF;
-            }
-            QPushButton:pressed {
-                border-style: inset;
-                color: #3D3D3D;
-                background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                                  stop: 0 #dadbde, stop: 1 #f6f7fa);
-            }
-            QPushButton:disabled {
-                background-color: #878787;
-                border-style: outset;
-                border: 2px solid #989898;
-                border-radius: 4px;
-                min-width: 20px;
-                icon-size: 20px;
-                font: bold 12pt "Verdana";
-                margin: 10px;
-                padding:5px 5px;
-                color: #a9a9a9;
-            }
-            
-            QMainWindow {
-                background-color: #dadbde;
-            }
-            QMainWindow::separator {
-                background: #dadbde;
-                width: 1px; /* when vertical */
-                height: 1px; /* when horizontal */
-            }
-            QMainWindow::separator:hover {
-                background: red;
-            }
-            
-            QTabWidget::pane { /* The tab widget frame */
-                border-top: 2px solid #dadbde;
-            }
-            
-            QTabWidget::tab-bar {
-                left: 5px; /* move to the right by 5px */
-            }
-            
-            /* Style the tab using the tab sub-control. Note that
-                it reads QTabBar _not_ QTabWidget */
-            QTabBar {
-                font: bold 12pt "Verdana";
-            }
-            
-            /* Style the tab using the tab sub-control. Note that
-                it reads QTabBar _not_ QTabWidget */
-            QTabBar::tab {
-                background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                            stop: 0 #E1E1E1, stop: 0.4 #DDDDDD,
-                                            stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);
-                border: 2px solid #C4C4C3;
-                border-bottom-color: #dadbde; /* same as the pane color */
-                border-top-left-radius: 4px;
-                border-top-right-radius: 4px;
-                padding: 6px;
-            }
-            
-            QTabBar::tab:selected, QTabBar::tab:hover {
-                background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                            stop: 0 #fafafa, stop: 0.4 #f4f4f4,
-                                            stop: 0.5 #e7e7e7, stop: 1.0 #fafafa);
-            }
-            
-            QTabBar::tab:selected {
-                border-color: #9B9B9B;
-                border-bottom-color: #dadbde; /* same as pane color */
-            }
-            
-            QTabBar::tab:!selected {
-                margin-top: 2px; /* make non-selected tabs look smaller */
-            }
-            
-            /* make use of negative margins for overlapping tabs */
-            QTabBar::tab:selected {
-                /* expand/overlap to the left and right by 4px */
-                margin-left: -4px;
-                margin-right: -4px;
-            }
-            
-            QTabBar::tab:first:selected {
-                margin-left: 0; /* the first selected tab has nothing to overlap with on the left */
-            }
-            
-            QTabBar::tab:last:selected {
-                margin-right: 0; /* the last selected tab has nothing to overlap with on the right */
-            }
-            
-            QTabBar::tab:only-one {
-                margin: 0; /* if there is only one tab, we don't want overlapping margins */
-            }
-            '''
-
-style_sheet_folder_button = '''
-            QLabel {
-                font: 12pt "Verdana";
-                margin-left: 5px;
-                background-color: transparent;
-            }
-            QPushButton {
-                border: 0px solid lightgray;
-                border-radius: 4px;
-                color: transparent;
-                background-color: transparent;
-                min-width: 20px;
-                icon-size: 20px;
-                font: 12pt "Verdana";
-                margin: 10px;
-                padding: 6px;
-            }
-            QPushButton:pressed {
-                background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                                  stop: 0 #dadbde, stop: 1 #f6f7fa);
-            }
-            '''
-
+from neurodatapub.utils.qt import (
+    return_global_style_sheet,
+    return_folder_button_style_sheet,
+    return_save_json_button_style_sheet
+)
 
 class NeuroDataPubProjectUI(NeuroDataPubProject):
     """Object that extends a `NeuroDataPubProject` object with a graphical component.
@@ -209,6 +77,9 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
     publish_only_button = Button('Publish dataset')
     create_and_publish_button = Button('Create and publish dataset')
 
+    save_special_sibling_config_button = Button()
+    save_github_sibling_config_button = Button()
+
     config_is_valid = Bool(False)
 
     version = Str(__version__)
@@ -219,22 +90,24 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
         VGroup(
             Group(
                 VGroup(
-                    Item('input_bids_dir', style_sheet=style_sheet_folder_button),
-                    Item('output_datalad_dataset_dir', style_sheet=style_sheet_folder_button),
+                    Item('input_bids_dir', style_sheet=return_folder_button_style_sheet()),
+                    Item('output_datalad_dataset_dir', style_sheet=return_folder_button_style_sheet()),
                     label="Configuration of Directories"
                 ),
                 VGroup(
                     VGroup(
                         Item('remote_ssh_login'),
                         Item('remote_ssh_url'),
-                        Item('remote_sibling_dir', style_sheet=style_sheet_folder_button),
-                        Item('git_annex_special_sibling_config', style_sheet=style_sheet_folder_button),
+                        Item('remote_sibling_dir', style_sheet=return_folder_button_style_sheet()),
+                        Item('save_special_sibling_config_button', style_sheet=return_save_json_button_style_sheet()),
+                        # Item('git_annex_special_sibling_config', style_sheet=return_folder_button_style_sheet()),
                         label="Git-annex special SSH remote sibling"
                     ),
                     VGroup(
                         Item('github_login'),
                         Item('github_repo_name'),
-                        Item('github_sibling_config', style_sheet=style_sheet_folder_button),
+                        Item('save_github_sibling_config_button', style_sheet=return_save_json_button_style_sheet()),
+                        # Item('github_sibling_config', style_sheet=return_folder_button_style_sheet()),
                         label="GitHub sibling"
                     ),
                     label="Configuration of Siblings"
@@ -274,7 +147,7 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
         ),
         width=800,
         height=450,
-        style_sheet=style_sheet
+        style_sheet=return_global_style_sheet()
     )
 
     def _check_config_fired(self):

@@ -10,8 +10,11 @@ import pkg_resources
 import json
 import re
 from bids import BIDSLayout
-from traitsui.qt4.extra.qt_view import QtView
-from traitsui.api import Item, Group, HGroup, VGroup, spring
+from traitsui.qt4.extra.qt_view import QtView, View
+from traitsui.api import (
+    Item, Group, HGroup, VGroup, spring,
+    FileEditor, DirectoryEditor
+)
 from traits.api import Button, Str, Bool
 
 # Own imports
@@ -86,12 +89,44 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
     license = Str(__license__)
     copyright = Str(__copyright__)
 
+    save_git_annex_special_sibling_config_view = View(
+        Group(
+            Item('git_annex_special_sibling_config',
+                 style='custom',
+                 editor=FileEditor(dialog_style='save'),
+                 show_label=False),
+        ),
+        title='Save the configuration of the git-annex special '
+              'remote sibling to a JSON file as...',
+        kind='modal',
+        width=300,
+        buttons=['OK', 'Cancel']
+    )
+
+    save_github_sibling_config_view = View(
+        Group(
+            Item('github_sibling_config',
+                 style='custom',
+                 editor=FileEditor(dialog_style='save'),
+                 show_label=False),
+        ),
+        title='Save the configuration of the GitHub sibling '
+              'to a JSON file as...',
+        kind='modal',
+        width=300,
+        buttons=['OK', 'Cancel']
+    )
+
     traits_view = QtView(
         VGroup(
             Group(
                 VGroup(
-                    Item('input_bids_dir', style_sheet=return_folder_button_style_sheet()),
-                    Item('output_datalad_dataset_dir', style_sheet=return_folder_button_style_sheet()),
+                    Item('input_bids_dir',
+                         editor=DirectoryEditor(dialog_style='open'),
+                         style_sheet=return_folder_button_style_sheet()),
+                    Item('output_datalad_dataset_dir',
+                         editor=DirectoryEditor(dialog_style='save'),
+                         style_sheet=return_folder_button_style_sheet()),
                     label="Configuration of Directories"
                 ),
                 VGroup(
@@ -99,7 +134,9 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
                         VGroup(
                             Item('remote_ssh_login'),
                             Item('remote_ssh_url'),
-                            Item('remote_sibling_dir', style_sheet=return_folder_button_style_sheet()),
+                            Item('remote_sibling_dir',
+                                 editor=DirectoryEditor(dialog_style='open'),
+                                 style_sheet=return_folder_button_style_sheet()),
                             # Item('git_annex_special_sibling_config', style_sheet=return_folder_button_style_sheet()),
                             label="Git-annex special SSH remote sibling"
                         ),
@@ -276,3 +313,9 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
             "############################################\n"
         )
         self.publish_datalad_dataset()
+
+    def _save_special_sibling_config_button_fired(self):
+        self.save_git_annex_special_sibling_config_view.configure_traits()
+
+    def _save_github_sibling_config_button_fired(self):
+        self.save_github_sibling_config_view.configure_traits()

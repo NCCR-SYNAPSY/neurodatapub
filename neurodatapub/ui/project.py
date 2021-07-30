@@ -36,10 +36,11 @@ style_sheet = '''
                 font: bold 12pt "Verdana";
                 margin: 10px;
                 padding:6px 6px;
-                color: #3D3D3D;
+                color: #FFFFFF;
             }
             QPushButton:pressed {
                 border-style: inset;
+                color: #3D3D3D;
                 background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                                   stop: 0 #dadbde, stop: 1 #f6f7fa);
             }
@@ -70,6 +71,29 @@ style_sheet = '''
             
             QTabBar::tab {
                 font: bold 12pt "Verdana";
+            }
+            '''
+
+style_sheet_folder_button = '''
+            QLabel {
+                font: 12pt "Verdana";
+                margin-left: 5px;
+                background-color: transparent;
+            }
+            QPushButton {
+                border: 0px solid lightgray;
+                border-radius: 4px;
+                color: transparent;
+                background-color: transparent;
+                min-width: 20px;
+                icon-size: 20px;
+                font: 12pt "Verdana";
+                margin: 10px;
+                padding: 6px;
+            }
+            QPushButton:pressed {
+                background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                                  stop: 0 #dadbde, stop: 1 #f6f7fa);
             }
             '''
 
@@ -138,8 +162,8 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
         VGroup(
             Group(
                 VGroup(
-                    Item('input_bids_dir'),
-                    Item('output_datalad_dataset_dir'),
+                    Item('input_bids_dir', style_sheet=style_sheet_folder_button),
+                    Item('output_datalad_dataset_dir', style_sheet=style_sheet_folder_button),
                     label="Configuration of Directories"
                 ),
                 VGroup(
@@ -147,13 +171,13 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
                         Item('remote_ssh_login'),
                         Item('remote_ssh_url'),
                         Item('remote_sibling_dir'),
-                        Item('git_annex_special_sibling_config'),
+                        Item('git_annex_special_sibling_config', style_sheet=style_sheet_folder_button),
                         label="Git-annex special SSH remote sibling"
                     ),
                     VGroup(
                         Item('github_login'),
                         Item('github_repo_name'),
-                        Item('github_sibling_config'),
+                        Item('github_sibling_config', style_sheet=style_sheet_folder_button),
                         label="GitHub sibling"
                     ),
                     label="Configuration of Siblings"

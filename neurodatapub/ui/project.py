@@ -89,34 +89,6 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
     license = Str(__license__)
     copyright = Str(__copyright__)
 
-    save_git_annex_special_sibling_config_view = View(
-        Group(
-            Item('git_annex_special_sibling_config',
-                 style='custom',
-                 editor=FileEditor(dialog_style='save'),
-                 show_label=False),
-        ),
-        title='Save the configuration of the git-annex special '
-              'remote sibling to a JSON file as...',
-        kind='modal',
-        width=300,
-        buttons=['OK', 'Cancel']
-    )
-
-    save_github_sibling_config_view = View(
-        Group(
-            Item('github_sibling_config',
-                 style='custom',
-                 editor=FileEditor(dialog_style='save'),
-                 show_label=False),
-        ),
-        title='Save the configuration of the GitHub sibling '
-              'to a JSON file as...',
-        kind='modal',
-        width=300,
-        buttons=['OK', 'Cancel']
-    )
-
     traits_view = QtView(
         VGroup(
             Group(
@@ -315,7 +287,33 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
         self.publish_datalad_dataset()
 
     def _save_special_sibling_config_button_fired(self):
-        self.save_git_annex_special_sibling_config_view.configure_traits()
+        save_git_annex_special_sibling_config_view = View(
+            Group(
+                Item('git_annex_special_sibling_config',
+                     style='custom',
+                     editor=FileEditor(dialog_style='save'),
+                     show_label=False),
+            ),
+            title='Save the configuration of the git-annex special '
+                  'remote sibling to a JSON file as...',
+            kind='modal',
+            width=300,
+            buttons=['OK', 'Cancel']
+        )
+        self.configure_traits(view=save_git_annex_special_sibling_config_view)
 
     def _save_github_sibling_config_button_fired(self):
-        self.save_github_sibling_config_view.configure_traits()
+        save_github_sibling_config_view = View(
+            Group(
+                Item('github_sibling_config',
+                     style='custom',
+                     editor=FileEditor(dialog_style='save'),
+                     show_label=False),
+            ),
+            title='Save the configuration of the GitHub sibling '
+                  'to a JSON file as...',
+            kind='modal',
+            width=300,
+            buttons=['OK', 'Cancel']
+        )
+        self.configure_traits(view=save_github_sibling_config_view)

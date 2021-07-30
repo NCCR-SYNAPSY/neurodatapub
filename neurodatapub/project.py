@@ -176,29 +176,37 @@ class NeuroDataPubProject(HasTraits):
 
     def create_datalad_dataset(self):
         """Create the Datalad dataset."""
-        print(f'> Initialize the Datalad dataset {self.output_datalad_dataset_dir}')
-        proc = create_bids_dataset(
-            datalad_dataset_dir=self.output_datalad_dataset_dir
-        )
-        if proc:
-            print(f'{proc}')
-        print(
-            f'> Copy content of {self.input_bids_dir} to '
-            f'{self.output_datalad_dataset_dir}'
-        )
-        proc, cmd = copy_content_to_datalad_dataset(
-            bids_dir=self.input_bids_dir,
-            datalad_dataset_dir=self.output_datalad_dataset_dir
-        )
-        if proc is not None:
-            print(proc.stdout)
-        print(f'> Save dataset state...')
-        datalad.api.save(
-            dataset=self.output_datalad_dataset_dir,
-            message=f'Save dataset state after performing the command {cmd} '
-                    f'with neurodatapub {__version__}',
-            jobs='auto'
-        )
+        # Create the datalad dataset only if the directory is empty
+        # and so the .datalad folder should not exist
+        if not os.path.exists(
+            os.path.join(self.output_datalad_dataset_dir, '.datalad')
+        ):
+            print(f'> Initialize the Datalad dataset {self.output_datalad_dataset_dir}')
+            proc = create_bids_dataset(
+                datalad_dataset_dir=self.output_datalad_dataset_dir
+            )
+            if proc:
+                print(f'{proc}')
+            print(
+                f'> Copy content of {self.input_bids_dir} to '
+                f'{self.output_datalad_dataset_dir}'
+            )
+            proc, cmd = copy_content_to_datalad_dataset(
+                bids_dir=self.input_bids_dir,
+                datalad_dataset_dir=self.output_datalad_dataset_dir
+            )
+            if proc is not None:
+                print(proc.stdout)
+            print(f'> Save dataset state...')
+            datalad.api.save(
+                dataset=self.output_datalad_dataset_dir,
+                message=f'Save dataset state after performing the command {cmd} '
+                        f'with neurodatapub {__version__}',
+                jobs='auto'
+            )
+        else:
+            print(f'> Creation of Datalad dataset {self.output_datalad_dataset_dir} '
+                  'skipped as a Datalad dataset is already present!')
         return True
 
     def configure_siblings(self):

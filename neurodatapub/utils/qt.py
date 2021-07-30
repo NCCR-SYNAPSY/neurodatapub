@@ -183,6 +183,7 @@ def return_save_json_button_style_sheet():
             border-right: 3px transparent;
             border-left: 3px transparent;
             min-width: 20px;
+            width: 20px;
         }}
         '''
     return style_sheet_save_json_button.format(image=save_json_icon)

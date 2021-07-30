@@ -77,8 +77,8 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
     publish_only_button = Button('Publish dataset')
     create_and_publish_button = Button('Create and publish dataset')
 
-    save_special_sibling_config_button = Button()
-    save_github_sibling_config_button = Button()
+    save_special_sibling_config_button = Button('')
+    save_github_sibling_config_button = Button('')
 
     config_is_valid = Bool(False)
 
@@ -99,14 +99,20 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
                         Item('remote_ssh_login'),
                         Item('remote_ssh_url'),
                         Item('remote_sibling_dir', style_sheet=return_folder_button_style_sheet()),
-                        Item('save_special_sibling_config_button', style_sheet=return_save_json_button_style_sheet()),
+                        Item('save_special_sibling_config_button',
+                             style_sheet=return_save_json_button_style_sheet(),
+                             show_label=False,
+                             height=20),
                         # Item('git_annex_special_sibling_config', style_sheet=return_folder_button_style_sheet()),
                         label="Git-annex special SSH remote sibling"
                     ),
                     VGroup(
                         Item('github_login'),
                         Item('github_repo_name'),
-                        Item('save_github_sibling_config_button', style_sheet=return_save_json_button_style_sheet()),
+                        Item('save_github_sibling_config_button',
+                             style_sheet=return_save_json_button_style_sheet(),
+                             show_label=False,
+                             height=20),
                         # Item('github_sibling_config', style_sheet=return_folder_button_style_sheet()),
                         label="GitHub sibling"
                     ),

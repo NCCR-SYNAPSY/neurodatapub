@@ -176,7 +176,7 @@ def return_save_json_button_style_sheet():
     )
     style_sheet_save_json_button = '''
         QPushButton {{
-            color: grey;
+            color: transparent;
             border-image: url({image}) 3 3 3 3;
             border-top: 3px transparent;
             border-bottom: 3px transparent;

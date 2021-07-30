@@ -12,7 +12,9 @@ __current_year__ = '2021'
 
 __author__ = 'Sebastien Tourbier'
 __copyright__ = ('Copyright {year}, '.format(year=__current_year__)
-                 + 'Connectomics Lab, Lausanne and contributors')
+                 + 'Connectomics Lab, University Hospital Center and '
+                 + 'University of Lausanne (UNIL-CHUV), Switzerland, '
+                 + 'and contributors')
 __credits__ = ('Contributors: please check the ``.zenodo.json`` file '
                'at the top-level folder of the repository')
 __license__ = 'Apache 2.0'

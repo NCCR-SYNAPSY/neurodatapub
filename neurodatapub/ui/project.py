@@ -15,7 +15,7 @@ from traitsui.api import Item, Group, HGroup, VGroup, spring
 from traits.api import Button, Str, Bool
 
 # Own imports
-from neurodatapub.info import __version__
+from neurodatapub.info import __version__, __license__, __copyright__
 from neurodatapub.project import NeuroDataPubProject
 
 
@@ -128,6 +128,8 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
     config_is_valid = Bool(False)
 
     version = Str(__version__)
+    license = Str(__license__)
+    copyright = Str(__copyright__)
 
     traits_view = QtView(
         VGroup(
@@ -156,6 +158,8 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
                 VGroup(
                     VGroup(
                         Item('version', style='readonly', label='Version'),
+                        Item('license', style='readonly', label='License'),
+                        Item('copyright', style='readonly', show_label=False),
                         label="About NeuroDataPub"
                     ),
                     label="About"

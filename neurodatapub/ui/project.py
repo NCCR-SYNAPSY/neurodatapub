@@ -311,6 +311,17 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
             )
         if dlg.open() == OK:
             self.git_annex_special_sibling_config = dlg.path
+            # Save configuration of git-annex special remote sibling
+            # to host annexed files
+            git_annex_special_sibling_config_dict = dict(
+                {
+                    "remote_ssh_login": self.remote_ssh_login,
+                    "remote_ssh_url": self.remote_ssh_url,
+                    "remote_sibling_dir": self.remote_sibling_dir
+                }
+            )
+            with open(self.git_annex_special_sibling_config, 'w+') as outfile:
+                json.dump(git_annex_special_sibling_config_dict, outfile, indent=4)
             print(f'> Saved as {self.git_annex_special_sibling_config}')
         else:
             print('> Operation was cancelled!')
@@ -340,6 +351,16 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
             )
         if dlg.open() == OK:
             self.github_sibling_config = dlg.path
+            # Save configuration of Github sibling to
+            # host dataset repository
+            github_sibling_config_dict = dict(
+                {
+                    "github_login": self.github_login,
+                    "github_repo_name": self.github_repo_name
+                }
+            )
+            with open(self.github_sibling_config, 'w+') as outfile:
+                json.dump(github_sibling_config_dict, outfile, indent=4)
             print(f'> Saved as {self.github_sibling_config}')
         else:
             print('> Operation was cancelled!')

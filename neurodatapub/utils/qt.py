@@ -185,4 +185,4 @@ def return_save_json_button_style_sheet():
             min-width: 20px;
         }
         '''
-    return style_sheet_save_json_button.format(save_json_icon)
+    return style_sheet_save_json_button

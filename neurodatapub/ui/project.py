@@ -104,6 +104,7 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
                             label="Git-annex special SSH remote sibling"
                         ),
                         VGroup(
+                            spring,
                             Item('save_special_sibling_config_button',
                                  style_sheet=return_save_json_button_style_sheet(),
                                  show_label=False),
@@ -117,6 +118,7 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
                             label="GitHub sibling"
                         ),
                         VGroup(
+                            spring,
                             Item('save_github_sibling_config_button',
                                  style_sheet=return_save_json_button_style_sheet(),
                                  show_label=False),

@@ -95,28 +95,32 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
                     label="Configuration of Directories"
                 ),
                 VGroup(
-                    VGroup(
-                        Item('remote_ssh_login'),
-                        Item('remote_ssh_url'),
-                        Item('remote_sibling_dir', style_sheet=return_folder_button_style_sheet()),
-                        # Item('git_annex_special_sibling_config', style_sheet=return_folder_button_style_sheet()),
-                        label="Git-annex special SSH remote sibling"
+                    HGroup(
+                        VGroup(
+                            Item('remote_ssh_login'),
+                            Item('remote_ssh_url'),
+                            Item('remote_sibling_dir', style_sheet=return_folder_button_style_sheet()),
+                            # Item('git_annex_special_sibling_config', style_sheet=return_folder_button_style_sheet()),
+                            label="Git-annex special SSH remote sibling"
+                        ),
+                        VGroup(
+                            Item('save_special_sibling_config_button',
+                                 style_sheet=return_save_json_button_style_sheet(),
+                                 show_label=False),
+                        ),
                     ),
-                    VGroup(
-                        Item('save_special_sibling_config_button',
-                             style_sheet=return_save_json_button_style_sheet(),
-                             show_label=False),
-                    ),
-                    VGroup(
-                        Item('github_login'),
-                        Item('github_repo_name'),
-                        # Item('github_sibling_config', style_sheet=return_folder_button_style_sheet()),
-                        label="GitHub sibling"
-                    ),
-                    VGroup(
-                        Item('save_github_sibling_config_button',
-                             style_sheet=return_save_json_button_style_sheet(),
-                             show_label=False),
+                    HGroup(
+                        VGroup(
+                            Item('github_login'),
+                            Item('github_repo_name'),
+                            # Item('github_sibling_config', style_sheet=return_folder_button_style_sheet()),
+                            label="GitHub sibling"
+                        ),
+                        VGroup(
+                            Item('save_github_sibling_config_button',
+                                 style_sheet=return_save_json_button_style_sheet(),
+                                 show_label=False),
+                        ),
                     ),
                     label="Configuration of Siblings"
                 ),

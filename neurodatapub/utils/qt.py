@@ -175,14 +175,14 @@ def return_save_json_button_style_sheet():
             'neurodatapub', "resources/save_json_icon_50x50.png"
     )
     style_sheet_save_json_button = '''
-        QPushButton {
+        QPushButton {{
             color: grey;
-            border-image: url({}) 3 3 3 3;
+            border-image: url({image}) 3 3 3 3;
             border-top: 3px transparent;
             border-bottom: 3px transparent;
             border-right: 3px transparent;
             border-left: 3px transparent;
             min-width: 20px;
-        }
+        }}
         '''
-    return style_sheet_save_json_button
+    return style_sheet_save_json_button.format(image=save_json_icon)

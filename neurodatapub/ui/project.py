@@ -290,13 +290,13 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
         save_git_annex_special_sibling_config_view = View(
             Group(
                 Item('git_annex_special_sibling_config',
+                     style='custom',
                      editor=FileEditor(dialog_style='save'),
                      show_label=False),
             ),
             title='Save the configuration of the git-annex special '
                   'remote sibling to a JSON file as...',
             kind='modal',
-            width=600,
             resizable=True,
             buttons=['OK', 'Cancel']
         )
@@ -306,13 +306,13 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
         save_github_sibling_config_view = View(
             Group(
                 Item('github_sibling_config',
+                     style='custom',
                      editor=FileEditor(dialog_style='save'),
                      show_label=False),
             ),
             title='Save the configuration of the GitHub sibling '
                   'to a JSON file as...',
             kind='modal',
-            width=600,
             resizable=True,
             buttons=['OK', 'Cancel']
         )

@@ -7,6 +7,7 @@ Contributing
 This project follows the `all contributors specification <https://allcontributors.org/>`_. 
 Contributions in many different ways are welcome!
 
+
 Contribution Types
 ------------------
 
@@ -21,11 +22,13 @@ If you are reporting a bug, please include:
 * Any details about your local setup that might be helpful in troubleshooting.
 * Detailed steps to reproduce the bug.
 
+
 Fix Bugs
 ~~~~~~~~
 
 Look through the GitHub issues for bugs. Anything tagged with "bug"
 and "help wanted" is open to whoever wants to implement it.
+
 
 Implement Features
 ~~~~~~~~~~~~~~~~~~
@@ -33,12 +36,14 @@ Implement Features
 Look through the GitHub issues for features. Anything tagged with "enhancement"
 and "help wanted" is open to whoever wants to implement it.
 
+
 Write Documentation
 ~~~~~~~~~~~~~~~~~~~
 
 NeuroDataPub could always use more documentation, whether as part of the
 official NeuroDataPub docs, in docstrings, or even on the web in blog posts,
 articles, and such.
+
 
 Submit Feedback
 ~~~~~~~~~~~~~~~
@@ -51,6 +56,7 @@ If you are proposing a feature:
 * Keep the scope as narrow as possible, to make it easier to implement.
 * Remember that this is a volunteer-driven project, and that contributions
   are welcome :)
+
 
 Get Started!
 ------------
@@ -79,6 +85,7 @@ Ready to contribute? Here's how to set up `NeuroDataPub` for local development.
 
 6. Submit a pull request through the GitHub website.
 
+
 Pull Request Guidelines
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -89,6 +96,7 @@ Before you submit a pull request, check that it meets these guidelines:
 2. The pull request should work for Python 3.8. Check
    https://app.circleci.com/pipelines/github/NCCR-SYNAPSY/neurodatapub
    and make sure that the tests pass.
+
 
 .. _instructions_neurodatapub_install:
 
@@ -104,6 +112,7 @@ How to install `NeuroDataPub` locally
 
     conda activate neurodatapub-env
     pip install .
+
 
 .. _instructions_docs_build:
 
@@ -126,6 +135,7 @@ How to build the documentation locally
 
 .. note::
 	Make sure to have activated the conda environment `neurodatapub-env` before running the script `build_sphinx_docs.sh`.
+
 
 Not listed as a contributor?
 ----------------------------

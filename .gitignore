@@ -3,3 +3,7 @@
 
 # Ignore pyCharm project files
 .idea/*
+
+# Ignore build directory
+_build
+build

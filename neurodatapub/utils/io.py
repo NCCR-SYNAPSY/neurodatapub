@@ -4,7 +4,7 @@
 #
 #  This software is distributed under the open-source license Apache 2.0.
 
-"""NeuroDataPub utils functions for input/output."""
+"""`neurodatapub.utils.io`: utils functions for input/output."""
 
 from .process import run
 

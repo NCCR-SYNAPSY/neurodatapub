@@ -4,7 +4,7 @@
 #
 #  This software is distributed under the open-source license Apache 2.0.
 
-"""NeuroDataPub utils functions for Git-annex."""
+"""`neurodatapub.utils.gitannex`: utils functions for Git-annex."""
 
 from .datalad import DEFAULT_SSH_REMOTE_NAME
 from .process import run

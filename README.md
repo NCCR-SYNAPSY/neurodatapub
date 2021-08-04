@@ -1,7 +1,4 @@
 # NeuroDataPub
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 This tool is developed by the [Connectomics
 Lab](https://wp.unil.ch/connectomics/) at the University Hospital of
@@ -12,7 +9,7 @@ open-source software distribution.
 
 ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/NCCR-SYNAPSY/neurodatapub?include_prereleases)
 [![CircleCI](https://circleci.com/gh/NCCR-SYNAPSY/neurodatapub/tree/main.svg?style=shield)](https://circleci.com/gh/NCCR-SYNAPSY/neurodatapub/tree/main)
-!["Github All Contributors"](https://img.shields.io/github/all-contributors/NCCR-SYNAPSY/neurodatapub)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/e10b50b91e0f49b5866e527d3defd5ad)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=NCCR-SYNAPSY/neurodatapub&amp;utm_campaign=Badge_Grade)
 
 

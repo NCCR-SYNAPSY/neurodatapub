@@ -85,14 +85,14 @@ Contents
    :maxdepth: 2
    :caption: User Documentation
 
-   bids
-   usage
    gui
+   usage
+   bids
 
 .. _api-doc:
 
 .. toctree::
-   :maxdepth: 5
+   :maxdepth: 6
    :caption: API Documentation
 
    api_commandlineinterface

@@ -7,4 +7,5 @@
 .. automodule:: neurodatapub.ui.project
    :members:
    :undoc-members:
+   :private-members:
    :show-inheritance:

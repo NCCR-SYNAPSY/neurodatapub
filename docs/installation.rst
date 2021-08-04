@@ -1,8 +1,8 @@
 .. _installation:
 
-************************************
-Installation Instructions for Users
-************************************
+***************************
+Installation Instructions
+***************************
 
 
 .. _prerequisites:
@@ -46,15 +46,15 @@ Creation of `neurodatapub-env` conda environment
 
 
 Installation of `NeuroDataPub`
-------------------------------
+==============================
 
-Once the `neurodatapub-env` conda environment, ``NeuroDataPub`` can be installed in the `neurodatapub-env` conda environment via `pip`:
+Once the `neurodatapub-env` conda environment, `NeuroDataPub` can be installed in the `neurodatapub-env` conda environment via `pip`:
 
   .. code-block:: console
 
      $ pip install "git+https://github.com/NCCR-SYNAPSY/neurodatapub.git"
 
-* You are ready to use ``NeuroDataPub``!
+* You are ready to use `NeuroDataPub`!
 
 Help/Questions
 --------------

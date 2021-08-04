@@ -1,7 +1,7 @@
 .. _guiusage:
 
 *********************************
-NeuroDataPub Assistant User Guide
+NeuroDataPub Assistant Guide
 *********************************
 
 Introduction
@@ -13,19 +13,15 @@ the configuration of the siblings and the generation of the
 corresponding JSON configuration files, but also its
 execution in the three different modes.
 
-.. figure:: images/mainWindow.png
-    :align: center
 
-    Main window of the `NeuroDataPub Assistant`
-
-Start the Graphical User Interface
-====================================
+1. Start the Graphical User Interface
+======================================
 
 In a terminal, activate the `neurodatapub-env` conda environment::
 
     $ conda activate neurodatapub-env
 
-Please see Section :ref:`creation-conda-environment` for more details its creation.
+Please check :ref:`creation-conda-environment` for more details about its creation.
 
 After activation, the `NeuroDataPub Assistant` can be launched
 via the `neurodatapub` command-line interface with the `--gui` option flag:
@@ -42,32 +38,31 @@ via the `neurodatapub` command-line interface with the `--gui` option flag:
           specify the option flags required for a normal run from the commandline interface.
           However, if provided, the parameters will be used to initialize the configuration of the project.
 
-Configure input and outputs directories
-=========================================
+
+2. Configure input and outputs directories
+===========================================
 
 You can select or reconfigure your input BIDS directory and the directory of the output
 Datalad dataset in the first tab of the `NeuroDataPub Assistant`.
 
-.. figure:: images/ioTab.png
+.. figure:: images/neurodatapub_main_window.png
     :align: center
+    :width: 600
 
-    `Configuration of Directories` tab for the setting of the input BIDS and output datalad dataset directories
 
-
-Configure the siblings
-========================
+3. Configure the siblings
+==========================
 
 You can configure or reconfigure the settings for the special
 git-annex and GitHub remote siblings.
 
-.. figure:: images/siblingsTab.png
+.. figure:: images/neurodatapub_siblings_tab_window.png
     :align: center
+    :width: 600
 
-    `Configuration of Siblings` tab for settings of the special git-annex and GitHub remote siblings
 
-
-Special remote sibling settings
---------------------------------
+3.1 Special remote sibling settings
+------------------------------------
 
 * ``"remote_ssh_login"`` (mandatory): user login to the remote
 
@@ -76,39 +71,38 @@ Special remote sibling settings
 * ``"remote_sibling_dir"`` (mandatory): Remote .git/ directory of the sibling dataset
 
 
-GitHub sibling settings
-------------------------
+3.2 GitHub sibling settings
+----------------------------
 
 * ``"github_login"`` (mandatory): user login to GitHub.
 
 * ``"github_repo_name"`` (mandatory): Dataset repository name on GitHub
 
 
-Check the configuration and execute `NeuroDataPub`
-==================================================
+4. Check the configuration and execute `NeuroDataPub`
+=====================================================
 
 Before being able to initiate the processes of creation and/or publication
 of the datalad dataset, you will need to make the `NeuroDataPub Assistant`
 checking them out by clicking on the `Check config` button.
 
-.. figure:: images/checkTab.png
+.. figure:: images/neurodatapub_check_config_button.png
     :align: center
-
-    `Check config` button for the inspection of the configuration before execution
+    :width: 800
 
 If the configuration is completely valid, this will enable the
-`Create Dataset`, `Publish Dataset` and `Create and Publish Dataset`
-buttons.
+`Create and Publish Dataset`, `Create Dataset`, and `Publish Dataset` buttons.
 
-.. figure:: images/runTab.png
+.. figure:: images/neurodatapub_exec_buttons_enable.png
     :align: center
-
-    `Create Dataset`, `Publish Dataset` and `Create and Publish Dataset` buttons
-    for the three execution mode of `NeuroDataPub`
-
+    :width: 800
 
 Then, you can execute `NeuroDataPub` in one of the three execution modes by clicking on one of the
-buttons: `Create Dataset`, `Publish Dataset` and `Create and Publish Dataset`.
+buttons.
+
+.. figure:: images/neurodatapub_execution.png
+    :align: center
+    :width: 800
 
 .. note:: You can always see the execution progress by checking the standard outputs in the terminal,
     such as the following:
@@ -152,3 +146,9 @@ buttons: `Create Dataset`, `Publish Dataset` and `Create and Publish Dataset`.
         Dataset(/home/localuser/Data/ds-sample/derivative/neurodatapub-|vrelease|)
 
         [...]
+
+
+Support, bugs and new feature requests
+=======================================
+
+All bugs, concerns and enhancement requests for this software are managed on GitHub and can be submitted at `https://github.com/NCCR-SYNAPSY/neurodatapub/issues <https://github.com/NCCR-SYNAPSY/neurodatapub/issues>`_.

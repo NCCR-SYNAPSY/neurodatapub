@@ -163,7 +163,7 @@ html_short_title = u'NeuroDataPub'
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
-html_logo = '../neurodatapub/resources/neurodatapub_logo_100x100.png'
+html_logo = './images/neurodatapub_logo_150x150.png'
 
 # The name of an image file (within the static path) to use as favicon of the
 # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32

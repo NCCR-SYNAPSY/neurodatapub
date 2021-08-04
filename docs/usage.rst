@@ -21,6 +21,12 @@ Commandline Arguments
         :prog: neurodatapub
 
 
+.. _siblingconfig:
+
+Sibling configuration files
+=============================
+
+
 .. _gitannexconfig:
 
 Git-annex special remote sibling configuration file

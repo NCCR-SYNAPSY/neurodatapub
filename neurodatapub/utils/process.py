@@ -11,8 +11,8 @@ import subprocess
 
 
 def run(command, env=None, cwd=None):
-    """Function calls to execute a command.
-
+    """
+    Function calls to execute a command.
     It runs the command specified as input via ``subprocess.run()``.
 
     Parameters

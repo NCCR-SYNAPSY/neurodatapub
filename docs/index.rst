@@ -8,10 +8,15 @@ This tool is developed by the `Connectomics Lab <https://wp.unil.ch/connectomics
 within the lab and within the `National Centre of Competence in Research (NCCR) "SYNAPSY – Synaptic Bases of Mental Diseases" NCCR-SYNAPSY <https://nccr-synapsy.ch/>`_,
 as well as for open-source software distribution.
 
+.. image:: https://circleci.com/gh/NCCR-SYNAPSY/neurodatapub/tree/main.svg?style=svg
+  :target: https://circleci.com/gh/NCCR-SYNAPSY/neurodatapub/tree/main
+  :alt: Circle CI
 .. image:: https://img.shields.io/github/all-contributors/NCCR-SYNAPSY/neurodatapub
   :target:
   :alt: Github All Contributors  
-
+.. image:: https://app.codacy.com/project/badge/Grade/e10b50b91e0f49b5866e527d3defd5ad
+  :target: https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=NCCR-SYNAPSY/neurodatapub&amp;utm_campaign=Badge_Grade
+  :alt: Code quality
 
 Introduction
 =============

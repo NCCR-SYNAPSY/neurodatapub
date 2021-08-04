@@ -1,91 +1,111 @@
-# synapsy-neurodata-publishing-tool
+# NeuroDataPub
 
-**Suggested name:** *NeuroDataPub*
+This tool is developed by the [Connectomics
+Lab](https://wp.unil.ch/connectomics/) at the University Hospital of
+Lausanne (CHUV) for use within the lab and within the [National Centre
+of Competence in Research (NCCR) "SYNAPSY – Synaptic Bases of Mental
+Diseases" NCCR-SYNAPSY](https://nccr-synapsy.ch/), as well as for
+open-source software distribution.
 
-This tool should facilitate the conversion to a Datalad dataset, the publication of the dataset repository (only metadata) to GitHub and its annexed data on a SSH data server of the institution.
+![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/NCCR-SYNAPSY/neurodatapub?include_prereleases)
+[![CircleCI](https://circleci.com/gh/NCCR-SYNAPSY/neurodatapub/tree/main.svg?style=svg)](https://circleci.com/gh/NCCR-SYNAPSY/neurodatapub/tree/main)
+!["Github All Contributors"](https://img.shields.io/github/all-contributors/NCCR-SYNAPSY/neurodatapub)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/e10b50b91e0f49b5866e527d3defd5ad)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=NCCR-SYNAPSY/neurodatapub&amp;utm_campaign=Badge_Grade)
 
-It should take as input:
 
-* Local path of original bids dataset directory
+## Overview
 
-* Local path of output directory for bids dataset managed by Datalad
+NeuroDataPub is a neuroimaging dataset publishing tool built on top of
+Datalad and git-annex, developed for the NCCR-SYNAPSY members to lower
+the barriers in adopting Datalad to manage and publish privately or
+publicly their dataset repository on GitHub and the annexed files on
+their SSH data server.
 
-* Remote SSH data storage server:
-  * SSH Username
-  * SSH URL
-  * Remote path of dataset (if the folder does not exist it is created inside a parent directory which has to be existing)
+![](./docs/images/neurodatapub_illustration.png%0A%20:align:%20center%0A%20:width:%20600)
 
-* Github:
-  * Authentification token
-  * Repository name
-  * (will be created by default using the organization  NCCR-SYNAPSY)
+NeuroDataPub comes with its graphical user interface, aka the
+NeuroDataPub Assistant, created to facilitate:
 
-it should follow the following features and design principles:
+*   the configuration of the siblings,
+*   the creation of the JSON configuration files, as well as
+*   the execution of NeuroDataPub in the three different modes.
 
- **Open**
+NeuroDataPub is a Python 3.8 that can be easily installed with `pip` as follows:
 
- * The tool will be made freely available under the open-source Apache 2.0 license.
+```bash
+pip install "git+https://github.com/NCCR-SYNAPSY/neurodatapub.git"
+```
 
- **Transparent**
 
- * All developement and issues discussed and managed on GitHub
+## Documentation
 
- **Easy-to-use**
+*   TO BE UPDATED
 
- * The use of `traits/traitsui` could allow the development of a GUI.
 
- * Inputs could be given as a configuration json file as input to run the command-line interface or to initiate the GUI.
+## Usage
 
- **Focus**
+`NeuroDataPub` has the following commandline arguments:
 
- * This tool should give the following limited number of options:
-   * Only create the datalad dataset with configure siblings
-   * Only publish the datalad dataset (check if the dataset is ready-to-be-published)
-   * Both create and publish the datalad dataset
+```output
+usage: neurodatapub [-h] --mode {all,create-only,publish-only} --bids_dir
+                    BIDS_DIR --datalad_dir DATALAD_DIR
+                    --git_annex_ssh_special_sibling_config
+                    GIT_ANNEX_SSH_SPECIAL_SIBLING_CONFIG
+                    --github_sibling_config GITHUB_SIBLING_CONFIG [--gui] [-v]
 
- **Easy-to-install**
+Command-line argument parser of NeuroDataPub (v0.1)
 
- * This tool should be easy to be installed along with the dependencies (`pybids`, `datalad`, `datalad-neuroimaging`, `git-annex`). This could be achieved by:
-   * A conda environment that facilitates the installation of the dependencies at a fixed versions
-   * Creation of a `setup.py` such that it can be installed with `pip install .`
+optional arguments:
+  -h, --help            show this help message and exit
+  --mode {all,create-only,publish-only}
+                        Mode in which ``neurodatapub`` is run: ``"create-
+                        only"`` creates the datalad dataset only, ``"publish-
+                        only"`` creates the datalad dataset only, ``"all"``
+                        creates the datalad dataset only,
+  --bids_dir BIDS_DIR   The directory with the input dataset formatted
+                        according to the BIDS standard.
+  --datalad_dir DATALAD_DIR
+                        The local directory where the Datalad dataset should
+                        be.
+  --git_annex_ssh_special_sibling_config GIT_ANNEX_SSH_SPECIAL_SIBLING_CONFIG
+                        Path to a JSON file containing configuration
+                        parameters for the git-annex SSH special remote
+                        dataset sibling
+  --github_sibling_config GITHUB_SIBLING_CONFIG
+                        Path to a JSON file containing configuration
+                        parameters for the GitHub dataset repository sibling
+  --gui                 Run NeuroDataPub in GUI mode
+  -v, --version         show program's version number and exit
+```
 
-   Thought, this would not address the installation of git-annex on the remote SSH data storage server.
 
- **Robust**
+## Aknowledgment
 
- * This tool should be robust to to adverse code changes with continuous integration testing.
+If your are using NeuroDataPub in your work, please acknowledge this
+software and its dependencies:
 
-## Risk study
+1.  Tourbier S, Hagmann P., (2021). NCCR-SYNAPSY/neurodatapub: NCCR-SYNAPSY Neuroimaging Dataset Publishing Tool (Version 0.1). Zenodo.
 
-* The user wants to "create only" or "create and publish" a non-existing datalad dataset:
-  *  BIDS dataset has to be valid
-  *  Local path of output directory for bids dataset managed by Datalad has to be non-existing or empty, otherwise an error is raised
+2.  Halchenko et al., (2021). DataLad: distributed system for joint management of code, data, and their relationship. Journal of Open Source Software, 6(63), 3262, https://doi.org/10.21105/joss.03262.
 
-* The user wants to "publish only" an existing datalad dataset:
- * status should be checked and an error raised if not up-to-date
- * siblings should be checked and if the siblings are not existing, they are created
 
-## Road Map
+## License information
 
-- [ ] Code architecture (Class / method / ...)
+This software is distributed under the open-source Apache 2.0 license.
+See [license](LICENSE) for more details.
 
-- [ ] Creation of code prototype (Class / method /)
+All trademarks referenced herein are property of their respective
+holders.
 
-- [ ] Employ setup.py for installation
 
-- [ ] Add continuos integration testing that:
- * test the creattion of PyPI wheel and the installation via `pip install`
- * run the `pytest` tests
+## Help/Questions
 
-- [ ] Add documentation on readthedocs that shows:
- * how to install
- * how to use the three modes
+If you run into any problems or have any code bugs or questions, please
+create a new [GitHub Issue](https://github.com/NCCR-SYNAPSY/neurodatapub/issues).
 
-When code is ready to be version released:
 
-- [ ] Add zenodo
+##Funding
 
-- [ ] Test publication of PyPI package to testing PyPI server.
-
-- [ ] Add publication rule to main PyPI in CircleCI
-
+Supported by the National Centre of Competence in Research (NCCR)
+"SYNAPSY – Synaptic Bases of Mental Diseases" [NCCR-SYNAPSY](https://nccr-synapsy.ch/)
+(grant TO BE UPDATED).

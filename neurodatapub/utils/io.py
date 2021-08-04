@@ -13,7 +13,8 @@ def copy_content_to_datalad_dataset(
     bids_dir,
     datalad_dataset_dir,
 ):
-    """Copy BIDS dataset content to target datalad dataset directory using `rsync`.
+    """
+    Copy BIDS dataset content to target datalad dataset directory using `rsync`.
 
     Parameters
     -------

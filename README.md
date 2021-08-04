@@ -101,7 +101,7 @@ holders.
 If you run into any problems or have any code bugs or questions, please
 create a new [GitHub Issue](https://github.com/NCCR-SYNAPSY/neurodatapub/issues).
 
-##Funding
+## Funding
 
 Supported by the National Centre of Competence in Research (NCCR)
 "SYNAPSY – Synaptic Bases of Mental Diseases" [NCCR-SYNAPSY](https://nccr-synapsy.ch/)

@@ -61,10 +61,12 @@ print(f'Dependency links: {dependency_links}')
 
 
 class VerifyVersionCommand(install):
+
     """Custom command to verify that the git tag matches our version"""
     description = 'verify that the git tag matches our version'
 
     def run(self):
+        """Verify that the git tag matches our version"""
         tag = os.getenv('CIRCLE_TAG')
         version = f'v{__version__}'
 
@@ -74,20 +76,20 @@ class VerifyVersionCommand(install):
 
 
 def main():
-    """Main function of the NeuroDataPub ``setup.py``"""
+    """Main function of the NeuroDataPub ``setup.py``."""
     setuptools.setup(
             name='neurodatapub',
             version=__version__,
             description=
             'NeuroDataPub: Tool built for publication of BIDS datasets '
-            'of the NCCR-Synapsy consortium',
+            'of the NCCR-Synapsy',
             long_description=
             """NeuroDataPub is built on top of Datalad and helps
             NCCR-Synapsy members in the task of referencing its dataset
             to the NCCR-SYNAPSY GitHub organization. """,
             author='Sebastien Tourbier',
             author_email='sebastien.tourbier@alumni.epfl.ch',
-            url='https://github.com/Medical-Image-Analysis-Laboratory/mialsuperresolutiontoolkit',
+            url='https://github.com/NCCR-SYNAPSY/neurodatapub',
             entry_points={
                  "console_scripts": [
                      'neurodatapub = neurodatapub.cli.neurodatapub:main',
@@ -95,7 +97,7 @@ def main():
             },
             license='Apache-2.0',
             classifiers=[
-                'Development Status :: 5 - Production/Stable',
+                'Development Status :: 4 - BETA',
                 'Intended Audience :: Science/Research',
                 'Intended Audience :: Developers',
                 'License :: OSI Approved',

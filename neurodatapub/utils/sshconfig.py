@@ -4,7 +4,7 @@
 #
 #  This software is distributed under the open-source license Apache 2.0.
 
-"""NeuroDataPub utils function to edit SSH config."""
+"""`neurodatapub.utils.sshconfig`: utils function to edit SSH config."""
 
 
 def update_ssh_config(

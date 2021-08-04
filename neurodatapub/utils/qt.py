@@ -4,7 +4,7 @@
 #
 #  This software is distributed under the open-source license Apache 2.0.
 
-"""NeuroDataPub utils functions for Qt style sheets."""
+"""`neurodatapub.utils.qt`: utils functions for Qt style sheets."""
 
 import pkg_resources
 

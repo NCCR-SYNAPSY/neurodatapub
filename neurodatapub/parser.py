@@ -15,15 +15,15 @@ from neurodatapub.info import __release_date__
 def get_parser():
     """Create and return the parser object of NeuroDataPub."""
     p = argparse.ArgumentParser(
-        description=f"Argument parser of NeuroDataPub ({__version__})"
+        description=f"Command-line argument parser of `NeuroDataPub` (v{__version__})"
     )
 
     p.add_argument(
         "--mode",
-        help="Mode in which `neurodatapub` is run: "
-             '`"create-only"` creates the datalad dataset only, '
-             '`"publish-only"` creates the datalad dataset only, '
-             '`"all"` creates the datalad dataset only, ',
+        help="Mode in which ``neurodatapub`` is run: "
+             '``"create-only"`` creates the datalad dataset only, '
+             '``"publish-only"`` creates the datalad dataset only, '
+             '``"all"`` creates the datalad dataset only, ',
         choices=["all", "create-only", "publish-only"],
         required='--gui' not in " ".join(sys.argv),
         type=str
@@ -37,7 +37,7 @@ def get_parser():
     p.add_argument(
         "--datalad_dir",
         help="The local directory where the Datalad dataset should be.",
-        required=True
+        required='--gui' not in " ".join(sys.argv),
     )
     p.add_argument(
         "--git_annex_ssh_special_sibling_config",
@@ -63,6 +63,6 @@ def get_parser():
         "-v",
         "--version",
         action="version",
-        version=f"NeuroDataPub version {__version__} (Released: {__release_date__})",
+        version=f"``neurodatapub`` version {__version__} (Released: {__release_date__})",
     )
     return p

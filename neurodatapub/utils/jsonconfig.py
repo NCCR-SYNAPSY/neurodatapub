@@ -4,7 +4,7 @@
 #
 #  This software is distributed under the open-source license Apache 2.0.
 
-"""NeuroDataPub utils functions to handle JSON sibling configuration files."""
+"""`neurodatapub.utils.jsonconfig`: utils functions to handle JSON sibling configuration files."""
 
 import json
 import jsonschema

@@ -28,54 +28,47 @@ from neurodatapub.utils.qt import (
     return_save_json_button_style_sheet
 )
 
+
 class NeuroDataPubProjectUI(NeuroDataPubProject):
-    """Object that extends a `NeuroDataPubProject` object with a graphical component.
+    """Object that extends a `NeuroDataPubProject` object with a QtView.
 
     Attributes
     ----------
-    input_bids_dir : Directory
-        Absolute path of the original BIDS dataset directory
+    check_config : Button
+        Button to check the configuration
 
-    output_datalad_dataset_dir : Directory
-        Absolute path of the datalad dataset to be created
+    create_only_button : Button
+        Button to create a dataset (mode: `"create-only"`)
 
-    git_annex_special_sibling_config : File
-        Absolute path of the Json file that describes configuration of the
-        git-annex special sibling
+    publish_only_button : Button
+        Button to publish a dataset (mode: `"publish-only"`)
 
-    github_sibling_config : File
-        Absolute path of the Json file that describes configuration of the
-        github sibling
+    create_and_publish_button : Button
+        Button to create and publish a dataset (mode: `"all"`)
 
-    github_login : Str
-        Login to authenticate in GitHub
+    save_special_sibling_config_button : Button
+        Button to save the special remote sibling settings
+        in a JSON configuration file
 
-    github_repo_name : Str
-        Name of the dataset repository published on GitHub
+    save_github_sibling_config_button = Button
+        Button to save the GitHub sibling settings
+        in a JSON configuration file
 
-    remote_ssh_login : Str
-        User login to the git-annex special sibling
+    config_is_valid : Bool
+        Boolean that is updated by the `Check Config` button
+        (Default: False)
 
-    remote_ssh_url : Str
-        SSH URL to the git-annex special sibling
-        in the form of `ssh://server.example.org`
+    version : Str(__version__)
+        Version of `NeuroDataPub` for the About tab.
 
-    remote_sibling_dir : Directory
-        Remote absolute path of the sibling dataset on
-        the git-annex special sibling
+    license : Str(__license__)
+        License of `NeuroDataPub` for the About tab.
 
-    remote_sibling_name : Str
-        Datalad sibling name of the git-annex special sibling
+    copyright : Str(__copyright__)
+        Copyright of `NeuroDataPub` for the About tab.
 
-    mode : {"publish-only","create-only","all"}
-        Mode in which neurodatapub operates:
-          * `"create-only"`: Only create the Datalad dataset,
-            copy the content and save the state.
-          * `"publish-only"`: Only configure the publication siblings
-            if they do not exist yet and publish the Datalad dataset.
-          * `"all"`: Perform all steps of `"create-only"` followed by
-            all steps of `"publish-only"`, from Datalad dataset creation
-            to publication.
+    traits_view : QtView
+        QtView of the `NeuroDataPub Assistant`
     """
     check_config = Button('Check config')
     create_only_button = Button('Create dataset')
@@ -290,6 +283,7 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
         self.publish_datalad_dataset()
 
     def _save_special_sibling_config_button_fired(self):
+        """Executed when `save_special_sibling_config_button` is clicked."""
         print(
             "\n############################################\n"
             "# Save special remote sibling configuration\n"
@@ -330,10 +324,11 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
         )
 
     def _save_github_sibling_config_button_fired(self):
+        """Executed when `save_github_sibling_config_button` is clicked."""
         print(
-                "\n############################################\n"
-                "# Save GitHub sibling configuration\n"
-                "############################################\n"
+            "\n############################################\n"
+            "# Save GitHub sibling configuration\n"
+            "############################################\n"
         )
         if self.github_sibling_config:
             dlg = FileDialog(

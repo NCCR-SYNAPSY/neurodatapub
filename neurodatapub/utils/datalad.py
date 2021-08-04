@@ -4,7 +4,7 @@
 #
 #  This software is distributed under the open-source license Apache 2.0.
 
-"""NeuroDataPub utils functions for Datalad."""
+"""`neurodatapub.utils.datalad`: utils functions for Datalad."""
 
 import os
 import datalad.api

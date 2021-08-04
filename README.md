@@ -12,7 +12,6 @@ open-source software distribution.
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/e10b50b91e0f49b5866e527d3defd5ad)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=NCCR-SYNAPSY/neurodatapub&amp;utm_campaign=Badge_Grade)
 
-
 ## Overview
 
 `NeuroDataPub` is an open-source neuroimaging dataset publishing tool written in Python and built on top of
@@ -26,7 +25,9 @@ their SSH data server, as prescribed by the Neuroimaging Data Management Plan.
 `NeuroDataPub Assistant`, created to facilitate:
 
 *   the configuration of the siblings,
+
 *   the creation of the JSON configuration files, as well as
+
 *   the execution of NeuroDataPub in three different modes:
     1.  creation and publication of a datalad dataset,
     2.  creation of a datalad dataset only,
@@ -38,11 +39,9 @@ their SSH data server, as prescribed by the Neuroimaging Data Management Plan.
 pip install "git+https://github.com/NCCR-SYNAPSY/neurodatapub.git"
 ```
 
-
 ## Documentation
 
 *   TO BE UPDATED
-
 
 ## Usage
 
@@ -80,7 +79,6 @@ optional arguments:
   -v, --version         show program's version number and exit
 ```
 
-
 ## Aknowledgment
 
 If your are using `NeuroDataPub` in your work, please acknowledge this
@@ -90,7 +88,6 @@ software and its dependencies:
 
 2.  Halchenko et al., (2021). DataLad: distributed system for joint management of code, data, and their relationship. Journal of Open Source Software, 6(63), 3262, https://doi.org/10.21105/joss.03262.
 
-
 ## License information
 
 This software is distributed under the open-source Apache 2.0 license.
@@ -99,12 +96,10 @@ See [license](LICENSE) for more details.
 All trademarks referenced herein are property of their respective
 holders.
 
-
 ## Help/Questions
 
 If you run into any problems or have any code bugs or questions, please
 create a new [GitHub Issue](https://github.com/NCCR-SYNAPSY/neurodatapub/issues).
-
 
 ##Funding
 

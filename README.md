@@ -8,7 +8,7 @@ Diseases" NCCR-SYNAPSY](https://nccr-synapsy.ch/), as well as for
 open-source software distribution.
 
 ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/NCCR-SYNAPSY/neurodatapub?include_prereleases)
-[![CircleCI](https://circleci.com/gh/NCCR-SYNAPSY/neurodatapub/tree/main.svg?style=svg)](https://circleci.com/gh/NCCR-SYNAPSY/neurodatapub/tree/main)
+[![CircleCI](https://circleci.com/gh/NCCR-SYNAPSY/neurodatapub/tree/main.svg?style=shield)](https://circleci.com/gh/NCCR-SYNAPSY/neurodatapub/tree/main)
 !["Github All Contributors"](https://img.shields.io/github/all-contributors/NCCR-SYNAPSY/neurodatapub)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/e10b50b91e0f49b5866e527d3defd5ad)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=NCCR-SYNAPSY/neurodatapub&amp;utm_campaign=Badge_Grade)
 
@@ -21,7 +21,7 @@ the barriers in adopting Datalad to manage and publish privately or
 publicly their dataset repository on GitHub and the annexed files on
 their SSH data server.
 
-![](./docs/images/neurodatapub_illustration.png%0A%20:align:%20center%0A%20:width:%20600)
+![](https://github.com/NCCR-SYNAPSY/neurodatapub/raw/main/docs/images/neurodatapub_illustration.png)
 
 NeuroDataPub comes with its graphical user interface, aka the
 NeuroDataPub Assistant, created to facilitate:

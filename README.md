@@ -28,7 +28,10 @@ NeuroDataPub Assistant, created to facilitate:
 
 *   the configuration of the siblings,
 *   the creation of the JSON configuration files, as well as
-*   the execution of NeuroDataPub in the three different modes.
+*   the execution of NeuroDataPub in three different modes:
+    1.  creation and publication of a datalad dataset,
+    2.  creation of a datalad dataset only,
+    3.  publication of an existing datalad dataset only,
 
 NeuroDataPub is a Python 3.8 that can be easily installed with `pip` as follows:
 

@@ -20,6 +20,7 @@ from neurodatapub.utils.io import copy_content_to_datalad_dataset
 
 
 class NeuroDataPubProject(HasTraits):
+
     """Object that represents, manages and executes a NeuroDataPub project.
 
     Attributes
@@ -118,7 +119,7 @@ class NeuroDataPubProject(HasTraits):
         github_sibling_config=None,
         mode=None
     ):
-        """Constructor of :class:`NeuroDataPubProject` object"""
+        """Constructor of :class:`NeuroDataPubProject` object."""
         HasTraits.__init__(self)
 
         if mode is not None:
@@ -161,6 +162,7 @@ class NeuroDataPubProject(HasTraits):
                 self.github_repo_name = github_sibling_config_dict['github_repo_name']
 
     def __str__(self):
+        """Define how a :class:`NeuroDataPubProject` object is rendered in `print()`."""
         desc = f"""
         NeuroDataPubProject object attribute summary:
         \tinput_bids_dir : {self.input_bids_dir}
@@ -199,7 +201,7 @@ class NeuroDataPubProject(HasTraits):
             )
             if proc is not None:
                 print(proc.stdout)
-            print(f'> Save dataset state...')
+            print('> Save dataset state...')
             datalad.api.save(
                 dataset=self.output_datalad_dataset_dir,
                 message=f'Save dataset state after performing the command {cmd} '
@@ -228,15 +230,15 @@ class NeuroDataPubProject(HasTraits):
         )
         if proc:
             print(proc)
-        print(f'> Make the ssh remote sibling "special git-annex remote"')
-        proc, cmd = init_ssh_special_sibling(
+        print('> Make the ssh remote sibling "special git-annex remote"')
+        proc, _ = init_ssh_special_sibling(
             datalad_dataset_dir=self.output_datalad_dataset_dir,
             ssh_special_sibling_args=git_annex_special_sibling_config_dict,
             ssh_special_sibling_name='ssh_remote'
         )
         if proc is not None:
             print(proc.stdout)
-        print(f'> Enable the ssh remote sibling "special git-annex remote"')
+        print('> Enable the ssh remote sibling "special git-annex remote"')
         proc, cmd = enable_ssh_special_sibling(
             datalad_dataset_dir=self.output_datalad_dataset_dir,
             ssh_special_sibling_name='ssh_remote'
@@ -262,7 +264,7 @@ class NeuroDataPubProject(HasTraits):
     def publish_datalad_dataset(self):
         """Publish the Datalad dataset."""
         if self.mode == "publish-only":
-            print(f'> Save dataset state ("publish-only" mode)...')
+            print('> Save dataset state ("publish-only" mode)...')
             datalad.api.save(
                     dataset=self.output_datalad_dataset_dir,
                     message=f'Save dataset state before publication '

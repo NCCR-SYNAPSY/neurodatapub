@@ -7,11 +7,9 @@
 """`neurodatapub.utils.sshconfig`: utils function to edit SSH config."""
 
 
-def update_ssh_config(
-    sshurl,
-    user
-):
-    """Add a new entry to the SSH config file (``~/.ssh/config``).
+def update_ssh_config(sshurl, user):
+    """
+    Add a new entry to the SSH config file (``~/.ssh/config``).
 
     It sets the default user login to the SSH special remote.
 

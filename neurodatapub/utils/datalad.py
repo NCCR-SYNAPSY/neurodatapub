@@ -17,7 +17,8 @@ DEFAULT_DATALAD_SSH_SIBLING_NAME = 'datalad_ssh_sibling'
 def create_bids_dataset(
     datalad_dataset_dir,
 ):
-    """Function that creates the datalad dataset via `datalad.api.create()`.
+    """
+    Function that creates the datalad dataset via `datalad.api.create()`.
 
     Parameters
     ----------
@@ -45,7 +46,8 @@ def create_ssh_sibling(
     ssh_special_sibling_args,
     datalad_sibling_name=DEFAULT_DATALAD_SSH_SIBLING_NAME
 ):
-    """Function that creates a SSH remote dataset sibling via `datalad.api.create_sibling()`..
+    """
+    Function that creates a SSH remote dataset sibling via `datalad.api.create_sibling()`..
 
     Parameters
     ----------
@@ -84,7 +86,8 @@ def create_github_sibling(
     github_sibling_args,
     ssh_special_remote_name=DEFAULT_SSH_REMOTE_NAME
 ):
-    """Function that creates the GitHub dataset repository siblings via `datalad.api.create_sibling_github()`.
+    """
+    Function that creates the GitHub dataset repository siblings via `datalad.api.create_sibling_github()`.
 
     Parameters
     ----------
@@ -123,7 +126,8 @@ def create_github_sibling(
 def publish_dataset(
         datalad_dataset_dir
 ):
-    """Function that publishes the dataset repository to GitHub and the annexed files to a SSH special remote.
+    """
+    Function that publishes the dataset repository to GitHub and the annexed files to a SSH special remote.
 
     Parameters
     ----------

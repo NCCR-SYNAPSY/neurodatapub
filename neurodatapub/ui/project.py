@@ -10,7 +10,7 @@ import pkg_resources
 import json
 import re
 from bids import BIDSLayout
-from traitsui.qt4.extra.qt_view import QtView, View
+from traitsui.qt4.extra.qt_view import QtView
 from traitsui.api import (
     Item, Group, HGroup, VGroup, spring,
     DirectoryEditor  # FileEditor
@@ -30,6 +30,7 @@ from neurodatapub.utils.qt import (
 
 
 class NeuroDataPubProjectUI(NeuroDataPubProject):
+
     """Object that extends a `NeuroDataPubProject` object with a QtView.
 
     Attributes
@@ -157,7 +158,7 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
             )
         ),
         resizable=True,
-        title=f'NeuroDataPub Assistant',
+        title='NeuroDataPub Assistant',
         icon=pkg_resources.resource_filename(
             'neurodatapub',
             "resources/neurodatapub_logo_100x100.png"
@@ -193,13 +194,13 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
             self.config_is_valid = False
 
         if not self.remote_ssh_login:
-            print(f'\t* remote_ssh_login: UNDEFINED')
+            print('\t* remote_ssh_login: UNDEFINED')
             self.config_is_valid = False
         else:
             print(f'\t* remote_ssh_login: {self.remote_ssh_login}')
 
         if not self.remote_ssh_url:
-            print(f'\t* remote_ssh_url: UNDEFINED')
+            print('\t* remote_ssh_url: UNDEFINED')
             self.config_is_valid = False
         else:
             if not bool(re.match("^ssh?://+", self.remote_ssh_url)):
@@ -210,19 +211,19 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
                 print(f'\t* remote_ssh_url: {self.remote_ssh_url}')
 
         if not self.remote_sibling_dir:
-            print(f'\t* remote_sibling_dir: UNDEFINED')
+            print('\t* remote_sibling_dir: UNDEFINED')
             self.config_is_valid = False
         else:
             print(f'\t* remote_sibling_dir: {self.remote_sibling_dir}')
 
         if not self.github_login:
-            print(f'\t* github_login: UNDEFINED')
+            print('\t* github_login: UNDEFINED')
             self.config_is_valid = False
         else:
             print(f'\t* github_login: {self.github_login}')
 
         if not self.github_repo_name:
-            print(f'\t* github_repo_name: UNDEFINED')
+            print('\t* github_repo_name: UNDEFINED')
             self.config_is_valid = False
         else:
             print(f'\t* github_repo_name: {self.github_repo_name}')

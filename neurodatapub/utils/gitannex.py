@@ -15,7 +15,8 @@ def init_ssh_special_sibling(
     ssh_special_sibling_args,
     ssh_special_sibling_name=DEFAULT_SSH_REMOTE_NAME
 ):
-    """Function that creates and returns the git annex initremote run command.
+    """
+    Function that creates and returns the git annex initremote run command.
 
     Parameters
     ----------
@@ -42,7 +43,7 @@ def init_ssh_special_sibling(
     # Create the git annex command
     cmd = 'git annex initremote '
     cmd += f'{ssh_special_sibling_name} '
-    cmd += f'type=git '
+    cmd += 'type=git '
     cmd += f'location={ssh_special_sibling_args["remote_ssh_url"]}'
     cmd += f'{ssh_special_sibling_args["remote_sibling_dir"]} '
     cmd += 'autoenable=true'
@@ -62,7 +63,8 @@ def enable_ssh_special_sibling(
     datalad_dataset_dir,
     ssh_special_sibling_name=DEFAULT_SSH_REMOTE_NAME
 ):
-    """Function that enables the git annex  special remote.
+    """
+    Function that enables the git annex  special remote.
 
     Parameters
     ----------

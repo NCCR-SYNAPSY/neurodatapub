@@ -10,7 +10,8 @@ import pkg_resources
 
 
 def return_global_style_sheet():
-    """Return the global Qt style sheet of the GUI.
+    """
+    Return the global Qt style sheet of the GUI.
 
     Returns
     -------
@@ -131,7 +132,8 @@ def return_global_style_sheet():
 
 
 def return_folder_button_style_sheet():
-    """Return the Qt style sheet for the traitsui `FileEditor` and `DirectoryEditor`.
+    """
+    Return the Qt style sheet for the traitsui `FileEditor` and `DirectoryEditor`.
 
     Returns
     -------
@@ -164,7 +166,8 @@ def return_folder_button_style_sheet():
 
 
 def return_save_json_button_style_sheet():
-    """Return the Qt style sheet for the button that saves JSON configuration files.
+    """
+    Return the Qt style sheet for the button that saves JSON configuration files.
 
     Returns
     -------

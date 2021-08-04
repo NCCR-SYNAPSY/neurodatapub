@@ -49,12 +49,15 @@ GITHUB_SIBLING_CONFIG_SCHEMA = {
 
 
 def validate_json_sibling_config(json_file, sibling_type=None):
-    """Validate a JSON sibling configuration file.
+    """
+    Validate a JSON sibling configuration file.
 
+    Parameters
+    ----------
     json_file : str
         Absolute path to JSON sibling configuration file
 
-    type : ['git-annex-special-sibling','github-sibling']
+    sibling_type : ['git-annex-special-sibling','github-sibling']
         Type of sibling configuration file
     """
     with open(json_file, 'r') as f:

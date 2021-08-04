@@ -1,0 +1,5 @@
+{
+    "remote_ssh_login": "XXX",
+    "remote_ssh_url": "ssh://XXX",
+    "remote_sibling_dir": "/path/to/remote/sibling/directory/.git"
+}

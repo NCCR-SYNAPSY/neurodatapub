@@ -1,0 +1,26 @@
+{
+    "license": "Apache-2.0",
+    "keywords": [
+      "data",
+      "neuroimaging",
+      "BIDS",
+      "datalad",
+      "publication",
+      "github",
+      "NCCR-SYNAPSY"
+    ],
+    "creators": [
+      {
+        "name": "Tourbier, Sebastien",
+        "affiliation": "Department of Radiology, Lausanne University Hospital (CHUV), Switzerland",
+        "orcid": "0000-0002-4441-899X"
+      },
+      {
+        "name": "Hagmann, Patric",
+        "affiliation": "Department of Radiology, Lausanne University Hospital (CHUV), Switzerland",
+        "orcid": "0000-0002-2854-6561"
+      }
+    ],
+    "access_right": "open",
+    "upload_type": "software"
+}

@@ -1,4 +1,7 @@
 # NeuroDataPub
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 This tool is developed by the [Connectomics
 Lab](https://wp.unil.ch/connectomics/) at the University Hospital of
@@ -112,3 +115,23 @@ create a new [GitHub Issue](https://github.com/NCCR-SYNAPSY/neurodatapub/issues)
 Supported by the National Centre of Competence in Research (NCCR)
 "SYNAPSY – Synaptic Bases of Mental Diseases" [NCCR-SYNAPSY](https://nccr-synapsy.ch/)
 (grant TO BE UPDATED).
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/sebastientourbier"><img src="https://avatars.githubusercontent.com/u/22279770?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Sébastien Tourbier</b></sub></a><br /><a href="https://github.com/NCCR-SYNAPSY/neurodatapub/commits?author=sebastientourbier" title="Code">💻</a> <a href="https://github.com/NCCR-SYNAPSY/neurodatapub/commits?author=sebastientourbier" title="Documentation">📖</a> <a href="#design-sebastientourbier" title="Design">🎨</a> <a href="#ideas-sebastientourbier" title="Ideas, Planning, & Feedback">🤔</a> <a href="#infra-sebastientourbier" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#maintenance-sebastientourbier" title="Maintenance">🚧</a> <a href="#mentoring-sebastientourbier" title="Mentoring">🧑‍🏫</a> <a href="#projectManagement-sebastientourbier" title="Project Management">📆</a> <a href="#question-sebastientourbier" title="Answering Questions">💬</a> <a href="https://github.com/NCCR-SYNAPSY/neurodatapub/pulls?q=is%3Apr+reviewed-by%3Asebastientourbier" title="Reviewed Pull Requests">👀</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!

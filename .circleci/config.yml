@@ -1,0 +1,119 @@
+version: 2.1
+
+# orbs:
+#   coverage-reporter: codacy/coverage-reporter@11.0.1
+
+jobs:
+
+  test-python-install:
+    parameters:
+      version:
+        type: string
+        default: latest
+    docker:
+      - image: circleci/python:<< parameters.version >>
+    steps:
+      - checkout
+      - run:
+          name: "Test Install Twine"
+          command: |
+            python --version
+            pip3 install twine
+      - run:
+          name: "Smoke Test Install Twine"
+          command: |
+            python --version
+            twine upload -h
+      - run:
+          name: "Test Wheel Build"
+          command: |
+            python3 setup.py sdist bdist_wheel
+      - run:
+          name: "Test Install"
+          command: |
+            pip install -e .
+      - run:
+          name: "Smoke Test Install"
+          command: |
+            python --version
+            pip3 install neurodatapub
+
+#  codacy-coverage-report:
+#    docker:
+#      - image: 'circleci/openjdk:8-jdk'
+#
+#    working_directory: /tmp/src/neurodatapub/data/test
+#
+#    steps:
+#      - attach_workspace:
+#          at: /tmp
+#      - coverage-reporter/send_report:
+#          coverage-reports: '/tmp/src/neurodatapub/data/test/test_coverage.xml'
+#          project-token: ${CODACY_PROJECT_TOKEN}
+
+  deploy-pypi-release:
+    parameters:
+      version:
+        type: string
+        default: latest
+    docker:
+      - image: circleci/python:<< parameters.version >>
+    steps:
+      - checkout
+      - run:
+          name: "Install dependencies"
+          command: |
+            python --version
+            pip3 install twine
+      - run:
+          name: "Verify git tag vs. version"
+          command: |
+            python3 setup.py verify
+      - run:
+          name: "init .pypirc"
+          command: |
+            echo -e "[pypi]" >> ~/.pypirc
+            echo -e "username = $PYPI_USER" >> ~/.pypirc
+            echo -e "password = $PYPI_TOKEN" >> ~/.pypirc
+      - run:
+          name: "Create distribution wheel"
+          command: |
+            python3 setup.py sdist bdist_wheel
+      - run:
+          name: "Upload to pypi"
+          command: |
+            twine upload dist/*
+
+workflows:
+  version: 2
+  build-test-deploy:
+    jobs:
+      - test-python-install:
+          version: "3.8"
+          filters:
+            tags:
+              only: /.*/
+
+#        - codacy-coverage-report:
+#            requires:
+#              - test-docker
+#            filters:
+#                branches:
+#                  ignore:
+#                    - /docs?\/.*/
+#                tags:
+#                  only: /.*/
+
+      - deploy-pypi-release:
+          version: "3.8"
+          requires:
+            - test-python-install
+            # - codacy-coverage-report
+          filters:
+            # ignore any commit on any branch by default
+            branches:
+              ignore: /.*/
+              # only: master
+            # only act on version tags
+            tags:
+              only: /^v.*/

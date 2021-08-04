@@ -37,7 +37,7 @@ def get_parser():
     p.add_argument(
         "--datalad_dir",
         help="The local directory where the Datalad dataset should be.",
-        required=True
+        required='--gui' not in " ".join(sys.argv),
     )
     p.add_argument(
         "--git_annex_ssh_special_sibling_config",

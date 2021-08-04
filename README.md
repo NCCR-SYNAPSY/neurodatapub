@@ -1,4 +1,4 @@
-# NeuroDataPub
+# NeuroDataPub: NCCR-SYNAPSY Neuroimaging Dataset Publishing Tool
 
 This tool is developed by the [Connectomics
 Lab](https://wp.unil.ch/connectomics/) at the University Hospital of

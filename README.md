@@ -15,15 +15,15 @@ open-source software distribution.
 
 ## Overview
 
-NeuroDataPub is an open-source neuroimaging dataset publishing tool written in Python and built on top of
+`NeuroDataPub` is an open-source neuroimaging dataset publishing tool written in Python and built on top of
 Datalad and git-annex. It was developed to facilitate the adoption of Datalad by the NCCR-SYNAPSY members
 to manage and publish privately or publicly their dataset repository on GitHub and the annexed files on
 their SSH data server, as prescribed by the Neuroimaging Data Management Plan.
 
 ![](https://github.com/NCCR-SYNAPSY/neurodatapub/raw/main/docs/images/neurodatapub_illustration.png)
 
-NeuroDataPub comes with its graphical user interface, aka the
-NeuroDataPub Assistant, created to facilitate:
+`NeuroDataPub` comes with its graphical user interface, aka the
+`NeuroDataPub Assistant`, created to facilitate:
 
 *   the configuration of the siblings,
 *   the creation of the JSON configuration files, as well as
@@ -32,7 +32,7 @@ NeuroDataPub Assistant, created to facilitate:
     2.  creation of a datalad dataset only,
     3.  publication of an existing datalad dataset only,
 
-NeuroDataPub is a Python 3.8 that can be easily installed with `pip` as follows:
+`NeuroDataPub` is a Python 3.8 that can be easily installed with `pip` as follows:
 
 ```bash
 pip install "git+https://github.com/NCCR-SYNAPSY/neurodatapub.git"
@@ -83,7 +83,7 @@ optional arguments:
 
 ## Aknowledgment
 
-If your are using NeuroDataPub in your work, please acknowledge this
+If your are using `NeuroDataPub` in your work, please acknowledge this
 software and its dependencies:
 
 1.  Tourbier S, Hagmann P., (2021). NCCR-SYNAPSY/neurodatapub: NCCR-SYNAPSY Neuroimaging Dataset Publishing Tool (Version 0.1). Zenodo.

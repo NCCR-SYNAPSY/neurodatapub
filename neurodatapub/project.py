@@ -133,7 +133,8 @@ class NeuroDataPubProject(HasTraits):
                 self.mode = "all"
             print(f'self.mode: {self.mode}')
 
-        self.input_bids_dir = bids_dir
+        if bids_dir:
+            self.input_bids_dir = bids_dir
 
         if datalad_dataset_dir:
             self.output_datalad_dataset_dir = datalad_dataset_dir

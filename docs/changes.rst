@@ -6,29 +6,55 @@ Changes
 Version 0.1
 --------------
 
-Date: August XX, 2021
+Date: August 05, 2021
 
-This corresponds to the first release of `NeuroDataPub`.
+Beta release which provides a first working prototype of `NeuroDataPub`.
 
 
 Features
 =============
 
-* Easy-installation via `pip install`
+* Provide a commandline interface (CLI) to create and publish neuroimaging datasets
+  to GitHub NCCR-SYNAPSY, with files annexed in a host institution, accessible
+  via `ssh`.
 
-* Commandline interface to help in creating and publishing a neuroimaging dataset to GitHub with files annexed in a host institution via `ssh`.
+* Adopt a `traits/traitsui` model that extends the CLI with a graphical user interface,
+  aka the `NeuroDataPub Assistant`, to improve its accessibility by non IT experts.
 
-* Graphical user interface
+* Provide a Conda `environment.yml` to support the installation of
+  Python with all dependencies.
 
-* Adopt CircleCI for continuous integration testing
-	See `CircleCI project page <https://app.circleci.com/pipelines/github/NCCR-SYNAPSY/neurodatapub>`_.
+* Provide a `setup.py` to make installation of the `neurodatapub` package easy with `pip install`.
+
+* Adopt CircleCI for continuous integration testing.
+  CircleCI project page: https://app.circleci.com/pipelines/github/NCCR-SYNAPSY/neurodatapub
 
 * Use `Codacy <https://www.codacy.com/>`_ to support code reviews and monitor code quality over time.
-
-* Use `coveragepy <https://coverage.readthedocs.io/en/coverage-5.2/>`_  in CircleCI during regression tests of the BIDS app and create code coverage reports published on our `Codacy project page <https://app.codacy.com/gh/Medical-Image-Analysis-Laboratory/mialsuperresolutiontoolkit/dashboard>`_.
+  Codacy project page: https://app.codacy.com/gh/NCCR-SYNAPSY/neurodatapub/dashboard
 
 
 More...
 ========
 
-Please check `pull request 1 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/1>`_ for more change details and development discussions.
+For more change details and development discussions, please check:
+
+* `pull request 1 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/1>`_:
+  Main PR with the core API.
+
+* `pull request 7 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/7>`_:
+  PR that adds the read-the-docs documentation source code and images.
+
+* `pull request 8 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/8>`_:
+  PR that adds the use of CircleCI for testing the installation and deploying
+  the package to PyPI.
+
+* `pull request 9 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/9>`_:
+  PR that adopts Codacy, correct code style issues, and update the README.
+
+* `pull request 12 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/12>`_:
+  PR that refines the `setup.py` (project status set to BETA) before
+  deployment to PyPI .
+
+* `pull request 13 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/13>`_:
+  PR that refines `changes.rst` and updates tool intro in `index.rst` and `README.md`
+  before deployment to PyPI.

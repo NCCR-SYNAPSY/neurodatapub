@@ -45,10 +45,16 @@ For more change details and development discussions, please check:
   PR that adds the read-the-docs documentation source code and images.
 
 * `pull request 8 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/8>`_:
-  PR that adds the use of CircleCI for testing the installation and deploying the package to PyPI.
+  PR that adds the use of CircleCI for testing the installation and deploying
+  the package to PyPI.
 
 * `pull request 9 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/9>`_:
   PR that adopts Codacy, correct code style issues, and update the README.
 
 * `pull request 12 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/12>`_:
-  PR that refines the `setup.py` before deployment to PyPI and the project status as BETA.
+  PR that refines the `setup.py` (project status set to BETA) before
+  deployment to PyPI .
+
+* `pull request 13 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/13>`_:
+  PR that refines `changes.rst` and updates tool intro in `index.rst` and `README.md`
+  before deployment to PyPI.

@@ -8,6 +8,7 @@ Diseases" NCCR-SYNAPSY](https://nccr-synapsy.ch/), as well as for
 open-source software distribution.
 
 ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/NCCR-SYNAPSY/neurodatapub?include_prereleases)
+[![Documentation Status](https://readthedocs.org/projects/neurodatapub/badge/?version=latest)](https://neurodatapub.readthedocs.io/en/latest/?badge=latest)
 [![CircleCI](https://circleci.com/gh/NCCR-SYNAPSY/neurodatapub/tree/main.svg?style=shield)](https://circleci.com/gh/NCCR-SYNAPSY/neurodatapub/tree/main)
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/e10b50b91e0f49b5866e527d3defd5ad)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=NCCR-SYNAPSY/neurodatapub&amp;utm_campaign=Badge_Grade)
@@ -41,7 +42,7 @@ pip install "git+https://github.com/NCCR-SYNAPSY/neurodatapub.git"
 
 ## Documentation
 
-*   TO BE UPDATED
+*   https://neurodatapub.readthedocs.io/
 
 ## Usage
 

@@ -132,8 +132,8 @@ buttons.
         # Creation of Datalad Dataset
         ############################################
 
-        > Initialize the Datalad dataset /home/localuser/Data/ds-sample/derivative/neurodatapub-|vrelease|
-        [INFO   ] Creating a new annex repo at /home/localuser/Data/ds-sample/derivative/neurodatapub-|vrelease|
+        > Initialize the Datalad dataset /home/localuser/Data/ds-sample/derivative/neurodatapub-v0.1
+        [INFO   ] Creating a new annex repo at /home/localuser/Data/ds-sample/derivative/neurodatapub-v0.1
         [INFO   ] Running procedure cfg_text2git
         [INFO   ] == Command start (output follows) =====
         [INFO   ] == Command exit (modification check follows) =====
@@ -143,7 +143,7 @@ buttons.
         [INFO   ] == Command start (output follows) =====
         [INFO   ] == Command exit (modification check follows) =====
         [INFO   ] == Command exit (modification check follows) =====
-        Dataset(/home/localuser/Data/ds-sample/derivative/neurodatapub-|vrelease|)
+        Dataset(/home/localuser/Data/ds-sample/derivative/neurodatapub-v0.1)
 
         [...]
 

@@ -41,8 +41,12 @@ For more change details and development discussions, please check:
 * `pull request 1 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/1>`_:
   Main PR with the core API.
 
-* `pull request 7 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/7>`_:
-  PR that adds the read-the-docs documentation source code and images.
+* `pull request 7 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/7>`_,
+  `pull request 16 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/16>`_,
+  `pull request 17 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/17>`_,
+  `pull request 18 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/18>`_,
+  `pull request 19 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/19>`_:
+  PRs that adds the read-the-docs documentation source code and images.
 
 * `pull request 8 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/8>`_:
   PR that adds the use of CircleCI for testing the installation and deploying
@@ -55,6 +59,10 @@ For more change details and development discussions, please check:
   PR that refines the `setup.py` (project status set to BETA) before
   deployment to PyPI .
 
-* `pull request 13 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/13>`_:
-  PR that refines `changes.rst` and updates tool intro in `index.rst` and `README.md`
+* `pull request 13 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/13>`_,
+  `pull request 21 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/13>`_:
+  PRs that refines `changes.rst`. PR#21 updates tool intro in `index.rst` and `README.md`
   before deployment to PyPI.
+
+* `pull request 20 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/20>`_:
+  PR that makes all options not required when executing with ``--gui``.

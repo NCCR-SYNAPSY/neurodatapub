@@ -1,6 +1,6 @@
 
-NeuroDataPub
-************************************
+NeuroDataPub: NCCR-SYNAPSY Neuroimaging Dataset Publishing Tool
+***************************************************************
 
 **Latest released version:** |vrelease|
 

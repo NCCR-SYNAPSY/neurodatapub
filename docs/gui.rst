@@ -60,15 +60,6 @@ git-annex and GitHub remote siblings.
     :align: center
     :width: 600
 
-A JSON configuration file that saves the settings for each of the two sibling
-could be created by clicking on their respective |save_button_img| button.
-
-.. |save_button_img| image:: ../neurodatapub/resources/save_json_icon_50x50.png
-    :height: 30
-    :width: 30
-    :alt: Save JSON
-    :align: middle
-
 
 3.1 Special remote sibling settings
 ------------------------------------
@@ -86,6 +77,19 @@ could be created by clicking on their respective |save_button_img| button.
 * ``"github_login"`` (mandatory): user login to GitHub.
 
 * ``"github_repo_name"`` (mandatory): Dataset repository name on GitHub
+
+
+3.3 Create the JSON sibling configuration files
+--------------------------------------------------
+
+Settings for each of the two siblings can be saved in a JSON file by clicking
+on their respective |save_button_img| button.
+
+.. |save_button_img| image:: ../neurodatapub/resources/save_json_icon_50x50.png
+    :height: 30
+    :width: 30
+    :alt: Save JSON
+    :align: middle
 
 
 4. Check the configuration and execute `NeuroDataPub`

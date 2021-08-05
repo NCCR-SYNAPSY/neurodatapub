@@ -267,7 +267,7 @@ latex_documents = [
 
 # The name of an image file (relative to this directory) to place at the top of
 # the title page.
-latex_logo = '../neurodatapub/resources/neurodatapub_logo_100x100.png'
+latex_logo = './images/neurodatapub_logo_400x400.png'
 
 # For "manual" documents, if this is true, then toplevel headings are parts,
 # not chapters.

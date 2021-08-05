@@ -60,6 +60,15 @@ git-annex and GitHub remote siblings.
     :align: center
     :width: 600
 
+A JSON configuration file that saves the settings for each of the two sibling
+could be created by clicking on their respective |save_button_img| button.
+
+.. |save_button_img| image:: ../neurodatapub/resources/save_json_icon_50x50.png
+    :height: 30
+    :width: 30
+    :alt: Save JSON
+    :align: middle
+
 
 3.1 Special remote sibling settings
 ------------------------------------

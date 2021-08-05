@@ -97,7 +97,7 @@ def main():
             },
             license='Apache-2.0',
             classifiers=[
-                'Development Status :: 4 - BETA',
+                'Development Status :: 4 - Beta',
                 'Intended Audience :: Science/Research',
                 'Intended Audience :: Developers',
                 'License :: OSI Approved',

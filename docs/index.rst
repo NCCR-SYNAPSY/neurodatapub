@@ -8,7 +8,7 @@ This tool is developed by the `Connectomics Lab <https://wp.unil.ch/connectomics
 within the lab and within the `National Centre of Competence in Research (NCCR) "SYNAPSY – Synaptic Bases of Mental Diseases" NCCR-SYNAPSY <https://nccr-synapsy.ch/>`_,
 as well as for open-source software distribution.
 
-.. image:: https://circleci.com/gh/NCCR-SYNAPSY/neurodatapub/tree/main.svg?style=svg
+.. image:: https://circleci.com/gh/NCCR-SYNAPSY/neurodatapub/tree/main.svg?style=shield
   :target: https://circleci.com/gh/NCCR-SYNAPSY/neurodatapub/tree/main
   :alt: Circle CI
 .. image:: https://img.shields.io/github/all-contributors/NCCR-SYNAPSY/neurodatapub
@@ -18,14 +18,15 @@ as well as for open-source software distribution.
   :target: https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=NCCR-SYNAPSY/neurodatapub&amp;utm_campaign=Badge_Grade
   :alt: Code quality
 
+
 Introduction
 =============
 
-`NeuroDataPub` is a `neuroimaging dataset publishing tool` built on top of
-`Datalad` and `git-annex`, developed for the
-NCCR-SYNAPSY members to lower the barriers in adopting Datalad to manage and publish
-privately or publicly their dataset repository on GitHub and the
-annexed files on their SSH data server.
+`NeuroDataPub` is a `neuroimaging dataset publishing tool` written in Python and
+built on top of `Datalad` and `git-annex`, that lowers the barriers, for the
+NCCR-SYNAPSY members, to adopt Datalad to manage and publish, privately or publicly,
+their dataset repository on GitHub and the annexed files on their SSH data server,
+in order to fully fulfill the implemented Neuroimaging Data Management Plan.
 
 .. figure:: images/neurodatapub_illustration.png
     :align: center
@@ -39,7 +40,7 @@ annexed files on their SSH data server.
 * the execution of `NeuroDataPub` in the three different modes.
 
 
-Aknowledgment
+Acknowledgment
 --------------
 
 If your are using `NeuroDataPub` in your work, please acknowledge

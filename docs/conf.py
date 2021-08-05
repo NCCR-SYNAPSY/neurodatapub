@@ -14,15 +14,13 @@
 
 import os
 import sys
+import time
+from recommonmark.parser import CommonMarkParser
+
+sys.path.append(os.path.abspath('../'))  # noqa: E402
 
 from neurodatapub.info import __version__
 from neurodatapub.info import __release_date__
-
-import time
-
-from recommonmark.parser import CommonMarkParser
-
-sys.path.append(os.path.abspath('../'))
 
 
 # Workaround: https://github.com/readthedocs/recommonmark/issues/177#issuecomment-555553053

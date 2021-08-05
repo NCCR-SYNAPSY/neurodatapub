@@ -42,7 +42,7 @@ pip install "git+https://github.com/NCCR-SYNAPSY/neurodatapub.git"
 
 ## Documentation
 
-*   TO BE UPDATED
+*   https://neurodatapub.readthedocs.io/
 
 ## Usage
 

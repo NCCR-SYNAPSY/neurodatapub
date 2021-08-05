@@ -138,7 +138,11 @@ def main():
                 print('An error occurred during the publication of the Datalad dataset')
     else:
         # GUI mode
-        print('GUI')
+        print(
+            "\n*********************************************\n"
+            "# Launch NeuroDataPub Assistant\n"
+            "*********************************************\n"
+        )
         # Create a NeuroDataPubProjectUI
         neurodatapub_project_gui = NeuroDataPubProjectUI(
                 bids_dir=args.bids_dir,

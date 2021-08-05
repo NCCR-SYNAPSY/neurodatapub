@@ -22,7 +22,7 @@ import time
 
 from recommonmark.parser import CommonMarkParser
 
-sys.path.append('../')
+sys.path.append(os.path.abspath('../'))
 
 
 # Workaround: https://github.com/readthedocs/recommonmark/issues/177#issuecomment-555553053

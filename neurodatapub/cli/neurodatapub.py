@@ -49,20 +49,21 @@ def main():
     #####################
 
     # 1. Check if the BIDS directory exists
-    if not os.path.exists(args.bids_dir):
+    if args.bids_dir and not os.path.exists(args.bids_dir):
         print(
             f"The provided BIDS directory ({args.bids_dir}) does not exists"
         )
         exit_code = 1
         return exit_code
-    # 2. Check if the BIDS dataset is successfully loaded by pybids
-    try:
-        layout = BIDSLayout(args.bids_dir)
-        print(f'PyBIDS summary of input dataset:\n{layout}')
-    except Exception as e:
-        print(f'{e}')
-        exit_code = 1
-        return exit_code
+    elif args.bids_dir and os.path.exists(args.bids_dir):
+        # 2. Check if the BIDS dataset is successfully loaded by pybids
+        try:
+            layout = BIDSLayout(args.bids_dir)
+            print(f'PyBIDS summary of input dataset:\n{layout}')
+        except Exception as e:
+            print(f'{e}')
+            exit_code = 1
+            return exit_code
 
     # 3. Validate sibling configuration files if given
     #    Exit if the json schema of the file is invalid

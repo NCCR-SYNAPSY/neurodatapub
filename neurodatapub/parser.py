@@ -32,7 +32,7 @@ def get_parser():
         "--bids_dir",
         help="The directory with the input dataset "
              "formatted according to the BIDS standard.",
-        required=True
+        required='--gui' not in " ".join(sys.argv),
     )
     p.add_argument(
         "--datalad_dir",

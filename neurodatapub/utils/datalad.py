@@ -139,7 +139,7 @@ def publish_dataset(
     `res` : string
         Output of `datalad.api.publish()
     """
-    res = datalad.api.publish(
+    res = datalad.api.push(
         dataset=datalad_dataset_dir,
         to='github',
         jobs='auto'

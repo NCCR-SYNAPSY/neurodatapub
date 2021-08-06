@@ -12,7 +12,7 @@ dependencies:
 - traitsui=7.2.1
 - datalad=0.14.5
 - rsync=3.2.3
-# - git-annex=8.20210621
+- git-annex=8.20210621
 
 - pip:
     - argparse==1.4.0

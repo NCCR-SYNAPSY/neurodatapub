@@ -1,7 +1,7 @@
 .. _remote_setup:
 
 *********************************
-Special remote data server setup
+Remote Data Server Setup
 *********************************
 
 In this section, you will see how to setup your special remote data server to store Datalad-managed datasets.

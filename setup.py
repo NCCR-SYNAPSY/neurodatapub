@@ -88,6 +88,7 @@ def main():
             'NeuroDataPub: Tool built for publication of BIDS datasets '
             'of the NCCR-Synapsy',
             long_description=long_description,
+            long_description_content_type='text/markdown',
             author='Sebastien Tourbier',
             author_email='sebastien.tourbier@alumni.epfl.ch',
             url='https://github.com/NCCR-SYNAPSY/neurodatapub',

@@ -9,7 +9,11 @@ from setuptools.command.install import install
 
 from neurodatapub.info import __version__
 
-directory = os.path.dirname(os.path.abspath(__file__))
+directory = os.path.abspath(os.path.dirname(__file__))
+
+# Read the contents of your README file
+with open(os.path.join(directory, 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
 
 if os.path.exists('MANIFEST'):
     os.remove('MANIFEST')
@@ -83,10 +87,7 @@ def main():
             description=
             'NeuroDataPub: Tool built for publication of BIDS datasets '
             'of the NCCR-Synapsy',
-            long_description=
-            """NeuroDataPub is built on top of Datalad and helps
-            NCCR-Synapsy members in the task of referencing its dataset
-            to the NCCR-SYNAPSY GitHub organization. """,
+            long_description=long_description,
             author='Sebastien Tourbier',
             author_email='sebastien.tourbier@alumni.epfl.ch',
             url='https://github.com/NCCR-SYNAPSY/neurodatapub',

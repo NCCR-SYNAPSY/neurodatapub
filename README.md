@@ -38,7 +38,7 @@ created to facilitate:
 `NeuroDataPub` is a Python 3.8 package that can be easily installed with `pip` as follows:
 
 ```bash
-pip install "git+https://github.com/NCCR-SYNAPSY/neurodatapub.git"
+pip install neurodatapub
 ```
 
 ## Documentation

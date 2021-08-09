@@ -6,6 +6,10 @@
 
 """`neurodatapub.utils.sshconfig`: utils function to edit SSH config."""
 
+import os
+from pathlib import Path
+from datetime import datetime
+
 
 def update_ssh_config(sshurl, user):
     """
@@ -20,25 +24,48 @@ def update_ssh_config(sshurl, user):
         `ssh://server.example.org`
 
     user : str
-        User login for authentification the git-annex special remote
-
-    Returns
-    -------
-    lines : string
-        Entry added to SSH config
+        User login for authentication to the git-annex special remote
     """
+    # Remove "ssh://" prefix in SSH URL
     sshurl = sshurl.replace('ssh://', '')
 
-    lines = None
-    ssh_config_path = '~/.ssh/config'
-    with open(ssh_config_path, 'a') as ssh_config:
-        # Add the entry if it does not exist
-        if f'Host {sshurl}' not in ssh_config.read():
+    # Path to ssh config file
+    ssh_config_path = os.path.join(
+        str(Path.home()),
+        '.ssh',
+        'config'
+    )
+    print(f'\t* Add new entry in {ssh_config_path}')
+
+    # Save the current content of an existing ssh config file
+    content = None
+    if os.path.exists(ssh_config_path):
+        with open(ssh_config_path, 'r+') as ssh_config:
+            content = ssh_config.read()
+
+    # Add the entry if it does not exist in the existing ssh config file
+    with open(ssh_config_path, 'w+') as ssh_config:
+        if (content and (f'Host {sshurl}' not in content))\
+                or content is None:
+            hdr = [
+                '## Added by NeuroDataPub ',
+                f'({datetime.strftime(datetime.now(), "%d. %B %Y %I:%M%p")}) ##\n',
+
+            ]
             lines = [
-                f'\nHost {sshurl} \n',
+                f'Host {sshurl} \n',
                 f'\tHostName {sshurl} \n',
                 f'\tUser {user} \n\n'
             ]
-            ssh_config.writelines(lines)
+            try:
+                ssh_config.writelines(hdr + lines)
+                print(f'\t  - Entry:\n\n{"".join(lines)}')
+            except Exception as e:
+                print(f'\t  - ERROR:\n\n{e}')
+        else:
+            print(f'\t  - INFO: Entry for `Host {sshurl}` already existing!\n\n')
 
-    return lines
+    # Append the previous content of the existing ssh config file
+    if content:
+        with open(ssh_config_path, 'a') as ssh_config:
+            ssh_config.write(content)

@@ -17,6 +17,7 @@ from neurodatapub.utils.datalad import (
 )
 from neurodatapub.utils.gitannex import init_ssh_special_sibling, enable_ssh_special_sibling
 from neurodatapub.utils.io import copy_content_to_datalad_dataset
+from neurodatapub.utils.sshconfig import update_ssh_config
 
 
 class NeuroDataPubProject(HasTraits):
@@ -216,6 +217,13 @@ class NeuroDataPubProject(HasTraits):
 
     def configure_siblings(self):
         """Configure the siblings of the Datalad dataset for publication."""
+        # Update SSH config file to use self.remote_ssh_login
+        # by default when connecting to self.remote_ssh_url
+        print('> Update SSH config with special remote entry')
+        update_ssh_config(
+            sshurl=self.remote_ssh_url,
+            user=self.remote_ssh_login
+        )
         # Configuration of git-annex special remote sibling to host annexed files
         git_annex_special_sibling_config_dict = dict(
             {

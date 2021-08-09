@@ -1,9 +1,9 @@
 """Neurodatapub package information."""
 
 _version_major = 0
-_version_minor = 1
+_version_minor = 2
 
-__release_date__ = 'DD.MM.2021'
+__release_date__ = '09.08.2021'
 
 __version__ = "%s.%s" % (_version_major, _version_minor)
 

@@ -3,6 +3,47 @@ Changes
 **************
 
 
+Version 0.2
+--------------
+
+Date: August 09, 2021
+
+Second beta release of `NeuroDataPub` that includes in particular the following changes.
+
+
+New Features
+=============
+
+* Update automatically the SSH config with an entry for the remote SSH server to configure the user login used by default by `ssh`. (See `PR#25 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/25>`_)
+
+Documentation
+=============
+
+* Add documentation page to give instructions for the remote data server setup. (See `PR#28 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/28>`_)
+
+* Update documentation for the creation of the conda environment and the installation of `git-annex` on Linux and MacOSX (See `PR#23 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/23>`_)
+
+Bug Fixes
+=========
+
+* Replace *old* `datalad.api.publish()` with *new* `datalad.api.push()`. (See `PR#22 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/22>`_)
+
+  .. note::
+    `datalad.api.publish()` was not able to handle properly the publication of the special git-annex remote such that it was impossible to get the content of the annexed files.
+
+Misc
+===========
+
+* Add `conda/environment_macosx.yml`, a conda environment file specific to MacOSX where `git-annex` is not included. (See `PR#23 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/23>`_)
+
+* Use content of README as `long_description` in `setup.py` for publication to PyPI. (See `PR#26 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/26>`_)
+
+More...
+========
+
+Please check the main release pull request `PR#24 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/24>`_.
+
+
 Version 0.1
 --------------
 

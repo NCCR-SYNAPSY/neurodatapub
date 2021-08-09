@@ -67,7 +67,7 @@ Once the `neurodatapub-env` conda environment, `NeuroDataPub` can be installed i
 
   .. code-block:: console
 
-     $ pip install "git+https://github.com/NCCR-SYNAPSY/neurodatapub.git"
+     $ pip install neurodatapub
 
 * You are almost ready to use `NeuroDataPub`! You would need to have at least `git-annex` installed on the remote data server. Please see :ref:`remote_setup` for instructions.
 

@@ -4,6 +4,15 @@
 NeuroDataPub Assistant Guide
 *********************************
 
+.. important::
+    `NeuroDataPub` takes as principal input the path of your dataset. The input dataset is required to be in *valid BIDS format*. See :ref:`BIDS standard <bids>` for more information about BIDS.
+
+    Before using `NeuroDataPub`, your dataset should be validated with the free, online `BIDS Validator <http://bids-standard.github.io/bids-validator/>`_,
+    or its standalone version.
+
+    Note also that before using `NeuroDataPub`, your remote data server should provide at least an installation of `git-annex`. Please see :ref:`remote_setup` for instructions.
+
+
 Introduction
 ============
 

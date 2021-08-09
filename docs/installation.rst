@@ -22,9 +22,14 @@ However, if you are not afraid by the creation of JSON files, or you feel more c
 Installation of Miniconda 3
 ------------------------------
 
-* Download the installer of `Miniconda 3` corresponding to your 32/64bits MacOSX/Linux/Win system from https://conda.io/miniconda.html.
+* Download the installer of `Miniconda 3` corresponding to your 32/64bits MacOSX/Linux/Win system from https://conda.io/miniconda.html. This can alternatively be done in the terminal::
 
-* Execute the downloaded script to install it.
+    $ wget https://repo.anaconda.com/miniconda/Miniconda3-latest-<YOUR-OS>-x86_64.sh
+
+* Execute the downloaded script to install it::
+
+    $ bash Miniconda3-latest-<YOUR-OS>-x86_64.sh
+
 
 .. note:: `NeuroDataPub` has been tested only on Ubuntu and MacOSX.
 
@@ -54,7 +59,7 @@ Once the `neurodatapub-env` conda environment, `NeuroDataPub` can be installed i
 
      $ pip install "git+https://github.com/NCCR-SYNAPSY/neurodatapub.git"
 
-* You are ready to use `NeuroDataPub`!
+* You are almost ready to use `NeuroDataPub`! You would need to have at least `git-annex` installed on the remote data server. Please see :ref:`remote_setup` for instructions.
 
 Help/Questions
 --------------

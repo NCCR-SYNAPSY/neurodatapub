@@ -8,6 +8,9 @@ This tool is developed by the `Connectomics Lab <https://wp.unil.ch/connectomics
 within the lab and within the `National Centre of Competence in Research (NCCR) "SYNAPSY – Synaptic Bases of Mental Diseases" NCCR-SYNAPSY <https://nccr-synapsy.ch/>`_,
 as well as for open-source software distribution.
 
+.. image:: https://img.shields.io/pypi/v/neurodatapub
+  :target: https://pypi.org/project/neurodatapub/
+  :alt: PyPI
 .. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.5163950.svg
   :target: https://doi.org/10.5281/zenodo.5163950
   :alt: Digital Object Identifier
@@ -90,6 +93,7 @@ Contents
    :caption: Getting started
 
    installation
+   remote_setup
 
 .. _user-docs:
 

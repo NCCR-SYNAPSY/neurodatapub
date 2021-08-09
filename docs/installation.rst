@@ -22,9 +22,14 @@ However, if you are not afraid by the creation of JSON files, or you feel more c
 Installation of Miniconda 3
 ------------------------------
 
-* Download the installer of `Miniconda 3` corresponding to your 32/64bits MacOSX/Linux/Win system from https://conda.io/miniconda.html.
+* Download the installer of `Miniconda 3` corresponding to your 32/64bits MacOSX/Linux/Win system from https://conda.io/miniconda.html. This can alternatively be done in the terminal::
 
-* Execute the downloaded script to install it.
+    $ wget https://repo.anaconda.com/miniconda/Miniconda3-latest-<YOUR-OS>-x86_64.sh
+
+* Execute the downloaded script to install it::
+
+    $ bash Miniconda3-latest-<YOUR-OS>-x86_64.sh
+
 
 .. note:: `NeuroDataPub` has been tested only on Ubuntu and MacOSX.
 
@@ -34,13 +39,23 @@ Installation of Miniconda 3
 Creation of `neurodatapub-env` conda environment
 -------------------------------------------------
 
-* Download the conda `environment.yml <https://github.com/NCCR-SYNAPSY/neurodatapub/raw/main/conda/environment.yml>`_
+* Download the appropriate conda `environment.yml <https://github.com/NCCR-SYNAPSY/neurodatapub/raw/main/conda/environment.yml>`_ or
+  `environment_macosx.yml <https://github.com/NCCR-SYNAPSY/neurodatapub/raw/main/conda/environment_macosx.yml>`_
+  depending on your OS.
+
+  .. important::
+     It seems there is no conda package for `git-annex` available on Mac.
+     For convenience, we created an additional `environment_macosx.yml <https://github.com/NCCR-SYNAPSY/neurodatapub/raw/main/conda/environment_macosx.yml>`_
+     miniconda3 environment where the line `- git-annex=[...]` has been removed.
+     Git-annex should be installed on MacOSX using `brew <https://brew.sh/index_fr>`_
+     i.e. ``brew install git-annex``.
+     See https://git-annex.branchable.com/install/ for more details.
 
 * Create the `neurodatapub-env` conda environment:
 
   .. parsed-literal::
 
-     $ conda env create -f /path/to/downloaded/environment.yml
+     $ conda env create -f /path/to/downloaded/environment[_macosx].yml
 
   This will create a Python 3.8 environment with all dependencies installed.
 
@@ -54,7 +69,7 @@ Once the `neurodatapub-env` conda environment, `NeuroDataPub` can be installed i
 
      $ pip install "git+https://github.com/NCCR-SYNAPSY/neurodatapub.git"
 
-* You are ready to use `NeuroDataPub`!
+* You are almost ready to use `NeuroDataPub`! You would need to have at least `git-annex` installed on the remote data server. Please see :ref:`remote_setup` for instructions.
 
 Help/Questions
 --------------

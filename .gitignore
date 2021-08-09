@@ -7,3 +7,6 @@
 # Ignore build directory
 _build
 build
+
+# Ignore pycache
+__pycache__

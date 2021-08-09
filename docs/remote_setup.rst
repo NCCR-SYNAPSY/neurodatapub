@@ -1,10 +1,10 @@
 .. _remote_setup:
 
 *********************************
-Special remote setup to host data
+Special remote data server setup
 *********************************
 
-In this section, you will see how to setup your special remote server to store Datalad-managed data.
+In this section, you will see how to setup your special remote data server to store Datalad-managed datasets.
 As one normal user usually does not have root/admin privileges to the server, this prevents her/him to install them via `apt-get`.
 
 In this case, there exist two user-based installation solutions, depending on the accessibility of your remote data server to internet:

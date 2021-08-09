@@ -2,7 +2,7 @@
 .. _bids:
 
 *******************************************
-BIDS standard
+BIDS Standard
 *******************************************
 
 A dataset published with `NeuroDataPub` HAS TO ADOPT the :abbr:`BIDS (Brain Imaging Data Structure)` standard for data organization and is developed following the BIDS App standard. This means that `NeuroDataPub` handles only datasets formatted following the BIDS standard (See :ref:`cmdusage` for more details).

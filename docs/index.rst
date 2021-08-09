@@ -93,6 +93,7 @@ Contents
    :caption: Getting started
 
    installation
+   remote_setup
 
 .. _user-docs:
 

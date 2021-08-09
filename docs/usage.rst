@@ -10,6 +10,7 @@ Commandline Usage
     Before using `NeuroDataPub`, your dataset should be validated with the free, online `BIDS Validator <http://bids-standard.github.io/bids-validator/>`_,
     or its standalone version.
 
+    Note also that before using `NeuroDataPub`, the remote data server should provide at least an installation of `git-annex`. Please see :ref:`remote_setup` for instructions.
 
 .. _cliparser:
 

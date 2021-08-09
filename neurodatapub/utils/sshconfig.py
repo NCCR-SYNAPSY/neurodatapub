@@ -26,10 +26,6 @@ def update_ssh_config(sshurl, user):
     user : str
         User login for authentication to the git-annex special remote
     """
-    # Variable initialization to None
-    content = None
-    lines = None
-
     # Remove "ssh://" prefix in SSH URL
     sshurl = sshurl.replace('ssh://', '')
 
@@ -42,6 +38,7 @@ def update_ssh_config(sshurl, user):
     print(f'\t* Add new entry in {ssh_config_path}')
 
     # Save the current content of an existing ssh config file
+    content = None
     if os.path.exists(ssh_config_path):
         with open(ssh_config_path, 'r+') as ssh_config:
             content = ssh_config.read()

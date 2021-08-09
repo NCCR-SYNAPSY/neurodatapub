@@ -219,7 +219,7 @@ class NeuroDataPubProject(HasTraits):
         """Configure the siblings of the Datalad dataset for publication."""
         # Update SSH config file to use self.remote_ssh_login
         # by default when connecting to self.remote_ssh_url
-        print(f'> Update SSH config with special remote entry')
+        print('> Update SSH config with special remote entry')
         update_ssh_config(
             sshurl=self.remote_ssh_url,
             user=self.remote_ssh_login

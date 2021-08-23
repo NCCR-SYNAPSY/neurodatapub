@@ -123,8 +123,82 @@ def create_github_sibling(
     return res
 
 
+def authenticate_osf(
+    osf_token
+):
+    """
+    Function that initialize the authentication to OSF using a personnal OSF TOKEN.
+
+    Parameters
+    ----------
+    osf_token : string
+        Personal OSF access token.
+        It can be generated under your user account
+        at `osf.io/settings/tokens <https://osf.io/settings/tokens>`_.
+
+    Returns
+    -------
+    `res` : string
+        Output of ` datalad.api.osf_credentials()`
+    """
+    os.environ['OSF_TOKEN'] = osf_token
+    res = datalad.api.osf_credentials(
+        method='token',
+        reset=True
+    )
+
+    return res
+
+
+def create_osf_sibling(
+    datalad_dataset_dir,
+    osf_dataset_title
+):
+    """
+    Function that creates the OSF dataset repository sibling via `datalad.api.create_sibling_osf()` of the `datalad-osf` extension.
+
+    Parameters
+    ----------
+    datalad_dataset_dir : string
+        Local path of Datalad dataset to be published
+
+    osf_dataset_title : string
+        Title of the dataset on OSF
+
+    Returns
+    -------
+    `res` : string
+        Output of `datalad.api.create_sibling_osf()
+    """
+    # Use the contents of the README file of the BIDS dataset
+    # as description of the dataset published to OSF
+    readme_file = os.path.join(datalad_dataset_dir, 'README')
+    if os.path.exists(readme_file):
+        with open(readme_file, encoding='utf-8') as f:
+            dataset_description = f.read()
+    else:
+        dataset_description = None
+
+    # Create the OSF sibling.
+    # If the sibling is existing, this will be skipped.
+    res = datalad.api.create_sibling_osf(
+        title=osf_dataset_title,
+        name='osf',
+        dataset=datalad_dataset_dir,
+        mode='annex',
+        existing='skip',
+        trust_level=None,
+        tags='neuroimaging',
+        public=False,
+        category='data',
+        description=dataset_description
+    )
+
+    return res
+
+
 def publish_dataset(
-        datalad_dataset_dir
+    datalad_dataset_dir
 ):
     """
     Function that publishes the dataset repository to GitHub and the annexed files to a SSH special remote.

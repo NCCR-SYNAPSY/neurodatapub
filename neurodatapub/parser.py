@@ -46,12 +46,14 @@ def get_parser():
         required='--gui' not in " ".join(sys.argv),
         type=str
     )
-    storage_sibling_config = p.add_mutually_exclusive_group(required='--gui' not in " ".join(sys.argv))
+    storage_sibling_config = p.add_mutually_exclusive_group(
+        required='--gui' not in " ".join(sys.argv)
+    )
     storage_sibling_config.add_argument(
-            "--git_annex_ssh_special_sibling_config",
-            help="Path to a JSON file containing configuration "
-                 "parameters for the git-annex SSH special remote dataset sibling",
-            type=str
+        "--git_annex_ssh_special_sibling_config",
+        help="Path to a JSON file containing configuration "
+             "parameters for the git-annex SSH special remote dataset sibling",
+        type=str
     )
     storage_sibling_config.add_argument(
         "--osf_sibling_config",

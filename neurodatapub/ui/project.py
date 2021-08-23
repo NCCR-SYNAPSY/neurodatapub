@@ -98,38 +98,46 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
                     label="Configuration of Directories"
                 ),
                 VGroup(
-                    HGroup(
-                        VGroup(
-                            Item('remote_ssh_login'),
-                            Item('remote_ssh_url'),
-                            Item('remote_sibling_dir',
-                                 editor=DirectoryEditor(dialog_style='open'),
-                                 style_sheet=return_folder_button_style_sheet()),
-                            # Item('git_annex_special_sibling_config', style_sheet=return_folder_button_style_sheet()),
-                            label="Git-annex special SSH remote sibling"
+                    VGroup(
+                        Item('sibling_type'),
+                        HGroup(
+                            VGroup(
+                                Item('remote_ssh_login', visible_when='sibling_type == "ssh"'),
+                                Item('remote_ssh_url', visible_when='sibling_type == "ssh"'),
+                                Item('remote_sibling_dir',
+                                     editor=DirectoryEditor(dialog_style='open'),
+                                     style_sheet=return_folder_button_style_sheet(),
+                                     visible_when='sibling_type == "ssh"'),
+                                Item('osf_token', visible_when='sibling_type == "osf"'),
+                                Item('osf_dataset_title', visible_when='sibling_type == "osf"'),
+                                # Item('git_annex_special_sibling_config', style_sheet=return_folder_button_style_sheet()),
+                            ),
+                            VGroup(
+                                spring,
+                                Item('save_special_sibling_config_button',
+                                     style_sheet=return_save_json_button_style_sheet(),
+                                     show_label=False),
+                                spring,
+                            ),
                         ),
-                        VGroup(
-                            spring,
-                            Item('save_special_sibling_config_button',
-                                 style_sheet=return_save_json_button_style_sheet(),
-                                 show_label=False),
-                            spring,
-                        ),
+                        label="Git-annex special SSH remote sibling"
                     ),
-                    HGroup(
-                        VGroup(
-                            Item('github_login'),
-                            Item('github_repo_name'),
-                            # Item('github_sibling_config', style_sheet=return_folder_button_style_sheet()),
-                            label="GitHub sibling"
+                    VGroup(
+                        HGroup(
+                            VGroup(
+                                Item('github_login'),
+                                Item('github_repo_name'),
+                                # Item('github_sibling_config', style_sheet=return_folder_button_style_sheet()),
+                            ),
+                            VGroup(
+                                spring,
+                                Item('save_github_sibling_config_button',
+                                     style_sheet=return_save_json_button_style_sheet(),
+                                     show_label=False),
+                                spring,
+                            ),
                         ),
-                        VGroup(
-                            spring,
-                            Item('save_github_sibling_config_button',
-                                 style_sheet=return_save_json_button_style_sheet(),
-                                 show_label=False),
-                            spring,
-                        ),
+                        label="GitHub sibling"
                     ),
                     label="Configuration of Siblings"
                 ),
@@ -168,7 +176,7 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
             "resources/neurodatapub_logo_100x100.png"
         ),
         width=800,
-        height=450,
+        height=600,
         style_sheet=return_global_style_sheet()
     )
 
@@ -308,13 +316,21 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
             self.git_annex_special_sibling_config = dlg.path
             # Save configuration of git-annex special remote sibling
             # to host annexed files
-            git_annex_special_sibling_config_dict = dict(
-                {
-                    "remote_ssh_login": self.remote_ssh_login,
-                    "remote_ssh_url": self.remote_ssh_url,
-                    "remote_sibling_dir": self.remote_sibling_dir
-                }
-            )
+            if self.sibling_type == 'ssh':
+                git_annex_special_sibling_config_dict = dict(
+                    {
+                        "remote_ssh_login": self.remote_ssh_login,
+                        "remote_ssh_url": self.remote_ssh_url,
+                        "remote_sibling_dir": self.remote_sibling_dir
+                    }
+                )
+            else:
+                git_annex_special_sibling_config_dict = dict(
+                    {
+                        "osf_token": self.osf_token,
+                        "osf_dataset_title": self.osf_dataset_title
+                    }
+                )
             with open(self.git_annex_special_sibling_config, 'w+') as outfile:
                 json.dump(git_annex_special_sibling_config_dict, outfile, indent=4)
             print(f'> Saved as {self.git_annex_special_sibling_config}')

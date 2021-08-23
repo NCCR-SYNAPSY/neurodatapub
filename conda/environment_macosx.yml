@@ -16,6 +16,7 @@ dependencies:
 - pip:
     - argparse==1.4.0
     - datalad-neuroimaging==0.3.1
+    - datalad-osf==0.2.3.1
     - jsonschema==3.2.0
     - pybids==0.13.1
     - nbsphinx==0.8.6

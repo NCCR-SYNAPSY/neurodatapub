@@ -201,13 +201,13 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
             print(f'\t* BIDS ERROR: {e}')
             self.config_is_valid = False
 
-        if not self.remote_ssh_login:
+        if self.sibling_type == "ssh" and not self.remote_ssh_login:
             print('\t* remote_ssh_login: UNDEFINED')
             self.config_is_valid = False
         else:
             print(f'\t* remote_ssh_login: {self.remote_ssh_login}')
 
-        if not self.remote_ssh_url:
+        if self.sibling_type == "ssh" and not self.remote_ssh_url:
             print('\t* remote_ssh_url: UNDEFINED')
             self.config_is_valid = False
         else:
@@ -218,11 +218,23 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
             else:
                 print(f'\t* remote_ssh_url: {self.remote_ssh_url}')
 
-        if not self.remote_sibling_dir:
+        if self.sibling_type == "ssh" and not self.remote_sibling_dir:
             print('\t* remote_sibling_dir: UNDEFINED')
             self.config_is_valid = False
         else:
             print(f'\t* remote_sibling_dir: {self.remote_sibling_dir}')
+
+        if self.sibling_type == "osf" and not self.osf_token:
+            print('\t* osf_token: UNDEFINED')
+            self.config_is_valid = False
+        else:
+            print(f'\t* osf_token: {self.osf_token}')
+
+        if self.sibling_type == "osf" and not self.osf_dataset_title:
+            print('\t* osf_dataset_title: UNDEFINED')
+            self.config_is_valid = False
+        else:
+            print(f'\t* osf_dataset_title: {self.osf_dataset_title}')
 
         if not self.github_login:
             print('\t* github_login: UNDEFINED')

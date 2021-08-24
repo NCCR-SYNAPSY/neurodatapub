@@ -327,20 +327,21 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
         if dlg.open() == OK:
             self.git_annex_special_sibling_config = dlg.path
             # Save configuration of git-annex special remote sibling
-            # to host annexed files
+            # to host annexed files.
+            # Make sure that leading and trailing whitespaces are removed.
             if self.sibling_type == 'ssh':
                 git_annex_special_sibling_config_dict = dict(
                     {
-                        "remote_ssh_login": self.remote_ssh_login,
-                        "remote_ssh_url": self.remote_ssh_url,
-                        "remote_sibling_dir": self.remote_sibling_dir
+                        "remote_ssh_login": self.remote_ssh_login.strip(),
+                        "remote_ssh_url": self.remote_ssh_url.strip(),
+                        "remote_sibling_dir": self.remote_sibling_dir.strip()
                     }
                 )
             else:
                 git_annex_special_sibling_config_dict = dict(
                     {
-                        "osf_token": self.osf_token,
-                        "osf_dataset_title": self.osf_dataset_title
+                        "osf_token": self.osf_token.strip(),
+                        "osf_dataset_title": self.osf_dataset_title.strip()
                     }
                 )
             with open(self.git_annex_special_sibling_config, 'w+') as outfile:
@@ -379,8 +380,8 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
             # host dataset repository
             github_sibling_config_dict = dict(
                 {
-                    "github_login": self.github_login,
-                    "github_repo_name": self.github_repo_name
+                    "github_login": self.github_login.strip(),
+                    "github_repo_name": self.github_repo_name.strip()
                 }
             )
             with open(self.github_sibling_config, 'w+') as outfile:

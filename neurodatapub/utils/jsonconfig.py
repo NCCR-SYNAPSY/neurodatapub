@@ -17,7 +17,7 @@ SPECIAL_REMOTE_SIBLING_CONFIG_SCHEMA = {
     "properties": {
         "remote_ssh_login": {
             "type": "string",
-            "pattern": "^[A-Za-z0-9]+"
+            "pattern": "^[\\w-]+$"
         },
         "remote_ssh_url": {
             "type": "string",
@@ -37,11 +37,11 @@ GITHUB_SIBLING_CONFIG_SCHEMA = {
     "properties": {
         "github_login": {
             "type": "string",
-            "pattern": "[A-Za-z0-9]+"
+            "pattern": "^[\\w-]+$"
         },
         "github_repo_name": {
             "type": "string",
-            "pattern": "[A-Za-z0-9]+"
+            "pattern": "^[\\w-]+$"
         },
     },
     "required": ["github_login", "github_repo_name"]
@@ -52,10 +52,16 @@ OSF_SIBLING_CONFIG_SCHEMA = {
     "properties": {
         "osf_token": {
             "type": "string",
-            "pattern": "[A-Za-z0-9]+"
+            "pattern": "^[\\w.-]+$"
         },
     },
-    "required": ["osf_token"]
+    "properties": {
+        "osf_dataset_title": {
+            "type": "string",
+            "pattern": "^[\\w\\s]+$"
+        },
+    },
+    "required": ["osf_token", "osf_dataset_title"]
 }
 
 

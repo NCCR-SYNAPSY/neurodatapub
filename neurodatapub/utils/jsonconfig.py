@@ -58,7 +58,7 @@ OSF_SIBLING_CONFIG_SCHEMA = {
     "properties": {
         "osf_dataset_title": {
             "type": "string",
-            "pattern": "^[\\w\\s]+$"
+            "pattern": "^[\\w\\s-]+$"
         },
     },
     "required": ["osf_token", "osf_dataset_title"]

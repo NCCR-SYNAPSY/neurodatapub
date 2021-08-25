@@ -100,7 +100,7 @@ def create_github_sibling(
         Dictionary of parsed input argument in the form::
 
             {
-                'github_login': "github_bob",
+                'github_organization': "NCCR-SYNAPSY",
                 'github_repo_name': "ds-example",
             }
 
@@ -116,8 +116,7 @@ def create_github_sibling(
     """
     res = datalad.api.create_sibling_github(
         reponame=github_sibling_args["github_repo_name"],
-        github_login=github_sibling_args["github_login"],
-        github_organization=GITHUB_ORGANIZATION,
+        github_organization=github_sibling_args["github_organization"],
         publish_depends=gitannex_remote_name,
         private=True,
         dataset=datalad_dataset_dir,
@@ -198,7 +197,6 @@ def create_osf_sibling(
         category='data',
         description=dataset_description
     )
-
     return res
 
 

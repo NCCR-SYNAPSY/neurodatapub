@@ -400,7 +400,9 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
             # host dataset repository
             github_sibling_config_dict = dict(
                 {
-                    "github_login": self.github_login.strip(),
+                    "github_email": self.github_email.strip(),
+                    "github_organization": self.github_organization.strip(),
+                    "github_token": self.github_token.strip(),
                     "github_repo_name": self.github_repo_name.strip()
                 }
             )

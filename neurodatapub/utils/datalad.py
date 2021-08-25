@@ -11,6 +11,7 @@ import datalad.api
 
 GITHUB_ORGANIZATION='NCCR-SYNAPSY'
 DEFAULT_SSH_REMOTE_NAME = 'ssh_remote'
+DEFAULT_OSF_REMOTE_NAME = 'osf-storage'
 DEFAULT_DATALAD_SSH_SIBLING_NAME = 'datalad_ssh_sibling'
 
 
@@ -84,7 +85,7 @@ def create_ssh_sibling(
 def create_github_sibling(
     datalad_dataset_dir,
     github_sibling_args,
-    ssh_special_remote_name=DEFAULT_SSH_REMOTE_NAME
+    gitannex_remote_name=DEFAULT_SSH_REMOTE_NAME
 ):
     """
     Function that creates the GitHub dataset repository siblings via `datalad.api.create_sibling_github()`.
@@ -102,9 +103,10 @@ def create_github_sibling(
                 'github_repo_name': "ds-example",
             }
 
-    ssh_special_remote_name : string
-        Name of the special remote sibling created with
-        `neurodatapub.utils.gitannex.init_ssh_special_sibling()`
+    gitannex_remote_name : string
+        Name of the special remote sibling created with either
+        `neurodatapub.utils.gitannex.init_ssh_special_sibling()` or
+        with `datalad.api.create_osf_sibling()`.
 
     Returns
     -------
@@ -115,7 +117,7 @@ def create_github_sibling(
         reponame=github_sibling_args["github_repo_name"],
         github_login=github_sibling_args["github_login"],
         github_organization=GITHUB_ORGANIZATION,
-        publish_depends=ssh_special_remote_name,
+        publish_depends=gitannex_remote_name,
         private=True,
         dataset=datalad_dataset_dir,
         existing='skip'

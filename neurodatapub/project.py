@@ -13,7 +13,8 @@ import datalad.api
 from neurodatapub.info import __version__
 from neurodatapub.utils.datalad import (
     create_bids_dataset, create_ssh_sibling, create_github_sibling,
-    authenticate_osf, create_osf_sibling, publish_dataset
+    authenticate_osf, create_osf_sibling, publish_dataset,
+    DEFAULT_SSH_REMOTE_NAME, DEFAULT_OSF_REMOTE_NAME
 )
 from neurodatapub.utils.gitannex import init_ssh_special_sibling, enable_ssh_special_sibling
 from neurodatapub.utils.io import copy_content_to_datalad_dataset
@@ -323,9 +324,15 @@ class NeuroDataPubProject(HasTraits):
             }
         )
         print(f'> Create the {self.github_repo_name} github sibling')
+        if self.sibling_type == "ssh":
+            gitannex_remote_name = DEFAULT_SSH_REMOTE_NAME
+        else:
+            gitannex_remote_name = DEFAULT_OSF_REMOTE_NAME
+
         proc = create_github_sibling(
             datalad_dataset_dir=self.output_datalad_dataset_dir,
-            github_sibling_args=github_sibling_config_dict
+            github_sibling_args=github_sibling_config_dict,
+            gitannex_remote_name=gitannex_remote_name
         )
         if proc:
             print(proc)

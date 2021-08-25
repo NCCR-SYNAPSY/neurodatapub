@@ -35,16 +35,32 @@ SPECIAL_REMOTE_SIBLING_CONFIG_SCHEMA = {
 GITHUB_SIBLING_CONFIG_SCHEMA = {
     "type": "object",
     "properties": {
-        "github_login": {
+        "github_email": {
+            "type": "string",
+            "pattern": "^\\S+@\\S+\\.\\S+$",
+            "format": "email",
+            "minLength": 6,
+            "maxLength": 127
+        },
+        "github_organization": {
             "type": "string",
             "pattern": "^[\\w-]+$"
+        },
+        "github_token": {
+            "type": "string",
+            "pattern": "^[\\w-.]+$"
         },
         "github_repo_name": {
             "type": "string",
             "pattern": "^[\\w-]+$"
         },
     },
-    "required": ["github_login", "github_repo_name"]
+    "required": [
+        "github_email",
+        "github_organization",
+        "github_token",
+        "github_repo_name"
+    ]
 }
 
 OSF_SIBLING_CONFIG_SCHEMA = {

@@ -6,7 +6,10 @@
 
 import os
 import json
-from traits.api import HasTraits, File, Directory, Str, Enum, List
+from traits.api import (
+    HasTraits, File, Directory, Str, Enum,
+    List, Password
+)
 
 import datalad.api
 
@@ -19,6 +22,7 @@ from neurodatapub.utils.datalad import (
 from neurodatapub.utils.gitannex import init_ssh_special_sibling, enable_ssh_special_sibling
 from neurodatapub.utils.io import copy_content_to_datalad_dataset
 from neurodatapub.utils.sshconfig import update_ssh_config
+from neurodatapub.utils.github import authenticate_github_email, authenticate_github_token
 
 
 class NeuroDataPubProject(HasTraits):
@@ -45,7 +49,13 @@ class NeuroDataPubProject(HasTraits):
         Absolute path of the Json file that describes configuration of the
         github sibling
 
-    github_login : Str
+    github_email : Str
+        Email associated with GitHub account
+
+    github_organization : Str
+        Github organization used for publication
+
+    github_token : Password
         Token to authenticate in GitHub
 
     github_repo_name : Str
@@ -65,8 +75,8 @@ class NeuroDataPubProject(HasTraits):
     remote_sibling_name : Str
         Datalad sibling name of the git-annex special sibling
 
-    osf_token : Str
-        Personnal OSF token for authentication
+    osf_token : Password
+        Personal OSF token for authentication
 
     osf_dataset_title : Str
         Dataset title published on OSF
@@ -104,8 +114,14 @@ class NeuroDataPubProject(HasTraits):
         desc='Absolute path of the Json file that describes '
              'configuration of the github sibling'
     )
-    github_login = Str(
-        desc='User token to authenticate in GitHub'
+    github_email = Str(
+        desc='Email associated with GitHub account'
+    )
+    github_organization = Str(
+        desc='Github organization used for publication'
+    )
+    github_token = Password(
+        desc='Token to authenticate in GitHub'
     )
     github_repo_name = Str(
         desc='Name of the dataset repository published on GitHub'
@@ -124,8 +140,8 @@ class NeuroDataPubProject(HasTraits):
     remote_sibling_name = Str(
         desc='Datalad sibling name of the git-annex special sibling'
     )
-    osf_token = Str(
-        desc='Personnal OSF token for authentication'
+    osf_token = Password(
+        desc='Personal OSF token for authentication'
     )
     osf_dataset_title = Str(
         desc='Dataset title published on OSF'
@@ -189,11 +205,14 @@ class NeuroDataPubProject(HasTraits):
             # Opening JSON file for the GitHub sibling
             with open(github_sibling_config, 'r') as f:
                 github_sibling_config_dict = json.load(f)
-
-            if 'github_login' in github_sibling_config_dict.keys():
-                self.github_login = github_sibling_config_dict['github_login']
-            if 'github_repo_name' in github_sibling_config_dict.keys():
-                self.github_repo_name = github_sibling_config_dict['github_repo_name']
+                if 'github_email' in github_sibling_config_dict.keys():
+                    self.github_email = github_sibling_config_dict['github_email']
+                if 'github_organization' in github_sibling_config_dict.keys():
+                    self.github_organization = github_sibling_config_dict['github_organization']
+                if 'github_token' in github_sibling_config_dict.keys():
+                    self.github_token = github_sibling_config_dict['github_token']
+                if 'github_repo_name' in github_sibling_config_dict.keys():
+                    self.github_repo_name = github_sibling_config_dict['github_repo_name']
 
     def __str__(self):
         """Define how a :class:`NeuroDataPubProject` object is rendered in `print()`."""
@@ -203,14 +222,16 @@ class NeuroDataPubProject(HasTraits):
         \toutput_datalad_dataset_dir : {self.output_datalad_dataset_dir}
         \tgit_annex_special_sibling_config : {self.git_annex_special_sibling_config}
         \tgithub_sibling_config : {self.github_sibling_config}
-        \tgithub_login : {self.github_login}
+        \tgithub_organization : {self.github_organization}
+        \tgithub_email : {self.github_email}
+        \tgithub_token : {self.github_token}
         \tgithub_repo_name : {self.github_repo_name}
         \tremote_ssh_login : {self.remote_ssh_login}
         \tremote_ssh_url : {self.remote_ssh_url}
         \tremote_sibling_dir : {self.remote_sibling_dir}
         \tremote_sibling_name : {self.remote_sibling_name}
-        \tosf_token : {self.osf_token}
         \tosf_dataset_title : {self.osf_dataset_title}
+        \tosf_token : {self.osf_token}
         """
         return desc
 
@@ -290,7 +311,7 @@ class NeuroDataPubProject(HasTraits):
             print(proc.stdout)
 
     def configure_osf_sibling(self):
-        """Configure a osf sibling of the Datalad dataset for publication of annexed files."""
+        """Configure the osf sibling of the Datalad dataset for publication of annexed files."""
         # Authentication to OSF
         print(f'> Authentication to OSF...')
         proc = authenticate_osf(
@@ -306,20 +327,29 @@ class NeuroDataPubProject(HasTraits):
         )
         if proc:
             print(proc)
-        return True
 
-    def configure_siblings(self):
-        """Configure the siblings of the Datalad dataset for publication."""
-        # Configuration of the git annex special remote sibling
-        if self.sibling_type is None or self.sibling_type == 'ssh':
-            self.configure_ssh_sibling()
-        elif self.sibling_type == 'osf':
-            self.configure_osf_sibling()
+    def configure_github_sibling(self):
+        """Configure Git and the github sibling of the Datalad dataset for publication of repository (no-annex)."""
+        # Authentication to GitHub
+        print('> Set Git user.email associated with GitHub account"')
+        proc, _ = authenticate_github_email(
+            datalad_dataset_dir=self.output_datalad_dataset_dir,
+            github_email=self.github_email
+        )
+        if proc is not None:
+            print(proc.stdout)
+        print('> Set Git hub.oauthtoken with the associated GitHub token"')
+        proc, _ = authenticate_github_token(
+            datalad_dataset_dir=self.output_datalad_dataset_dir,
+            github_token=self.github_token
+        )
+        if proc is not None:
+            print(proc.stdout)
 
-        # Configuration of Github sibling to host dataset repository
+        # Creation of GitHub dataset sibling
         github_sibling_config_dict = dict(
             {
-                "github_login": self.github_login,
+                "github_organization": self.github_organization,
                 "github_repo_name": self.github_repo_name
             }
         )
@@ -336,6 +366,16 @@ class NeuroDataPubProject(HasTraits):
         )
         if proc:
             print(proc)
+
+    def configure_siblings(self):
+        """Configure the siblings of the Datalad dataset for publication."""
+        # Configuration of the git annex special remote sibling
+        if self.sibling_type is None or self.sibling_type == 'ssh':
+            self.configure_ssh_sibling()
+        elif self.sibling_type == 'osf':
+            self.configure_osf_sibling()
+        # Configuration of Github sibling to host dataset repository
+        self.configure_github_sibling()
         return True
 
     def publish_datalad_dataset(self):

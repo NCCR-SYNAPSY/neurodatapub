@@ -34,7 +34,7 @@ def authenticate_github_token(
         Output of `subprocess.run()`
     """
     # Create the git config command to add and set hub.oauthtoken
-    cmd = 'git config --local --add hub.oauthtoken '
+    cmd = 'git config --global --add hub.oauthtoken '
     cmd += f'{github_token}'
 
     # Execute the git config command in the dataset directory
@@ -73,7 +73,7 @@ def authenticate_github_email(
         Output of `subprocess.run()`
     """
     # Create the git config command to set user.email
-    cmd = 'git config --local user.email '
+    cmd = 'git config --global user.email '
     cmd += f'{github_email}'
 
     # Execute the git config command in the dataset directory

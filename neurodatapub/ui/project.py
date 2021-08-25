@@ -124,6 +124,7 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
                     VGroup(
                         HGroup(
                             VGroup(
+                                Item('github_login'),
                                 Item('github_email'),
                                 Item('github_organization'),
                                 Item('github_token'),
@@ -241,6 +242,12 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
                 self.config_is_valid = False
             else:
                 print(f'\t* osf_dataset_title: {self.osf_dataset_title}')
+
+        if not self.github_login:
+            print('\t* github_login: UNDEFINED')
+            self.config_is_valid = False
+        else:
+            print(f'\t* github_login: {self.github_login}')
 
         if not self.github_email:
             print('\t* github_email: UNDEFINED')
@@ -400,6 +407,7 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
             # host dataset repository
             github_sibling_config_dict = dict(
                 {
+                    "github_login": self.github_login.strip(),
                     "github_email": self.github_email.strip(),
                     "github_organization": self.github_organization.strip(),
                     "github_token": self.github_token.strip(),

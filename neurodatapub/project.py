@@ -49,6 +49,9 @@ class NeuroDataPubProject(HasTraits):
         Absolute path of the Json file that describes configuration of the
         github sibling
 
+    github_login : Str
+        GitHub account login
+
     github_email : Str
         Email associated with GitHub account
 
@@ -113,6 +116,9 @@ class NeuroDataPubProject(HasTraits):
     github_sibling_config = File(
         desc='Absolute path of the Json file that describes '
              'configuration of the github sibling'
+    )
+    github_login = Str(
+        desc='GitHub account login'
     )
     github_email = Str(
         desc='Email associated with GitHub account'
@@ -205,6 +211,8 @@ class NeuroDataPubProject(HasTraits):
             # Opening JSON file for the GitHub sibling
             with open(github_sibling_config, 'r') as f:
                 github_sibling_config_dict = json.load(f)
+                if 'github_login' in github_sibling_config_dict.keys():
+                    self.github_login = github_sibling_config_dict['github_login']
                 if 'github_email' in github_sibling_config_dict.keys():
                     self.github_email = github_sibling_config_dict['github_email']
                 if 'github_organization' in github_sibling_config_dict.keys():
@@ -222,8 +230,9 @@ class NeuroDataPubProject(HasTraits):
         \toutput_datalad_dataset_dir : {self.output_datalad_dataset_dir}
         \tgit_annex_special_sibling_config : {self.git_annex_special_sibling_config}
         \tgithub_sibling_config : {self.github_sibling_config}
-        \tgithub_organization : {self.github_organization}
         \tgithub_email : {self.github_email}
+        \tgithub_login : {self.github_login}
+        \tgithub_organization : {self.github_organization}
         \tgithub_token : {self.github_token}
         \tgithub_repo_name : {self.github_repo_name}
         \tremote_ssh_login : {self.remote_ssh_login}
@@ -349,6 +358,7 @@ class NeuroDataPubProject(HasTraits):
         # Creation of GitHub dataset sibling
         github_sibling_config_dict = dict(
             {
+                "github_login": self.github_login,
                 "github_organization": self.github_organization,
                 "github_repo_name": self.github_repo_name
             }

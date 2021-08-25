@@ -109,8 +109,7 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
                                      style_sheet=return_folder_button_style_sheet(),
                                      visible_when='sibling_type == "ssh"'),
                                 Item('osf_token', visible_when='sibling_type == "osf"'),
-                                Item('osf_dataset_title', visible_when='sibling_type == "osf"'),
-                                # Item('git_annex_special_sibling_config', style_sheet=return_folder_button_style_sheet()),
+                                Item('osf_dataset_title', visible_when='sibling_type == "osf"')
                             ),
                             VGroup(
                                 spring,
@@ -125,9 +124,10 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
                     VGroup(
                         HGroup(
                             VGroup(
-                                Item('github_login'),
-                                Item('github_repo_name'),
-                                # Item('github_sibling_config', style_sheet=return_folder_button_style_sheet()),
+                                Item('github_email'),
+                                Item('github_organization'),
+                                Item('github_token'),
+                                Item('github_repo_name')
                             ),
                             VGroup(
                                 spring,
@@ -232,6 +232,8 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
                 print('\t* osf_token: UNDEFINED')
                 self.config_is_valid = False
             else:
+                masked_token = "*" * (len(self.osf_token) - 6)
+                masked_token += f'{self.osf_token[-6:]}'
                 print(f'\t* osf_token: {self.osf_token}')
     
             if not self.osf_dataset_title:
@@ -240,11 +242,25 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
             else:
                 print(f'\t* osf_dataset_title: {self.osf_dataset_title}')
 
-        if not self.github_login:
-            print('\t* github_login: UNDEFINED')
+        if not self.github_email:
+            print('\t* github_email: UNDEFINED')
             self.config_is_valid = False
         else:
-            print(f'\t* github_login: {self.github_login}')
+            print(f'\t* github_email: {self.github_email}')
+
+        if not self.github_organization:
+            print('\t* github_organization: UNDEFINED')
+            self.config_is_valid = False
+        else:
+            print(f'\t* github_organization: {self.github_organization}')
+
+        if not self.github_token:
+            print('\t* github_token: UNDEFINED')
+            self.config_is_valid = False
+        else:
+            masked_token = "*" * (len(self.github_token) - 6)
+            masked_token += f'{self.github_token[-6:]}'
+            print(f'\t* github_token: {masked_token}')
 
         if not self.github_repo_name:
             print('\t* github_repo_name: UNDEFINED')

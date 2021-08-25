@@ -7,6 +7,7 @@
 """`neurodatapub.utils.datalad`: utils functions for Datalad."""
 
 import os
+from importlib import reload
 import datalad.api
 
 GITHUB_ORGANIZATION='NCCR-SYNAPSY'
@@ -143,12 +144,14 @@ def authenticate_osf(
     `res` : string
         Output of ` datalad.api.osf_credentials()`
     """
+    # Set OSF_TOKEN and reload datalad.api module
     os.environ['OSF_TOKEN'] = osf_token
+    reload(datalad.api)
+    # OSF credentials
     res = datalad.api.osf_credentials(
         method='token',
         reset=True
     )
-
     return res
 
 

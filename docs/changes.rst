@@ -20,7 +20,7 @@ New Features
 Documentation
 =============
 
-* Update documentation for the publication to OSF and update the image for the configuration of the siblings using NeuroDataPub Assistant. (See `PR#23 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/23>`_)
+* Update documentation for the publication to OSF and update the image for the configuration of the siblings using NeuroDataPub Assistant. (See `PR#37 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/37>`_)
 
 More...
 ========
@@ -46,7 +46,7 @@ Documentation
 
 * Add documentation page to give instructions for the remote data server setup. (See `PR#28 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/28>`_)
 
-* Update documentation for the creation of the conda environment and the installation of `git-annex` on Linux and MacOSX (See `PR#23 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/23>`_)
+* Update documentation for the creation of the conda environment and the installation of `git-annex` on Linux and MacOSX. (See `PR#23 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/23>`_)
 
 Bug Fixes
 =========
@@ -123,7 +123,7 @@ For more change details and development discussions, please check:
 
 * `pull request 12 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/12>`_:
   PR that refines the `setup.py` (project status set to BETA) before
-  deployment to PyPI .
+  deployment to PyPI.
 
 * `pull request 13 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/13>`_,
   `pull request 21 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/13>`_:

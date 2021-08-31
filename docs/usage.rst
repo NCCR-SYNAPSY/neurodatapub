@@ -113,7 +113,7 @@ For example, an invocation of the interface to create and publish a dataset
             --git_annex_ssh_special_sibling_config '/local/path/to/special_annex_sibling_config.json' \
             --github_sibling_config '/local/path/to/github_sibling_config.json'
 
-.. note:: When you use directly the command-line interface, you would need to provide the JSON files with the option flags ``--git_annex_ssh_special_sibling_config`` and ``--github_sibling_config`` to describe the configuration of the special remote and GitHub dataset siblings.
+.. note:: When you use directly the command-line interface, you would need to provide the JSON files with the option flags ``--github_sibling_config``, and ``--git_annex_ssh_special_sibling_config``, or ``--git_annex_osf_sibling_config`` to describe the configuration of the GitHub and special remote dataset siblings.
 
 
 Support, bugs and new feature requests

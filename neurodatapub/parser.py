@@ -58,7 +58,7 @@ def get_parser():
     storage_sibling_config.add_argument(
         "--osf_sibling_config",
         help="Path to a JSON file containing configuration "
-             "parameters for the GitHub dataset repository sibling",
+             "parameters for the git-annex OSF special remote dataset sibling",
         type=str
     )
     p.add_argument(

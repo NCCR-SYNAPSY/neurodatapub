@@ -42,6 +42,7 @@ via the `neurodatapub` command-line interface with the `--gui` option flag:
             (--datalad_dir  '/local/path/to/output/datalad/dataset' \)
             (--git_annex_ssh_special_sibling_config '/local/path/to/special_annex_sibling_config.json' \)
             (--github_sibling_config '/local/path/to/github_sibling_config.json')
+            (--osf_sibling_config '/local/path/to/osf_sibling_config.json')
 
 .. note:: When you run  the `neurodatapub` command-line interface with the `--gui` option, it is not required to
           specify the option flags required for a normal run from the commandline interface.
@@ -73,25 +74,57 @@ git-annex and GitHub remote siblings.
 3.1 Special remote sibling settings
 ------------------------------------
 
-* ``"remote_ssh_login"`` (mandatory): user login to the remote
+Since `v0.3`, you can use either (1) the data storage server of your institution accessible
+via `ssh` or (2) the Open Science Foundation (OSF) platform to host your annexed files.
+
+3.1.1 Server accessible via `ssh`
++++++++++++++++++++++++++++++++++
+
+.. figure:: images/neurodatapub_siblings_tab_ssh_config.png
+    :align: center
+    :width: 600
+
+* ``"remote_ssh_login"`` (mandatory): user's login to the remote
 
 * ``"remote_ssh_url"`` (mandatory): SSH-URL of the remote in the form `"ssh://..."`
 
 * ``"remote_sibling_dir"`` (mandatory): Remote .git/ directory of the sibling dataset
 
 
+3.1.2 OSF (Cloud)
++++++++++++++++++
+
+.. figure:: images/neurodatapub_siblings_tab_osf_config.png
+    :align: center
+    :width: 600
+
+* ``"osf_dataset_title"`` (mandatory): Dataset title on OSF.
+
+* ``"osf_token"`` (mandatory): user's OSF authentication token. To make a Personal Access Token, please go to the relevant `OSF settings page <https://osf.io/settings/tokens/>`_ and create one. If you do not an OSF account yet, you will need to create one a-priori.
+
+
 3.2 GitHub sibling settings
 ----------------------------
 
-* ``"github_login"`` (mandatory): user login to GitHub.
+.. figure:: images/neurodatapub_siblings_tab_github_config.png
+    :align: center
+    :width: 600
 
-* ``"github_repo_name"`` (mandatory): Dataset repository name on GitHub
+* ``"github_login"`` (mandatory): user's login to GitHub.
+
+* ``"github_email"`` (mandatory): user's email associated with GitHub account.
+
+* ``"github_organization"`` (mandatory): GitHub organization the GitHub account has access to.
+
+* ``"github_token"`` (mandatory): user's github authentication token. Please see `"Creating a personal access token" Github documentation <https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token>`_ for more details on how to get one. Make also sure that the `write:org` and `read:org` options are enabled.
+
+* ``"github_repo_name"`` (mandatory): Dataset repository name on GitHub.
 
 
 3.3 Create the JSON sibling configuration files
 --------------------------------------------------
 
-Settings for each of the two siblings can be saved in a JSON file by clicking
+Settings for each of the different siblings can be saved in a JSON file by clicking
 on their respective |save_button_img| button.
 
 .. |save_button_img| image:: ../neurodatapub/resources/save_json_icon_50x50.png

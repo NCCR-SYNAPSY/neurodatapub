@@ -108,8 +108,8 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
                                      editor=DirectoryEditor(dialog_style='open'),
                                      style_sheet=return_folder_button_style_sheet(),
                                      visible_when='sibling_type == "ssh"'),
+                                Item('osf_dataset_title', visible_when='sibling_type == "osf"'),
                                 Item('osf_token', visible_when='sibling_type == "osf"'),
-                                Item('osf_dataset_title', visible_when='sibling_type == "osf"')
                             ),
                             VGroup(
                                 spring,

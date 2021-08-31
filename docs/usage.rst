@@ -42,7 +42,7 @@ The Git-annex special remote sibling configuration file specified by the input f
     }
 
 where:
-    * ``"remote_ssh_login"`` (mandatory): user login to the remote
+    * ``"remote_ssh_login"`` (mandatory): user's login to the remote
 
     * ``"remote_ssh_url"`` (mandatory): SSH-URL of the remote in the form `"ssh://..."`
 
@@ -58,15 +58,40 @@ The GitHub sibling configuration file specified by the input flag ``--github_sib
 
     {
         "github_login": "GitHubUserName",
+        "github_email": "GitHubUserEmail",
+        "github_organization": "NCCR-SYNAPSY",
+        "github_token": "Personal github authentication token",
         "github_repo_name": "DatasetName"
     }
 
 where:
-    * ``"github_login"`` (mandatory): user login to GitHub.
+    * ``"github_login"`` (mandatory): user's login to GitHub.
 
-    * ``"github_repo_name"`` (mandatory): Dataset repository name on GitHub
+    * ``"github_email"`` (mandatory): user's email associated with GitHub account.
 
-.. note:: You will be asked to enter a token for authentication to create and publish the repository on GitHub. Please see `"Creating a personal access token" Github documentation <https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token>`_ for more details on how to get one. Make also sure that the `write:org` and `read:org` options are enabled.
+    * ``"github_organization"`` (mandatory): GitHub organization the GitHub account has access to.
+
+    * ``"github_token"`` (mandatory): user's github authentication token. Please see `"Creating a personal access token" Github documentation <https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token>`_ for more details on how to get one. Make also sure that the `write:org` and `read:org` options are enabled.
+
+    * ``"github_repo_name"`` (mandatory): Dataset repository name on GitHub.
+
+
+.. _osfconfig:
+
+OSF sibling configuration file
+----------------------------------------------------
+
+The OSF sibling configuration file specified by the input flag ``--osf_sibling_config`` adopts the following JSON schema::
+
+    {
+        "osf_dataset_title": "DatasetName",
+        "osf_token": "Personal OSF authentication token",
+    }
+
+where:
+    * ``"osf_dataset_title"`` (mandatory): Dataset title on OSF.
+
+    * ``"osf_token"`` (mandatory): user's OSF authentication token. To make a Personal Access Token, please go to the relevant `OSF settings page <https://osf.io/settings/tokens/>`_ and create one. If you do not an OSF account yet, you will need to create one a-priori.
 
 
 .. _cliusage:
@@ -78,7 +103,7 @@ The ``neurodatapub`` command-line interface can be run in
 in the `"create-only"`, `"publish-only"`, and `"all"` modes with the ``--mode``
 option flag (as described in :ref:`Commandline Arguments <cliparser>`).
 For example, an invocation of the interface to create and publish a dataset
-(`"all"` mode) would be as follows:
+(`"all"` mode) to a `ssh` sibling would be as follows:
 
     .. code-block:: console
 
@@ -88,7 +113,7 @@ For example, an invocation of the interface to create and publish a dataset
             --git_annex_ssh_special_sibling_config '/local/path/to/special_annex_sibling_config.json' \
             --github_sibling_config '/local/path/to/github_sibling_config.json'
 
-.. note:: When you use directly the command-line interface, you would need to provide the JSON files with the option flags ``--git_annex_ssh_special_sibling_config`` and ``--github_sibling_config`` to describe the configuration of the special remote and GitHub dataset siblings.
+.. note:: When you use directly the command-line interface, you would need to provide the JSON files with the option flags ``--github_sibling_config``, and ``--git_annex_ssh_special_sibling_config``, or ``--git_annex_osf_sibling_config`` to describe the configuration of the GitHub and special remote dataset siblings.
 
 
 Support, bugs and new feature requests

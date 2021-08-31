@@ -20,6 +20,7 @@ open-source software distribution.
 Datalad and git-annex. It aims to lower the barriers, for the NCCR-SYNAPSY members,
 to manage and publish, privately or publicly, their dataset repositories on GitHub and the annexed files on
 their SSH data server, in order to fully fulfill the implemented Neuroimaging Data Management Plan.
+
 Since ``v0.3``, you can use either (1) a server accessible via `ssh` or (2) the Open Science Foundation (OSF)
 platform, as a git-annex special remote, to host your annexed files.
 

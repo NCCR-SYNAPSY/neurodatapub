@@ -17,7 +17,7 @@ SPECIAL_REMOTE_SIBLING_CONFIG_SCHEMA = {
     "properties": {
         "remote_ssh_login": {
             "type": "string",
-            "pattern": "^[A-Za-z0-9]+"
+            "pattern": "^[\\w-]+$"
         },
         "remote_ssh_url": {
             "type": "string",
@@ -37,14 +37,52 @@ GITHUB_SIBLING_CONFIG_SCHEMA = {
     "properties": {
         "github_login": {
             "type": "string",
-            "pattern": "[A-Za-z0-9]+"
+            "pattern": "^[\\w-]+$"
+        },
+        "github_email": {
+            "type": "string",
+            "pattern": "^\\S+@\\S+\\.\\S+$",
+            "format": "email",
+            "minLength": 6,
+            "maxLength": 127
+        },
+        "github_organization": {
+            "type": "string",
+            "pattern": "^[\\w-]+$"
+        },
+        "github_token": {
+            "type": "string",
+            "pattern": "^[\\w-.]+$"
         },
         "github_repo_name": {
             "type": "string",
-            "pattern": "[A-Za-z0-9]+"
+            "pattern": "^[\\w-]+$"
         },
     },
-    "required": ["github_login", "github_repo_name"]
+    "required": [
+        "github_login",
+        "github_email",
+        "github_organization",
+        "github_token",
+        "github_repo_name"
+    ]
+}
+
+OSF_SIBLING_CONFIG_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "osf_token": {
+            "type": "string",
+            "pattern": "^[\\w.-]+$"
+        },
+    },
+    "properties": {
+        "osf_dataset_title": {
+            "type": "string",
+            "pattern": "^[\\w\\s-]+$"
+        },
+    },
+    "required": ["osf_token", "osf_dataset_title"]
 }
 
 
@@ -57,7 +95,7 @@ def validate_json_sibling_config(json_file, sibling_type=None):
     json_file : str
         Absolute path to JSON sibling configuration file
 
-    sibling_type : ['git-annex-special-sibling','github-sibling']
+    sibling_type : ['git-annex-special-sibling','github-sibling', 'osf-sibling']
         Type of sibling configuration file
     """
     with open(json_file, 'r') as f:
@@ -67,6 +105,8 @@ def validate_json_sibling_config(json_file, sibling_type=None):
             validate(instance=json_dict, schema=SPECIAL_REMOTE_SIBLING_CONFIG_SCHEMA)
         elif sibling_type == 'github-sibling':
             validate(instance=json_dict, schema=GITHUB_SIBLING_CONFIG_SCHEMA)
+        elif sibling_type == 'osf-sibling':
+            validate(instance=json_dict, schema=OSF_SIBLING_CONFIG_SCHEMA)
         else:
             return False
     except jsonschema.exceptions.ValidationError as err:

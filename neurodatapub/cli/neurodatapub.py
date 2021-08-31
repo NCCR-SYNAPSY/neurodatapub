@@ -67,6 +67,14 @@ def main():
 
     # 3. Validate sibling configuration files if given
     #    Exit if the json schema of the file is invalid
+    if args.github_sibling_config:
+        if not validate_json_sibling_config(
+            json_file=args.github_sibling_config,
+            sibling_type='github-sibling'
+        ):
+            exit_code = 1
+            return exit_code
+
     if args.git_annex_ssh_special_sibling_config:
         if not validate_json_sibling_config(
             json_file=args.git_annex_ssh_special_sibling_config,
@@ -75,10 +83,10 @@ def main():
             exit_code = 1
             return exit_code
 
-    if args.github_sibling_config:
+    if args.osf_sibling_config:
         if not validate_json_sibling_config(
-            json_file=args.github_sibling_config,
-            sibling_type='github-sibling'
+            json_file=args.osf_sibling_config,
+            sibling_type='osf-sibling'
         ):
             exit_code = 1
             return exit_code
@@ -89,11 +97,19 @@ def main():
 
     # Commandline mode
     if not args.gui:
+        # Handle the type of sibling for annexing data
+        if args.git_annex_ssh_special_sibling_config:
+            git_annex_special_sibling_config = args.git_annex_ssh_special_sibling_config
+            sibling_type = 'ssh'
+        else:
+            git_annex_special_sibling_config = args.osf_sibling_config
+            sibling_type = 'osf'
         # Create a NeuroDataPubProject
         neurodatapub_project = NeuroDataPubProject(
             bids_dir=args.bids_dir,
             datalad_dataset_dir=args.datalad_dir,
-            git_annex_special_sibling_config=args.git_annex_ssh_special_sibling_config,
+            git_annex_special_sibling_config=git_annex_special_sibling_config,
+            sibling_type=sibling_type,
             github_sibling_config=args.github_sibling_config,
             mode=args.mode
         )
@@ -143,11 +159,22 @@ def main():
             "# Launch NeuroDataPub Assistant\n"
             "*********************************************\n"
         )
+        # Handle the type of sibling for annexing data
+        if args.git_annex_ssh_special_sibling_config:
+            git_annex_special_sibling_config = args.git_annex_ssh_special_sibling_config
+            sibling_type = 'ssh'
+        elif args.osf_sibling_config:
+            git_annex_special_sibling_config = args.osf_sibling_config
+            sibling_type = 'osf'
+        else:
+            git_annex_special_sibling_config = None
+            sibling_type = 'ssh'
         # Create a NeuroDataPubProjectUI
         neurodatapub_project_gui = NeuroDataPubProjectUI(
                 bids_dir=args.bids_dir,
                 datalad_dataset_dir=args.datalad_dir,
-                git_annex_special_sibling_config=args.git_annex_ssh_special_sibling_config,
+                git_annex_special_sibling_config=git_annex_special_sibling_config,
+                sibling_type=sibling_type,
                 github_sibling_config=args.github_sibling_config,
                 mode=args.mode
         )

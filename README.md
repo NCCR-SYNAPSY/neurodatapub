@@ -21,6 +21,9 @@ Datalad and git-annex. It aims to lower the barriers, for the NCCR-SYNAPSY membe
 to manage and publish, privately or publicly, their dataset repositories on GitHub and the annexed files on
 their SSH data server, in order to fully fulfill the implemented Neuroimaging Data Management Plan.
 
+Since ``v0.3``, you can use either (1) a server accessible via `ssh` or (2) the Open Science Foundation (OSF)
+platform, as a git-annex special remote, to host your annexed files.
+
 ![](https://github.com/NCCR-SYNAPSY/neurodatapub/raw/main/docs/images/neurodatapub_illustration.png)
 
 `NeuroDataPub` comes with its graphical user interface, aka the `NeuroDataPub Assistant`,
@@ -106,8 +109,8 @@ create a new [GitHub Issue](https://github.com/NCCR-SYNAPSY/neurodatapub/issues)
 ## Funding
 
 Supported by the National Centre of Competence in Research (NCCR)
-"SYNAPSY – Synaptic Bases of Mental Diseases" [NCCR-SYNAPSY](https://nccr-synapsy.ch/)
-(grant TO BE UPDATED).
+"SYNAPSY – Synaptic Bases of Mental Diseases"
+([NCCR-SYNAPSY website](https://nccr-synapsy.ch/) / [NCCR-SYNAPSY Swiss National Science Foundation page](https://www.snf.ch/en/rk1dIQvOuOCU9G4Z/page/researchinFocus/nccr/nccr-synapsy)).
 
 ## Contributors ✨
 

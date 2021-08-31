@@ -98,38 +98,47 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
                     label="Configuration of Directories"
                 ),
                 VGroup(
-                    HGroup(
-                        VGroup(
-                            Item('remote_ssh_login'),
-                            Item('remote_ssh_url'),
-                            Item('remote_sibling_dir',
-                                 editor=DirectoryEditor(dialog_style='open'),
-                                 style_sheet=return_folder_button_style_sheet()),
-                            # Item('git_annex_special_sibling_config', style_sheet=return_folder_button_style_sheet()),
-                            label="Git-annex special SSH remote sibling"
+                    VGroup(
+                        Item('sibling_type'),
+                        HGroup(
+                            VGroup(
+                                Item('remote_ssh_login', visible_when='sibling_type == "ssh"'),
+                                Item('remote_ssh_url', visible_when='sibling_type == "ssh"'),
+                                Item('remote_sibling_dir',
+                                     editor=DirectoryEditor(dialog_style='open'),
+                                     style_sheet=return_folder_button_style_sheet(),
+                                     visible_when='sibling_type == "ssh"'),
+                                Item('osf_dataset_title', visible_when='sibling_type == "osf"'),
+                                Item('osf_token', visible_when='sibling_type == "osf"'),
+                            ),
+                            VGroup(
+                                spring,
+                                Item('save_special_sibling_config_button',
+                                     style_sheet=return_save_json_button_style_sheet(),
+                                     show_label=False),
+                                spring,
+                            ),
                         ),
-                        VGroup(
-                            spring,
-                            Item('save_special_sibling_config_button',
-                                 style_sheet=return_save_json_button_style_sheet(),
-                                 show_label=False),
-                            spring,
-                        ),
+                        label="Git-annex special SSH remote sibling"
                     ),
-                    HGroup(
-                        VGroup(
-                            Item('github_login'),
-                            Item('github_repo_name'),
-                            # Item('github_sibling_config', style_sheet=return_folder_button_style_sheet()),
-                            label="GitHub sibling"
+                    VGroup(
+                        HGroup(
+                            VGroup(
+                                Item('github_login'),
+                                Item('github_email'),
+                                Item('github_organization'),
+                                Item('github_token'),
+                                Item('github_repo_name')
+                            ),
+                            VGroup(
+                                spring,
+                                Item('save_github_sibling_config_button',
+                                     style_sheet=return_save_json_button_style_sheet(),
+                                     show_label=False),
+                                spring,
+                            ),
                         ),
-                        VGroup(
-                            spring,
-                            Item('save_github_sibling_config_button',
-                                 style_sheet=return_save_json_button_style_sheet(),
-                                 show_label=False),
-                            spring,
-                        ),
+                        label="GitHub sibling"
                     ),
                     label="Configuration of Siblings"
                 ),
@@ -168,7 +177,7 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
             "resources/neurodatapub_logo_100x100.png"
         ),
         width=800,
-        height=450,
+        height=600,
         style_sheet=return_global_style_sheet()
     )
 
@@ -192,35 +201,73 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
         except Exception as e:
             print(f'\t* BIDS ERROR: {e}')
             self.config_is_valid = False
+            
+        print(f'\t* git-annex special remote sibling type: {self.sibling_type}')
 
-        if not self.remote_ssh_login:
-            print('\t* remote_ssh_login: UNDEFINED')
-            self.config_is_valid = False
-        else:
-            print(f'\t* remote_ssh_login: {self.remote_ssh_login}')
-
-        if not self.remote_ssh_url:
-            print('\t* remote_ssh_url: UNDEFINED')
-            self.config_is_valid = False
-        else:
-            if not bool(re.match("^ssh?://+", self.remote_ssh_url)):
-                print(f'\t* remote_ssh_url ({self.remote_ssh_url}) is '
-                      'not valid (expected format: "^ssh?://+")')
+        if self.sibling_type == "ssh":
+            if not self.remote_ssh_login:
+                print('\t* remote_ssh_login: UNDEFINED')
                 self.config_is_valid = False
             else:
-                print(f'\t* remote_ssh_url: {self.remote_ssh_url}')
+                print(f'\t* remote_ssh_login: {self.remote_ssh_login}')
+    
+            if not self.remote_ssh_url:
+                print('\t* remote_ssh_url: UNDEFINED')
+                self.config_is_valid = False
+            else:
+                if not bool(re.match("^ssh?://+", self.remote_ssh_url)):
+                    print(f'\t* remote_ssh_url ({self.remote_ssh_url}) is '
+                          'not valid (expected format: "^ssh?://+")')
+                    self.config_is_valid = False
+                else:
+                    print(f'\t* remote_ssh_url: {self.remote_ssh_url}')
+    
+            if not self.remote_sibling_dir:
+                print('\t* remote_sibling_dir: UNDEFINED')
+                self.config_is_valid = False
+            else:
+                print(f'\t* remote_sibling_dir: {self.remote_sibling_dir}')
 
-        if not self.remote_sibling_dir:
-            print('\t* remote_sibling_dir: UNDEFINED')
-            self.config_is_valid = False
-        else:
-            print(f'\t* remote_sibling_dir: {self.remote_sibling_dir}')
+        if self.sibling_type == "osf":
+            if not self.osf_token:
+                print('\t* osf_token: UNDEFINED')
+                self.config_is_valid = False
+            else:
+                masked_token = "*" * (len(self.osf_token) - 6)
+                masked_token += f'{self.osf_token[-6:]}'
+                print(f'\t* osf_token: {self.osf_token}')
+    
+            if not self.osf_dataset_title:
+                print('\t* osf_dataset_title: UNDEFINED')
+                self.config_is_valid = False
+            else:
+                print(f'\t* osf_dataset_title: {self.osf_dataset_title}')
 
         if not self.github_login:
             print('\t* github_login: UNDEFINED')
             self.config_is_valid = False
         else:
             print(f'\t* github_login: {self.github_login}')
+
+        if not self.github_email:
+            print('\t* github_email: UNDEFINED')
+            self.config_is_valid = False
+        else:
+            print(f'\t* github_email: {self.github_email}')
+
+        if not self.github_organization:
+            print('\t* github_organization: UNDEFINED')
+            self.config_is_valid = False
+        else:
+            print(f'\t* github_organization: {self.github_organization}')
+
+        if not self.github_token:
+            print('\t* github_token: UNDEFINED')
+            self.config_is_valid = False
+        else:
+            masked_token = "*" * (len(self.github_token) - 6)
+            masked_token += f'{self.github_token[-6:]}'
+            print(f'\t* github_token: {masked_token}')
 
         if not self.github_repo_name:
             print('\t* github_repo_name: UNDEFINED')
@@ -307,14 +354,23 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
         if dlg.open() == OK:
             self.git_annex_special_sibling_config = dlg.path
             # Save configuration of git-annex special remote sibling
-            # to host annexed files
-            git_annex_special_sibling_config_dict = dict(
-                {
-                    "remote_ssh_login": self.remote_ssh_login,
-                    "remote_ssh_url": self.remote_ssh_url,
-                    "remote_sibling_dir": self.remote_sibling_dir
-                }
-            )
+            # to host annexed files.
+            # Make sure that leading and trailing whitespaces are removed.
+            if self.sibling_type == 'ssh':
+                git_annex_special_sibling_config_dict = dict(
+                    {
+                        "remote_ssh_login": self.remote_ssh_login.strip(),
+                        "remote_ssh_url": self.remote_ssh_url.strip(),
+                        "remote_sibling_dir": self.remote_sibling_dir.strip()
+                    }
+                )
+            else:
+                git_annex_special_sibling_config_dict = dict(
+                    {
+                        "osf_token": self.osf_token.strip(),
+                        "osf_dataset_title": self.osf_dataset_title.strip()
+                    }
+                )
             with open(self.git_annex_special_sibling_config, 'w+') as outfile:
                 json.dump(git_annex_special_sibling_config_dict, outfile, indent=4)
             print(f'> Saved as {self.git_annex_special_sibling_config}')
@@ -351,8 +407,11 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
             # host dataset repository
             github_sibling_config_dict = dict(
                 {
-                    "github_login": self.github_login,
-                    "github_repo_name": self.github_repo_name
+                    "github_login": self.github_login.strip(),
+                    "github_email": self.github_email.strip(),
+                    "github_organization": self.github_organization.strip(),
+                    "github_token": self.github_token.strip(),
+                    "github_repo_name": self.github_repo_name.strip()
                 }
             )
             with open(self.github_sibling_config, 'w+') as outfile:

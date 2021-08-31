@@ -3,6 +3,31 @@ Changes
 **************
 
 
+Version 0.3
+--------------
+
+Date: August 31, 2021
+
+Third beta release of `NeuroDataPub` that includes in particular the following changes.
+
+
+New Features
+=============
+
+* Publish dataset (no annex) to GitHub and the annexed files to `OSF <https://osf.io>`_. (See `PR#35 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/35>`_)
+* Improve automation of GitHub authentication and add github_organization to the config file. (See `PR#36 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/35>`_)
+
+Documentation
+=============
+
+* Update documentation for the publication to OSF and update the image for the configuration of the siblings using NeuroDataPub Assistant. (See `PR#23 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/23>`_)
+
+More...
+========
+
+Please check the main release pull request `PR#32 <https://github.com/NCCR-SYNAPSY/neurodatapub/pull/32>`_.
+
+
 Version 0.2
 --------------
 

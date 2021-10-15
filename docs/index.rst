@@ -86,7 +86,7 @@ Funding
 
 Supported by the National Centre of Competence in Research (NCCR)
 "SYNAPSY – Synaptic Bases of Mental Diseases" NCCR-SYNAPSY
-(`NCCR-SYNAPSY website <https://nccr-synapsy.ch/>`_ / `NCCR-SYNAPSY Swiss National Science Foundation Page <https://www.snf.ch/en/rk1dIQvOuOCU9G4Z/page/researchinFocus/nccr/nccr-synapsy>`_).
+(`NCCR-SYNAPSY website <https://nccr-synapsy.ch/>`_ / `NCCR-SYNAPSY Swiss National Science Foundation Page <https://www.snf.ch/en/rk1dIQvOuOCU9G4Z/page/researchinFocus/nccr/nccr-synapsy>`_) under `SNF-185897 grant <https://p3.snf.ch/project-185897>`_.
 
 
 Contents

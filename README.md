@@ -110,7 +110,7 @@ create a new [GitHub Issue](https://github.com/NCCR-SYNAPSY/neurodatapub/issues)
 
 Supported by the National Centre of Competence in Research (NCCR)
 "SYNAPSY – Synaptic Bases of Mental Diseases"
-([NCCR-SYNAPSY website](https://nccr-synapsy.ch/) / [NCCR-SYNAPSY Swiss National Science Foundation page](https://www.snf.ch/en/rk1dIQvOuOCU9G4Z/page/researchinFocus/nccr/nccr-synapsy)).
+([NCCR-SYNAPSY website](https://nccr-synapsy.ch/) / [NCCR-SYNAPSY Swiss National Science Foundation page](https://www.snf.ch/en/rk1dIQvOuOCU9G4Z/page/researchinFocus/nccr/nccr-synapsy)) supported by [SNF-185897 grant](https://p3.snf.ch/project-185897).
 
 ## Contributors ✨
 

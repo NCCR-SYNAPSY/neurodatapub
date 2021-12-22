@@ -39,6 +39,9 @@ def init_ssh_special_sibling(
     -------
     proc : string
         Output of `subprocess.run()`
+
+    cmd : string
+        Equivalent output command
     """
     # Create the git annex command
     cmd = 'git annex initremote '
@@ -78,6 +81,9 @@ def enable_ssh_special_sibling(
     -------
     proc : string
         Output of `subprocess.run()`
+
+    cmd : string
+        Equivalent output command
     """
     # Create the git annex command
     cmd = 'git annex enableremote '

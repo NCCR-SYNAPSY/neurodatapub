@@ -28,6 +28,9 @@ def copy_content_to_datalad_dataset(
     -------
     proc :
         Output of call to `rsync` command via `subprocess.run()`
+
+    cmd : string
+        Equivalent output command
     """
     # Make sure the path ends with "/" such that rsync
     # copy the content and not the directory itself

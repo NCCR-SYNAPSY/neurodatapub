@@ -71,6 +71,9 @@ def authenticate_github_email(
     -------
     proc : string
         Output of `subprocess.run()`
+
+    cmd : string
+        Equivalent output command
     """
     # Create the git config command to set user.email
     cmd = 'git config --global user.email '

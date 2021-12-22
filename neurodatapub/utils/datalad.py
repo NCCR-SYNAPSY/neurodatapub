@@ -29,8 +29,11 @@ def create_bids_dataset(
 
     Returns
     -------
-    res : string
+    `res` : string
         Output of `datalad.api.create()`
+
+    `cmd` : string
+        Equivalent bash command
     """
     # Create parent directories if they do not exist
     if not os.path.exists(os.path.dirname(datalad_dataset_dir)):
@@ -40,7 +43,8 @@ def create_bids_dataset(
         dataset=datalad_dataset_dir,
         cfg_proc=['text2git', 'bids'],
     )
-    return res
+    cmd = f'datalad create -c text2git,bids {datalad_dataset_dir}'
+    return res, cmd
 
 
 def create_ssh_sibling(
@@ -70,8 +74,11 @@ def create_ssh_sibling(
 
     Returns
     -------
-    res : string
+    `res` : string
         Output of `datalad.api.create_sibling()`
+
+    `cmd` : string
+        Equivalent bash command
     """
     res = datalad.api.create_sibling(
         sshurl=f'{ssh_special_sibling_args["remote_ssh_url"]}:' +
@@ -80,7 +87,10 @@ def create_ssh_sibling(
         dataset=datalad_dataset_dir,
         existing='skip'
     )
-    return res
+    cmd = f'datalad create-sibling -s {datalad_sibling_name} \\\n\t'
+    cmd += f'--dataset {datalad_dataset_dir} \\\n\t'
+    cmd += f'{ssh_special_sibling_args["remote_ssh_url"]}:{ssh_special_sibling_args["remote_sibling_dir"]}'
+    return res, cmd
 
 
 def create_github_sibling(
@@ -114,6 +124,9 @@ def create_github_sibling(
     -------
     `res` : string
         Output of `datalad.api.create_sibling_github()
+
+    `cmd` : string
+        Equivalent bash command
     """
     res = datalad.api.create_sibling_github(
         reponame=github_sibling_args["github_repo_name"],
@@ -124,7 +137,12 @@ def create_github_sibling(
         dataset=datalad_dataset_dir,
         existing='skip'
     )
-    return res
+    cmd = f'datalad create-sibling-github --dataset {datalad_dataset_dir} \\\n\t'
+    cmd += f'--publish-depends {gitannex_remote_name} \\\n\t'
+    cmd += f'--github-login {github_sibling_args["github_login"]} \\\n\t'
+    cmd += f'--github-organization {github_sibling_args["github_organization"]} \\\n\t'
+    cmd += f'--private {github_sibling_args["github_repo_name"]}'
+    return res, cmd
 
 
 def authenticate_osf(
@@ -144,6 +162,9 @@ def authenticate_osf(
     -------
     `res` : string
         Output of ` datalad.api.osf_credentials()`
+
+    `cmd` : string
+        Equivalent bash command
     """
     # Set OSF_TOKEN and reload datalad.api module
     os.environ['OSF_TOKEN'] = osf_token
@@ -153,7 +174,9 @@ def authenticate_osf(
         method='token',
         reset=True
     )
-    return res
+    cmd = f'export OSF_TOKEN="{osf_token}"\n'
+    cmd += f'datalad osf-credentials --method token  --reset'
+    return res, cmd
 
 
 def create_osf_sibling(
@@ -175,6 +198,9 @@ def create_osf_sibling(
     -------
     `res` : string
         Output of `datalad.api.create_sibling_osf()
+
+    `cmd` : string
+        Equivalent bash command
     """
     # Use the contents of the README file of the BIDS dataset
     # as description of the dataset published to OSF
@@ -199,7 +225,15 @@ def create_osf_sibling(
         category='data',
         description=dataset_description
     )
-    return res
+    cmd = f'datalad create-sibling-osf --dataset {datalad_dataset_dir} \\\n\t'
+    cmd += f'--title {osf_dataset_title} \\\n\t'
+    cmd += f'-s osf \\\n\t'
+    cmd += f'--mode annex \\\n\t'
+    cmd += f'--existing skip \\\n\t'
+    cmd += f'--tag neuroimaging \\\n\t'
+    cmd += f'--category data \\\n\t'
+    cmd += f'--description {dataset_description} \\\n\t'
+    return res, cmd
 
 
 def publish_dataset(
@@ -217,9 +251,13 @@ def publish_dataset(
     -------
     `res` : string
         Output of `datalad.api.publish()
+
+    `cmd` : string
+        Equivalent bash command
     """
     res = datalad.api.push(
         dataset=datalad_dataset_dir,
         to='github'
     )
-    return res
+    cmd = f'datalad push --dataset {datalad_dataset_dir} --to github'
+    return res, cmd

@@ -1,4 +1,4 @@
-# Copyright © 2021 Connectomics Lab
+# Copyright © 2021-2022 Connectomics Lab
 # University Hospital Center and University of Lausanne (UNIL-CHUV), Switzerland,
 # and contributors
 #

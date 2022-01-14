@@ -261,7 +261,9 @@ class NeuroDataPubProject(HasTraits):
         """Define how a :class:`NeuroDataPubProject` object is rendered in `print()`."""
         desc = f"""
         NeuroDataPubProject object attribute summary:
+        \tgenerate_script : {self.generate_script}
         \tinput_dataset_dir : {self.input_dataset_dir}
+        \tdataset_is_bids : {self.dataset_is_bids}
         \toutput_datalad_dataset_dir : {self.output_datalad_dataset_dir}
         \tgit_annex_special_sibling_config : {self.git_annex_special_sibling_config}
         \tgithub_sibling_config : {self.github_sibling_config}

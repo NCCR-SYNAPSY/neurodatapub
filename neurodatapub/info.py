@@ -1,13 +1,12 @@
 """Neurodatapub package information."""
 
 _version_major = 0
-_version_minor = 3
+_version_minor = 4
 
-__release_date__ = '31.08.2021'
+__release_date__ = '21.01.2022'
 
 __version__ = "%s.%s" % (_version_major, _version_minor)
 
-# __current_year__ = datetime.datetime.now().strftime("%Y")
 __current_year__ = '2022'
 
 __author__ = 'Sebastien Tourbier'

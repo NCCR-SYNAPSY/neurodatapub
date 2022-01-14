@@ -93,7 +93,7 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
                     Item('input_dataset_dir',
                          editor=DirectoryEditor(dialog_style='open'),
                          style_sheet=return_folder_button_style_sheet()),
-                    Item('is_not_bids'),
+                    Item('dataset_is_bids'),
                     Item('output_datalad_dataset_dir',
                          editor=DirectoryEditor(dialog_style='save'),
                          style_sheet=return_folder_button_style_sheet()),
@@ -160,12 +160,12 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
             spring,
             HGroup(
                 spring,
-                Item('check_config', width=90), spring,
-                Item('create_and_publish_button', width=90, enabled_when='config_is_valid'), spring,
-                Item('create_only_button', width=90, enabled_when='config_is_valid'), spring,
-                Item('publish_only_button', width=90, enabled_when='config_is_valid'),
-                spring,
-                show_labels=False,
+                Item('check_config', width=90, show_label=False), spring,
+                Item('create_and_publish_button', width=90, enabled_when='config_is_valid', show_label=False), spring,
+                Item('create_only_button', width=90, enabled_when='config_is_valid', show_label=False), spring,
+                Item('publish_only_button', width=90, enabled_when='config_is_valid', show_label=False),
+                Item('generate_script', enabled_when='config_is_valid', label='Generate script only'),
+                spring
             )
         ),
         resizable=True,

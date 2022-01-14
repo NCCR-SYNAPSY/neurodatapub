@@ -114,76 +114,76 @@ class NeuroDataPubProject(HasTraits):
 
     input_dataset_dir = Directory(
         exists=True,
-        desc='Absolute path of the original BIDS dataset directory'
+        desc='the absolute path of the original BIDS dataset directory'
     )
     dataset_is_bids = Bool(
         True,
-        desc='Indicate if the dataset is organized following the '
+        desc='if the dataset is organized following the '
              'Brain Imaging Data Structure (BIDS) standard'
     )
     output_datalad_dataset_dir = Directory(
-        desc='Absolute path of the datalad dataset to be created'
+        desc='the absolute path of the datalad dataset to be created'
     )
     git_annex_special_sibling_config = File(
-        desc='Absolute path of the Json file that describes '
+        desc='the absolute path of the Json file that describes '
              'configuration of the git-annex special sibling'
     )
     _types = List(["ssh", "osf"])
     sibling_type = Enum(
         values='_types',
-        desc='Type of git-annex special sibling '
+        desc='the type of git-annex special sibling '
              '(It can be a SSH-accessible server (`"ssh"`) '
              'or on the cloud to OSF (`"osf"`))'
     )
     github_sibling_config = File(
-        desc='Absolute path of the Json file that describes '
+        desc='the absolute path of the Json file that describes '
              'configuration of the github sibling'
     )
     github_login = Str(
-        desc='GitHub account login'
+        desc='the GitHub account login'
     )
     github_email = Str(
-        desc='Email associated with GitHub account'
+        desc='the email associated with GitHub account'
     )
     github_organization = Str(
-        desc='Github organization used for publication'
+        desc='the Github organization used for publication'
     )
     github_token = Password(
-        desc='Token to authenticate in GitHub'
+        desc='the token to authenticate in GitHub'
     )
     github_repo_name = Str(
-        desc='Name of the dataset repository published on GitHub'
+        desc='the name of the dataset repository published on GitHub'
     )
     remote_ssh_login = Str(
-        desc='User login to the git-annex special sibling'
+        desc='the user login to the git-annex special sibling'
     )
     remote_ssh_url = Str(
-        desc='SSH URL to the git-annex special sibling '
+        desc='the SSH URL to the git-annex special sibling '
              'in the form of `ssh://server.example.org`'
     )
     remote_sibling_dir = Directory(
-        desc='Remote absolute path of the sibling dataset on '
+        desc='the remote absolute path of the sibling dataset on '
              'the git-annex special sibling'
     )
     remote_sibling_name = Str(
-        desc='Datalad sibling name of the git-annex special sibling'
+        desc='the Datalad sibling name of the git-annex special sibling'
     )
     osf_token = Password(
         desc='Personal OSF token for authentication'
     )
     osf_dataset_title = Str(
-        desc='Dataset title published on OSF'
+        desc='the dataset title published on OSF'
     )
     _modes = List(["all", "create-only", "publish-only"])
     mode = Enum(
         values='_modes',
-        desc='Mode in which `neurodatapub` operates'
+        desc='the mode in which `neurodatapub` operates'
     )
     generate_script = Bool(
         False,
-        desc='Dry run that generates a bash script called '
+        desc='to not execute the commands but record them in a bash script called '
              '`neurodatapub_DD-MM-YYYY_hh:mm:ss.sh` in the `code/` '
-             'folder of the input dataset that records all commands '
+             'folder of the input dataset '
              'for later execution'
     )
 

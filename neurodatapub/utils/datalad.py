@@ -18,14 +18,20 @@ DEFAULT_DATALAD_SSH_SIBLING_NAME = 'datalad_ssh_sibling'
 
 def create_bids_dataset(
     datalad_dataset_dir,
+    dryrun=False
 ):
     """
-    Function that creates the datalad dataset via `datalad.api.create()`.
+    Function that creates the datalad dataset of a BIDS dataset via `datalad.api.create()`.
 
     Parameters
     ----------
     datalad_dataset_dir : string
         Local path of Datalad dataset to be published
+
+    dryrun : bool
+        If `True`, only generates the commands and
+        do not execute them
+        (Default: `False`)
 
     Returns
     -------
@@ -39,18 +45,60 @@ def create_bids_dataset(
     if not os.path.exists(os.path.dirname(datalad_dataset_dir)):
         os.makedirs(os.path.dirname(datalad_dataset_dir))
 
-    res = datalad.api.create(
-        dataset=datalad_dataset_dir,
-        cfg_proc=['text2git', 'bids'],
-    )
+    res = None
+    if not dryrun:
+        res = datalad.api.create(
+            dataset=datalad_dataset_dir,
+            cfg_proc=['text2git', 'bids'],
+        )
     cmd = f'datalad create -c text2git,bids {datalad_dataset_dir}'
+    return res, cmd
+
+
+def create_dataset(
+    datalad_dataset_dir,
+    dryrun=False
+):
+    """
+    Function that creates the datalad dataset via `datalad.api.create()`.
+
+    Parameters
+    ----------
+    datalad_dataset_dir : string
+        Local path of Datalad dataset to be published
+
+    dryrun : bool
+        If `True`, only generates the commands and
+        do not execute them
+        (Default: `False`)
+
+    Returns
+    -------
+    `res` : string
+        Output of `datalad.api.create()`
+
+    `cmd` : string
+        Equivalent bash command
+    """
+    # Create parent directories if they do not exist
+    if not os.path.exists(os.path.dirname(datalad_dataset_dir)):
+        os.makedirs(os.path.dirname(datalad_dataset_dir))
+
+    res = None
+    if not dryrun:
+        res = datalad.api.create(
+            dataset=datalad_dataset_dir,
+            cfg_proc=['text2git'],
+        )
+    cmd = f'datalad create -c text2git {datalad_dataset_dir}'
     return res, cmd
 
 
 def create_ssh_sibling(
     datalad_dataset_dir,
     ssh_special_sibling_args,
-    datalad_sibling_name=DEFAULT_DATALAD_SSH_SIBLING_NAME
+    datalad_sibling_name=DEFAULT_DATALAD_SSH_SIBLING_NAME,
+    dryrun=False
 ):
     """
     Function that creates a SSH remote dataset sibling via `datalad.api.create_sibling()`..
@@ -72,6 +120,11 @@ def create_ssh_sibling(
     datalad_sibling_name : string
         Name of the remote sibling created by Datalad
 
+    dryrun : bool
+        If `True`, only generates the commands and
+        do not execute them
+        (Default: `False`)
+
     Returns
     -------
     `res` : string
@@ -80,13 +133,15 @@ def create_ssh_sibling(
     `cmd` : string
         Equivalent bash command
     """
-    res = datalad.api.create_sibling(
-        sshurl=f'{ssh_special_sibling_args["remote_ssh_url"]}:' +
-        f'{ssh_special_sibling_args["remote_sibling_dir"]}',
-        name=datalad_sibling_name,
-        dataset=datalad_dataset_dir,
-        existing='skip'
-    )
+    res = None
+    if not dryrun:
+        res = datalad.api.create_sibling(
+            sshurl=f'{ssh_special_sibling_args["remote_ssh_url"]}:' +
+            f'{ssh_special_sibling_args["remote_sibling_dir"]}',
+            name=datalad_sibling_name,
+            dataset=datalad_dataset_dir,
+            existing='skip'
+        )
     cmd = f'datalad create-sibling -s {datalad_sibling_name} \\\n\t'
     cmd += f'--dataset {datalad_dataset_dir} \\\n\t'
     cmd += f'{ssh_special_sibling_args["remote_ssh_url"]}:{ssh_special_sibling_args["remote_sibling_dir"]}'
@@ -96,7 +151,8 @@ def create_ssh_sibling(
 def create_github_sibling(
     datalad_dataset_dir,
     github_sibling_args,
-    gitannex_remote_name=DEFAULT_SSH_REMOTE_NAME
+    gitannex_remote_name=DEFAULT_SSH_REMOTE_NAME,
+    dryrun=False
 ):
     """
     Function that creates the GitHub dataset repository siblings via `datalad.api.create_sibling_github()`.
@@ -120,6 +176,11 @@ def create_github_sibling(
         `neurodatapub.utils.gitannex.init_ssh_special_sibling()` or
         with `datalad.api.create_osf_sibling()`.
 
+    dryrun : bool
+        If `True`, only generates the commands and
+        do not execute them
+        (Default: `False`)
+
     Returns
     -------
     `res` : string
@@ -128,15 +189,17 @@ def create_github_sibling(
     `cmd` : string
         Equivalent bash command
     """
-    res = datalad.api.create_sibling_github(
-        reponame=github_sibling_args["github_repo_name"],
-        github_login=github_sibling_args["github_login"],
-        github_organization=github_sibling_args["github_organization"],
-        publish_depends=gitannex_remote_name,
-        private=True,
-        dataset=datalad_dataset_dir,
-        existing='skip'
-    )
+    res = None
+    if not dryrun:
+        res = datalad.api.create_sibling_github(
+            reponame=github_sibling_args["github_repo_name"],
+            github_login=github_sibling_args["github_login"],
+            github_organization=github_sibling_args["github_organization"],
+            publish_depends=gitannex_remote_name,
+            private=True,
+            dataset=datalad_dataset_dir,
+            existing='skip'
+        )
     cmd = f'datalad create-sibling-github --dataset {datalad_dataset_dir} \\\n\t'
     cmd += f'--publish-depends {gitannex_remote_name} \\\n\t'
     cmd += f'--github-login {github_sibling_args["github_login"]} \\\n\t'
@@ -146,7 +209,8 @@ def create_github_sibling(
 
 
 def authenticate_osf(
-    osf_token
+    osf_token,
+    dryrun=False
 ):
     """
     Function that initialize the authentication to OSF using a personnal OSF TOKEN.
@@ -157,6 +221,11 @@ def authenticate_osf(
         Personal OSF access token.
         It can be generated under your user account
         at `osf.io/settings/tokens <https://osf.io/settings/tokens>`_.
+
+    dryrun : bool
+        If `True`, only generates the commands and
+        do not execute them
+        (Default: `False`)
 
     Returns
     -------
@@ -169,11 +238,13 @@ def authenticate_osf(
     # Set OSF_TOKEN and reload datalad.api module
     os.environ['OSF_TOKEN'] = osf_token
     reload(datalad.api)
-    # OSF credentials
-    res = datalad.api.osf_credentials(
-        method='token',
-        reset=True
-    )
+    res = None
+    if not dryrun:
+        # OSF credentials
+        res = datalad.api.osf_credentials(
+            method='token',
+            reset=True
+        )
     cmd = f'export OSF_TOKEN="{osf_token}"\n'
     cmd += f'datalad osf-credentials --method token  --reset'
     return res, cmd
@@ -181,7 +252,8 @@ def authenticate_osf(
 
 def create_osf_sibling(
     datalad_dataset_dir,
-    osf_dataset_title
+    osf_dataset_title,
+    dryrun=False
 ):
     """
     Function that creates the OSF dataset repository sibling via `datalad.api.create_sibling_osf()` of the `datalad-osf` extension.
@@ -193,6 +265,11 @@ def create_osf_sibling(
 
     osf_dataset_title : string
         Title of the dataset on OSF
+
+    dryrun : bool
+        If `True`, only generates the commands and
+        do not execute them
+        (Default: `False`)
 
     Returns
     -------
@@ -211,20 +288,22 @@ def create_osf_sibling(
     else:
         dataset_description = None
 
-    # Create the OSF sibling.
-    # If the sibling is existing, this will be skipped.
-    res = datalad.api.create_sibling_osf(
-        title=osf_dataset_title,
-        name='osf',
-        dataset=datalad_dataset_dir,
-        mode='annex',
-        existing='skip',
-        trust_level=None,
-        tags='neuroimaging',
-        public=False,
-        category='data',
-        description=dataset_description
-    )
+    res = None
+    if not dryrun:
+        # Create the OSF sibling.
+        # If the sibling is existing, this will be skipped.
+        res = datalad.api.create_sibling_osf(
+            title=osf_dataset_title,
+            name='osf',
+            dataset=datalad_dataset_dir,
+            mode='annex',
+            existing='skip',
+            trust_level=None,
+            tags='neuroimaging',
+            public=False,
+            category='data',
+            description=dataset_description
+        )
     cmd = f'datalad create-sibling-osf --dataset {datalad_dataset_dir} \\\n\t'
     cmd += f'--title {osf_dataset_title} \\\n\t'
     cmd += f'-s osf \\\n\t'
@@ -237,7 +316,8 @@ def create_osf_sibling(
 
 
 def publish_dataset(
-    datalad_dataset_dir
+    datalad_dataset_dir,
+    dryrun=False
 ):
     """
     Function that publishes the dataset repository to GitHub and the annexed files to a SSH special remote.
@@ -247,6 +327,11 @@ def publish_dataset(
     datalad_dataset_dir : string
         Local path of Datalad dataset to be published
 
+    dryrun : bool
+        If `True`, only generates the commands and
+        do not execute them
+        (Default: `False`)
+
     Returns
     -------
     `res` : string
@@ -255,9 +340,11 @@ def publish_dataset(
     `cmd` : string
         Equivalent bash command
     """
-    res = datalad.api.push(
-        dataset=datalad_dataset_dir,
-        to='github'
-    )
+    res = None
+    if not dryrun:
+        res = datalad.api.push(
+            dataset=datalad_dataset_dir,
+            to='github'
+        )
     cmd = f'datalad push --dataset {datalad_dataset_dir} --to github'
     return res, cmd

@@ -29,10 +29,16 @@ def get_parser():
         type=str
     )
     p.add_argument(
-        "--bids_dir",
+        "--dataset_dir",
         help="The directory with the input dataset "
              "formatted according to the BIDS standard.",
         required='--gui' not in " ".join(sys.argv),
+    )
+    p.add_argument(
+        "--is_not_bids",
+        action='store_true',
+        help="Specify if the directory with the input dataset "
+             "is not formatted according to the BIDS standard."
     )
     p.add_argument(
         "--datalad_dir",
@@ -65,7 +71,14 @@ def get_parser():
         "--gui",
         help="Run NeuroDataPub in GUI mode",
         action="store_true",
-        default=False,
+        default=False
+    )
+    p.add_argument(
+        "--generate_script",
+        help="Dry run that generates a bash script called `neurodatapub_DD-MM-YYYY_hh:mm:ss.sh` "
+             "in the `code/` folder of the input dataset that records all commands for later execution",
+        action="store_true",
+        default=False
     )
     p.add_argument(
         "-v",

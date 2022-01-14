@@ -13,7 +13,8 @@ from .process import run
 def init_ssh_special_sibling(
     datalad_dataset_dir,
     ssh_special_sibling_args,
-    ssh_special_sibling_name=DEFAULT_SSH_REMOTE_NAME
+    ssh_special_sibling_name=DEFAULT_SSH_REMOTE_NAME,
+    dryrun=False
 ):
     """
     Function that creates and returns the git annex initremote run command.
@@ -35,6 +36,11 @@ def init_ssh_special_sibling(
     ssh_special_sibling_name : string
         Name of the created special remote sibling
 
+    dryrun : bool
+        If `True`, only generates the commands and
+        do not execute them
+        (Default: `False`)
+
     Returns
     -------
     proc : string
@@ -51,20 +57,22 @@ def init_ssh_special_sibling(
     cmd += f'{ssh_special_sibling_args["remote_sibling_dir"]} '
     cmd += 'autoenable=true'
 
-    # Execute the git annex initremote command in the dataset directory
-    try:
-        print(f'... cmd: {cmd}')
-        proc = run(cmd, cwd=f'{datalad_dataset_dir}')
-        return proc, cmd
-    except Exception as e:
-        print('Failed')
-        print(e)
-        return None, cmd
-
+    proc = None
+    if not dryrun:
+        # Execute the git annex initremote command in the dataset directory
+        try:
+            print(f'... cmd: {cmd}')
+            proc = run(cmd, cwd=f'{datalad_dataset_dir}')
+        except Exception as e:
+            print('Failed')
+            print(e)
+            return None, cmd
+    return proc, cmd
 
 def enable_ssh_special_sibling(
     datalad_dataset_dir,
-    ssh_special_sibling_name=DEFAULT_SSH_REMOTE_NAME
+    ssh_special_sibling_name=DEFAULT_SSH_REMOTE_NAME,
+    dryrun=False
 ):
     """
     Function that enables the git annex  special remote.
@@ -76,6 +84,11 @@ def enable_ssh_special_sibling(
 
     ssh_special_sibling_name : string
         Name of the created special remote sibling
+
+    dryrun : bool
+        If `True`, only generates the commands and
+        do not execute them
+        (Default: `False`)
 
     Returns
     -------
@@ -89,12 +102,14 @@ def enable_ssh_special_sibling(
     cmd = 'git annex enableremote '
     cmd += f'{ssh_special_sibling_name}'
 
-    # Execute the git annex enableremote command in the dataset directory
-    try:
-        print(f'... cmd: {cmd}')
-        proc = run(cmd, cwd=f'{datalad_dataset_dir}')
-        return proc, cmd
-    except Exception as e:
-        print('Failed')
-        print(e)
-        return None, cmd
+    proc = None
+    if not dryrun:
+        # Execute the git annex enableremote command in the dataset directory
+        try:
+            print(f'... cmd: {cmd}')
+            proc = run(cmd, cwd=f'{datalad_dataset_dir}')
+        except Exception as e:
+            print('Failed')
+            print(e)
+            return None, cmd
+    return proc, cmd

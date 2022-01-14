@@ -12,6 +12,7 @@ from .process import run
 def copy_content_to_datalad_dataset(
     bids_dir,
     datalad_dataset_dir,
+    dryrun=False
 ):
     """
     Copy BIDS dataset content to target datalad dataset directory using `rsync`.
@@ -23,6 +24,11 @@ def copy_content_to_datalad_dataset(
 
     datalad_dataset_dir : string
         Local path of the directory of the datalad dataset being created
+
+    dryrun : bool
+        If `True`, only generates the commands and
+        do not execute them
+        (Default: `False`)
 
     Returns
     -------
@@ -41,12 +47,14 @@ def copy_content_to_datalad_dataset(
     cmd += f'{bids_dir} '
     cmd += f'{datalad_dataset_dir}'
 
-    # Execute the rsync command
-    try:
-        print(f'... cmd: {cmd}')
-        proc = run(cmd)
-        return proc, cmd
-    except Exception as e:
-        print('Failed')
-        print(e)
-        return None, cmd
+    proc = None
+    if not dryrun:
+        # Execute the rsync command
+        try:
+            print(f'... cmd: {cmd}')
+            proc = run(cmd)
+        except Exception as e:
+            print('Failed')
+            print(e)
+            return None, cmd
+    return proc, cmd

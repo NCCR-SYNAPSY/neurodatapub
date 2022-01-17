@@ -51,7 +51,7 @@ def create_bids_dataset(
             dataset=datalad_dataset_dir,
             cfg_proc=['text2git', 'bids'],
         )
-    cmd = f'datalad create -c text2git,bids {datalad_dataset_dir}'
+    cmd = f'datalad create -c text2git -c bids {datalad_dataset_dir}'
     return res, cmd
 
 
@@ -304,7 +304,7 @@ def create_osf_sibling(
             description=dataset_description
         )
     cmd = f'datalad create-sibling-osf --dataset {datalad_dataset_dir} \\\n\t'
-    cmd += f'--title {osf_dataset_title} \\\n\t'
+    cmd += f'--title "{osf_dataset_title}" \\\n\t'
     cmd += f'-s osf \\\n\t'
     cmd += f'--mode annex \\\n\t'
     cmd += f'--existing skip \\\n\t'

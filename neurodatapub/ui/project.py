@@ -295,6 +295,8 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
             "# Creation of Datalad Dataset\n"
             "############################################\n"
         )
+        # Initialize the script that will log all commands generated
+        cmd_log = '#!/bin/sh\n\n'
         _, cmd_fun_log = self.create_datalad_dataset()
         if self.generate_script:
             # Create name of script with time stamp
@@ -309,12 +311,14 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
                 f"# Generation of script {script_path}\n"
                 "############################################\n"
             )
+            cmd_log += f'{cmd_fun_log}\n'
             with open(script_path, 'w') as f:
-                f.writelines(cmd_fun_log)
+                f.writelines(cmd_log)
 
     def _publish_only_button_fired(self):
         """Executed when `publish_only_button` is clicked."""
-        cmd_log = ''
+        # Initialize the script that will log all commands generated
+        cmd_log = '#!/bin/sh\n\n'
         print(
             "\n############################################\n"
             "# Configuration of the publication siblings\n"
@@ -347,7 +351,8 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
 
     def _create_and_publish_button_fired(self):
         """Executed when `create_and_publish_button` is clicked."""
-        cmd_log = ''
+        # Initialize the script that will log all commands generated
+        cmd_log = '#!/bin/sh\n\n'
         print(
             "\n############################################\n"
             "# Creation of Datalad Dataset\n"

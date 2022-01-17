@@ -330,7 +330,7 @@ NeuroDataPubProject object attribute summary:
                 print(proc.stdout)
             msg = 'Save dataset state...'
             print(f'> {msg}')
-            save_msg = (f'Save dataset state after performing the command {cmd} '
+            save_msg = (f'Save dataset state after performing the rsync command '
                         f'with neurodatapub {__version__}')
             if not self.generate_script:
                 datalad.api.save(
@@ -338,8 +338,7 @@ NeuroDataPubProject object attribute summary:
                     message=save_msg,
                     jobs='auto'
                 )
-            cmd = f'datalad save -d {self.output_datalad_dataset_dir} '
-            cmd += f'-m {save_msg} -J "auto"'
+            cmd = f'datalad save -d {self.output_datalad_dataset_dir} -m "{save_msg}" -J "auto"'
             cmd_fun_log += f'# {msg}\n{cmd}\n'
         else:
             print(f'> Creation of Datalad dataset {self.output_datalad_dataset_dir} '
@@ -514,9 +513,9 @@ NeuroDataPubProject object attribute summary:
                         message=save_msg,
                         jobs='auto'
                 )
-        cmd = f'datalad save -d {self.output_datalad_dataset_dir} '
-        cmd += f'-m {save_msg} -J "auto"'
-        cmd_fun_log += f'# {msg}\n{cmd}\n\n'
+            cmd = f'datalad save -d {self.output_datalad_dataset_dir} '
+            cmd += f'-m "{save_msg}" -J "auto"'
+            cmd_fun_log += f'# {msg}\n{cmd}\n\n'
 
         msg = (f'Publish the dataset repo to {self.github_repo_name} and '
                f'the annexed files to {self.remote_ssh_url}:{self.remote_sibling_dir}')

@@ -178,7 +178,7 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
             'neurodatapub',
             "resources/neurodatapub_logo_100x100.png"
         ),
-        width=800,
+        width=1024,
         height=600,
         style_sheet=return_global_style_sheet()
     )

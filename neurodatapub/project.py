@@ -259,26 +259,32 @@ class NeuroDataPubProject(HasTraits):
 
     def __str__(self):
         """Define how a :class:`NeuroDataPubProject` object is rendered in `print()`."""
+        nb_char_shown = 10
+        encrypted_github_token = '*' * (len(self.github_token) - nb_char_shown) + self.github_token[-nb_char_shown:]
+        encrypted_osf_token = '*' * (len(self.osf_token) - nb_char_shown) + self.osf_token[-nb_char_shown:]
         desc = f"""
-        NeuroDataPubProject object attribute summary:
-        \tgenerate_script : {self.generate_script}
-        \tinput_dataset_dir : {self.input_dataset_dir}
-        \tdataset_is_bids : {self.dataset_is_bids}
-        \toutput_datalad_dataset_dir : {self.output_datalad_dataset_dir}
-        \tgit_annex_special_sibling_config : {self.git_annex_special_sibling_config}
-        \tgithub_sibling_config : {self.github_sibling_config}
-        \tgithub_email : {self.github_email}
-        \tgithub_login : {self.github_login}
-        \tgithub_organization : {self.github_organization}
-        \tgithub_token : {self.github_token}
-        \tgithub_repo_name : {self.github_repo_name}
-        \tremote_ssh_login : {self.remote_ssh_login}
-        \tremote_ssh_url : {self.remote_ssh_url}
-        \tremote_sibling_dir : {self.remote_sibling_dir}
-        \tremote_sibling_name : {self.remote_sibling_name}
-        \tosf_dataset_title : {self.osf_dataset_title}
-        \tosf_token : {self.osf_token}
-        """
+NeuroDataPubProject object attribute summary:
+\tgenerate_script : {self.generate_script}
+\tinput_dataset_dir : {self.input_dataset_dir}
+\tdataset_is_bids : {self.dataset_is_bids}
+\toutput_datalad_dataset_dir : {self.output_datalad_dataset_dir}
+\tgit_annex_special_sibling_config : {self.git_annex_special_sibling_config}
+\tgithub_sibling_config : {self.github_sibling_config}
+\tgithub_email : {self.github_email}
+\tgithub_login : {self.github_login}
+\tgithub_organization : {self.github_organization}
+\tgithub_token : {encrypted_github_token}
+\tgithub_repo_name : {self.github_repo_name}"""
+        if self.sibling_type == 'ssh':
+            desc += f"""
+\tremote_ssh_login : {self.remote_ssh_login}
+\tremote_ssh_url : {self.remote_ssh_url}
+\tremote_sibling_dir : {self.remote_sibling_dir}
+\tremote_sibling_name : {self.remote_sibling_name}"""
+        elif self.sibling_type == 'osf':
+            desc += f"""
+\tosf_dataset_title : {self.osf_dataset_title}
+\tosf_token : {encrypted_osf_token}"""
         return desc
 
     def create_datalad_dataset(self):

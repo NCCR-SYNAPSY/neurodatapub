@@ -237,13 +237,12 @@ def authenticate_osf(
     """
     # Set OSF_TOKEN and reload datalad.api module
     os.environ['OSF_TOKEN'] = osf_token
-    reload(datalad.api)
     res = None
     if not dryrun:
         # OSF credentials
         res = datalad.api.osf_credentials(
             method='token',
-            reset=True
+            reset=False
         )
     cmd = f'export OSF_TOKEN="{osf_token}"\n'
     cmd += f'datalad osf-credentials --method token  --reset'

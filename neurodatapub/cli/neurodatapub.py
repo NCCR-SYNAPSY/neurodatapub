@@ -20,6 +20,9 @@ from traits.etsconfig.api import ETSConfig
 ETSConfig.toolkit = 'qt'  # noqa: E402
 os.environ['QT_API'] = 'pyqt5'  # noqa: E402
 
+# Suppress QXcbConnection: XCB error
+os.environ['QT_LOGGING_RULES'] = '*.debug=false;qt.qpa.*=false'  # noqa: E402
+
 from bids import BIDSLayout
 
 # Own imports

@@ -37,7 +37,7 @@ GITHUB_SIBLING_CONFIG_SCHEMA = {
     "properties": {
         "github_login": {
             "type": "string",
-            "pattern": "^[\\w-]+$"
+            "pattern": "^[\\w]+$"
         },
         "github_email": {
             "type": "string",
@@ -52,7 +52,7 @@ GITHUB_SIBLING_CONFIG_SCHEMA = {
         },
         "github_token": {
             "type": "string",
-            "pattern": "^[\\w-.]+$"
+            "pattern": "^[\\w.-]+$"
         },
         "github_repo_name": {
             "type": "string",

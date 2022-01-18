@@ -3,7 +3,7 @@
 _version_major = 0
 _version_minor = 4
 
-__release_date__ = '21.01.2022'
+__release_date__ = '18.01.2022'
 
 __version__ = "%s.%s" % (_version_major, _version_minor)
 

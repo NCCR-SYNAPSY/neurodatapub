@@ -338,7 +338,7 @@ NeuroDataPubProject object attribute summary:
                     message=save_msg,
                     jobs='auto'
                 )
-            cmd = f'datalad save -d {self.output_datalad_dataset_dir} -m "{save_msg}" -J "auto"'
+            cmd = f'datalad save -d "{self.output_datalad_dataset_dir}" -m "{save_msg}" -J "auto"'
             cmd_fun_log += f'# {msg}\n{cmd}\n'
         else:
             print(f'> Creation of Datalad dataset {self.output_datalad_dataset_dir} '
@@ -513,7 +513,7 @@ NeuroDataPubProject object attribute summary:
                         message=save_msg,
                         jobs='auto'
                 )
-            cmd = f'datalad save -d {self.output_datalad_dataset_dir} '
+            cmd = f'datalad save -d "{self.output_datalad_dataset_dir}" '
             cmd += f'-m "{save_msg}" -J "auto"'
             cmd_fun_log += f'# {msg}\n{cmd}\n\n'
 

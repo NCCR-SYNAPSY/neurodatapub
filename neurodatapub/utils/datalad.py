@@ -51,7 +51,7 @@ def create_bids_dataset(
             dataset=datalad_dataset_dir,
             cfg_proc=['text2git', 'bids'],
         )
-    cmd = f'datalad create -c text2git -c bids {datalad_dataset_dir}'
+    cmd = f'datalad create -c text2git -c bids "{datalad_dataset_dir}"'
     return res, cmd
 
 
@@ -90,7 +90,7 @@ def create_dataset(
             dataset=datalad_dataset_dir,
             cfg_proc=['text2git'],
         )
-    cmd = f'datalad create -c text2git {datalad_dataset_dir}'
+    cmd = f'datalad create -c text2git "{datalad_dataset_dir}"'
     return res, cmd
 
 
@@ -143,7 +143,7 @@ def create_ssh_sibling(
             existing='skip'
         )
     cmd = f'datalad create-sibling -s {datalad_sibling_name} \\\n\t'
-    cmd += f'--dataset {datalad_dataset_dir} \\\n\t'
+    cmd += f'--dataset "{datalad_dataset_dir}" \\\n\t'
     cmd += f'{ssh_special_sibling_args["remote_ssh_url"]}:{ssh_special_sibling_args["remote_sibling_dir"]}'
     return res, cmd
 
@@ -200,7 +200,8 @@ def create_github_sibling(
             dataset=datalad_dataset_dir,
             existing='skip'
         )
-    cmd = f'datalad create-sibling-github --dataset {datalad_dataset_dir} \\\n\t'
+    cmd = f'datalad create-sibling-github \\\n\t'
+    cmd += f'--dataset "{datalad_dataset_dir}" \\\n\t'
     cmd += f'--publish-depends {gitannex_remote_name} \\\n\t'
     cmd += f'--github-login {github_sibling_args["github_login"]} \\\n\t'
     cmd += f'--github-organization {github_sibling_args["github_organization"]} \\\n\t'
@@ -303,7 +304,8 @@ def create_osf_sibling(
             category='data',
             description=dataset_description
         )
-    cmd = f'datalad create-sibling-osf --dataset {datalad_dataset_dir} \\\n\t'
+    cmd = f'datalad create-sibling-osf \\\n\t'
+    cmd += f'--dataset "{datalad_dataset_dir}" \\\n\t'
     cmd += f'--title "{osf_dataset_title}" \\\n\t'
     cmd += f'-s osf \\\n\t'
     cmd += f'--mode annex \\\n\t'
@@ -345,5 +347,5 @@ def publish_dataset(
             dataset=datalad_dataset_dir,
             to='github'
         )
-    cmd = f'datalad push --dataset {datalad_dataset_dir} --to github'
+    cmd = f'datalad push --dataset "{datalad_dataset_dir}" --to github'
     return res, cmd

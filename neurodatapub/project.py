@@ -421,6 +421,7 @@ NeuroDataPubProject object attribute summary:
         msg = f'Create the {self.osf_dataset_title} OSF sibling'
         print(f'> {msg}')
         proc, cmd = create_osf_sibling(
+            dataset_dir=self.input_dataset_dir,
             datalad_dataset_dir=self.output_datalad_dataset_dir,
             osf_dataset_title=self.osf_dataset_title,
             dryrun=self.generate_script

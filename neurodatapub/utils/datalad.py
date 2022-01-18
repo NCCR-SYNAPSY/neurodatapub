@@ -251,6 +251,7 @@ def authenticate_osf(
 
 
 def create_osf_sibling(
+    dataset_dir,
     datalad_dataset_dir,
     osf_dataset_title,
     dryrun=False
@@ -260,6 +261,9 @@ def create_osf_sibling(
 
     Parameters
     ----------
+    dataset_dir : string
+        Local path to input BIDS dataset
+
     datalad_dataset_dir : string
         Local path of Datalad dataset to be published
 
@@ -281,7 +285,7 @@ def create_osf_sibling(
     """
     # Use the contents of the README file of the BIDS dataset
     # as description of the dataset published to OSF
-    readme_file = os.path.join(datalad_dataset_dir, 'README')
+    readme_file = os.path.join(dataset_dir, 'README')
     if os.path.exists(readme_file):
         with open(readme_file, encoding='utf-8') as f:
             dataset_description = f.read()
@@ -312,7 +316,7 @@ def create_osf_sibling(
     cmd += f'--existing skip \\\n\t'
     cmd += f'--tag neuroimaging \\\n\t'
     cmd += f'--category data \\\n\t'
-    cmd += f'--description {dataset_description} \\\n\t'
+    cmd += f'--description "{dataset_description}"\n\t'
     return res, cmd
 
 

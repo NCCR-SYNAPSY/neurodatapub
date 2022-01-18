@@ -20,6 +20,30 @@ New Features
   commandline interface, or by disabling the "Dataset is bids" option in the
   "Configuration of Directories" tab.
 
+* Ignore existing files during the copy of dataset files with `rsync`.
+
+Bug Fixes
+=========
+
+* Correct the pattern employed during the check of the schema of the JSON configurations
+  for the `"github_login"` and `"github_token"` fields.
+
+* Do not reload `datalap.api` and do not reset osf credentials in
+  `authenticate_osf()`.
+
+Minor changes
+=============
+
+* Copyright year has been updated in all files.
+
+* `--bids_dir` argument of the commandline interface has been changed to
+  `--dataset_dir`
+
+* The attribute input_bids_dir` of `NeuroDataPubProject` has been changed to
+  `input_dataset_dir`.
+
+* Suppress `QXcbConnection: XCB error` message during execution of `NeuroDataPub`
+
 Documentation
 =============
 

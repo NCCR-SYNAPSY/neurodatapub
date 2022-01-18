@@ -43,7 +43,7 @@ def copy_content_to_datalad_dataset(
     if not bids_dir.endswith('/'):
         bids_dir += '/'
 
-    cmd = 'rsync -vrL '
+    cmd = 'rsync --ignore-existing -vrL '
     cmd += f'{bids_dir} '
     cmd += f'{datalad_dataset_dir}'
 

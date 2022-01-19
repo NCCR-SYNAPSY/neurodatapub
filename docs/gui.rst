@@ -41,7 +41,7 @@ via the `neurodatapub` command-line interface with the `--gui` option flag:
     .. code-block:: console
 
        $ neurodatapub --gui \
-            (--bids_dir '/local/path/to/input/bids/dataset' \)
+            (--dataset_dir '/local/path/to/input/bids/dataset' \)
             (--datalad_dir  '/local/path/to/output/datalad/dataset' \)
             (--git_annex_ssh_special_sibling_config '/local/path/to/special_annex_sibling_config.json' \)
             (--github_sibling_config '/local/path/to/github_sibling_config.json')

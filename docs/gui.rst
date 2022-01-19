@@ -60,7 +60,6 @@ Datalad dataset in the first tab of the `NeuroDataPub Assistant`.
     :width: 600
 |
 
-
 3. Configure the siblings
 ==========================
 
@@ -71,7 +70,6 @@ git-annex and GitHub remote siblings.
     :align: center
     :width: 600
 |
-
 
 3.1 Special remote sibling settings
 ------------------------------------
@@ -86,7 +84,6 @@ via `ssh` or (2) the Open Science Foundation (OSF) platform to host your annexed
     :align: center
     :width: 600
 |
-
 *   ``"remote_ssh_login"`` (mandatory): user's login to the remote
 
 *   ``"remote_ssh_url"`` (mandatory): SSH-URL of the remote in the form `"ssh://..."`
@@ -101,7 +98,6 @@ via `ssh` or (2) the Open Science Foundation (OSF) platform to host your annexed
     :align: center
     :width: 600
 |
-
 *   ``"osf_dataset_title"`` (mandatory): Dataset title on OSF.
 
 *   ``"osf_token"`` (mandatory): user's OSF authentication token. To make a Personal Access Token, please go to the relevant `OSF settings page <https://osf.io/settings/tokens/>`_ and create one. If you do not an OSF account yet, you will need to create one a-priori.
@@ -114,7 +110,6 @@ via `ssh` or (2) the Open Science Foundation (OSF) platform to host your annexed
     :align: center
     :width: 600
 |
-
 *   ``"github_login"`` (mandatory): user's login to GitHub.
 
 *   ``"github_email"`` (mandatory): user's email associated with GitHub account.
@@ -150,7 +145,6 @@ checking them out by clicking on the `Check config` button.
     :align: center
     :width: 800
 |
-
 If the configuration is completely valid, this will enable the
 `Create and Publish Dataset`, `Create Dataset`, and `Publish Dataset` buttons.
 
@@ -158,7 +152,6 @@ If the configuration is completely valid, this will enable the
     :align: center
     :width: 800
 |
-
 Then, you can execute `NeuroDataPub` in one of the three execution modes by clicking on one of the
 buttons.
 
@@ -166,7 +159,6 @@ buttons.
     :align: center
     :width: 800
 |
-
 .. note:: You can always see the execution progress by checking the standard outputs in the terminal,
     such as the following:
 

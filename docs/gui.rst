@@ -208,7 +208,7 @@ buttons.
 .. admonition:: Need more control?
 
     Since `v0.4`, `NeuroDataPub` can be run in `Generate script only` mode to give more control to more advanced users familiar with the Linux shell.
-    If enabled, `NeuroDataPub` will run in a "dryrun" mode and will only create a Linux shell script called `neurodatapub_%d-%m-%Y_%H-%M-%S.sh` in the `code`
+    If enabled, `NeuroDataPub` will run in a "dryrun" mode and will only create a Linux shell script called ``neurodatapub_%d-%m-%Y_%H-%M-%S.sh`` in the `code`
     directory of your input dataset that records all the underlined commands.
 
     .. figure:: images/neurodatapub_generate_script_execution.png

@@ -56,7 +56,7 @@ via the `neurodatapub` command-line interface with the `--gui` option flag:
 ===========================================
 
 You can select or reconfigure your input dataset directory, its format (BIDS / non-BIDS) and the directory of the
-  Datalad dataset that will be created in the first tab of the `NeuroDataPub Assistant`.
+Datalad dataset that will be created in the first tab of the `NeuroDataPub Assistant`.
 
 .. figure:: images/neurodatapub_main_window.png
     :align: center
@@ -140,16 +140,16 @@ on their respective |save_button_img| button.
 4. Check the configuration and run `NeuroDataPub`
 ==================================================
 
-Before being able to initiate the processes of creation and/or publication
-  of the datalad dataset, you will need to make the `NeuroDataPub Assistant`
-  checking them out by clicking on the `Check config` button.
+Before being able to initiate the processes of creation and / or publication
+of the datalad dataset, you will need to make the `NeuroDataPub Assistant`
+checking them out by clicking on the `Check config` button.
 
 .. figure:: images/neurodatapub_check_config_button.png
     :align: center
     :width: 800
 |
 If the configuration is completely valid, this will enable the
-  `Create and Publish Dataset`, `Create Dataset`, `Publish Dataset` buttons.
+`Create and Publish Dataset`, `Create Dataset`, `Publish Dataset` buttons.
 
 .. figure:: images/neurodatapub_exec_buttons_enable.png
     :align: center
@@ -209,7 +209,7 @@ buttons.
 
     Since `v0.4`, `NeuroDataPub` can be run in `Generate script only` mode to give more control to more advanced users familiar with the Linux shell.
     If enabled, `NeuroDataPub` will run in a "dryrun" mode and will only create a Linux shell script called `neurodatapub_%d-%m-%Y_%H-%M-%S.sh` in the `code`
-      directory of your input dataset that records all the underlined commands.
+    directory of your input dataset that records all the underlined commands.
 
     .. figure:: images/neurodatapub_generate_script_execution.png
     :align: center

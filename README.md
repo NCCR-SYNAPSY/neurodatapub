@@ -40,7 +40,7 @@ created to facilitate:
     1.  creation and publication of a datalad dataset,
     2.  creation of a datalad dataset only,
     3.  publication of an existing datalad dataset only,
-    
+
 *   the creation of a Linux shell script for later execution where all commands are recorded.
 
 `NeuroDataPub` is a Python 3.8 package that can be easily installed with `pip` as follows:

@@ -7,7 +7,6 @@
 """`neurodatapub.utils.datalad`: utils functions for Datalad."""
 
 import os
-from importlib import reload
 import datalad.api
 
 GITHUB_ORGANIZATION='NCCR-SYNAPSY'
@@ -200,7 +199,7 @@ def create_github_sibling(
             dataset=datalad_dataset_dir,
             existing='skip'
         )
-    cmd = f'datalad create-sibling-github \\\n\t'
+    cmd = 'datalad create-sibling-github \\\n\t'
     cmd += f'--dataset "{datalad_dataset_dir}" \\\n\t'
     cmd += f'--publish-depends {gitannex_remote_name} \\\n\t'
     cmd += f'--github-login {github_sibling_args["github_login"]} \\\n\t'
@@ -246,7 +245,7 @@ def authenticate_osf(
             reset=False
         )
     cmd = f'export OSF_TOKEN="{osf_token}"\n'
-    cmd += f'datalad osf-credentials --method token  --reset'
+    cmd += 'datalad osf-credentials --method token  --reset'
     return res, cmd
 
 
@@ -308,14 +307,14 @@ def create_osf_sibling(
             category='data',
             description=dataset_description
         )
-    cmd = f'datalad create-sibling-osf \\\n\t'
+    cmd = 'datalad create-sibling-osf \\\n\t'
     cmd += f'--dataset "{datalad_dataset_dir}" \\\n\t'
     cmd += f'--title "{osf_dataset_title}" \\\n\t'
-    cmd += f'-s osf \\\n\t'
-    cmd += f'--mode annex \\\n\t'
-    cmd += f'--existing skip \\\n\t'
-    cmd += f'--tag neuroimaging \\\n\t'
-    cmd += f'--category data \\\n\t'
+    cmd += '-s osf \\\n\t'
+    cmd += '--mode annex \\\n\t'
+    cmd += '--existing skip \\\n\t'
+    cmd += '--tag neuroimaging \\\n\t'
+    cmd += '--category data \\\n\t'
     cmd += f'--description "{dataset_description}"\n\t'
     return res, cmd
 

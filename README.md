@@ -77,6 +77,8 @@ optional arguments:
                         The directory with the input dataset formatted according
                         to the BIDS standard. Specify if the directory with the input
                         dataset is not formatted according to the BIDS standard.
+  --is_not_bids         Specify if the directory with the input dataset is not formatted
+                        according to the BIDS standard.
   --datalad_dir DATALAD_DIR
                         The local directory where the Datalad dataset should be.
   --github_sibling_config GITHUB_SIBLING_CONFIG

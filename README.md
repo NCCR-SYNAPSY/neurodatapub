@@ -58,12 +58,6 @@ pip install neurodatapub
 `NeuroDataPub` has the following commandline arguments:
 
 ```output
-usage: neurodatapub [-h] --mode {all,create-only,publish-only} --bids_dir
-                    BIDS_DIR --datalad_dir DATALAD_DIR
-                    --git_annex_ssh_special_sibling_config
-                    GIT_ANNEX_SSH_SPECIAL_SIBLING_CONFIG
-                    --github_sibling_config GITHUB_SIBLING_CONFIG [--gui] [-v]
-
 usage: neurodatapub [-h] --mode {all,create-only,publish-only}
                     --dataset_dir DATASET_DIR [--is_not_bids]
                     --datalad_dir DATALAD_DIR

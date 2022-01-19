@@ -1,4 +1,4 @@
-# Copyright © 2021 Connectomics Lab
+# Copyright © 2021-2022 Connectomics Lab
 # University Hospital Center and University of Lausanne (UNIL-CHUV), Switzerland,
 # and contributors
 #
@@ -11,7 +11,7 @@ from pathlib import Path
 from datetime import datetime
 
 
-def update_ssh_config(sshurl, user):
+def update_ssh_config(sshurl, user, dryrun=False):
     """
     Add a new entry to the SSH config file (``~/.ssh/config``).
 
@@ -25,7 +25,15 @@ def update_ssh_config(sshurl, user):
 
     user : str
         User login for authentication to the git-annex special remote
+
+    dryrun : bool
+        If `True`, only generates the commands and
+        do not execute them
+        (Default: `False`)
     """
+    # Return cmd to None is no operation is performed
+    cmd = None
+
     # Remove "ssh://" prefix in SSH URL
     sshurl = sshurl.replace('ssh://', '')
 
@@ -58,14 +66,25 @@ def update_ssh_config(sshurl, user):
                 f'\tUser {user} \n\n'
             ]
             try:
-                ssh_config.writelines(hdr + lines)
+                if not dryrun:
+                    ssh_config.writelines(hdr + lines)
                 print(f'\t  - Entry:\n\n{"".join(lines)}')
+                cmd = f"""cat << EOF >> {ssh_config_path}
+
+{hdr}
+Host {sshurl}
+    HostName {sshurl}
+    User {user}
+EOF
+"""
             except Exception as e:
                 print(f'\t  - ERROR:\n\n{e}')
         else:
             print(f'\t  - INFO: Entry for `Host {sshurl}` already existing!\n\n')
 
     # Append the previous content of the existing ssh config file
-    if content:
+    if content and not dryrun:
         with open(ssh_config_path, 'a') as ssh_config:
             ssh_config.write(content)
+
+    return cmd

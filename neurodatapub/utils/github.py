@@ -1,4 +1,4 @@
-# Copyright © 2021 Connectomics Lab
+# Copyright © 2021-2022 Connectomics Lab
 # University Hospital Center and University of Lausanne (UNIL-CHUV), Switzerland,
 # and contributors
 #
@@ -11,7 +11,8 @@ from .process import run
 
 def authenticate_github_token(
     datalad_dataset_dir,
-    github_token
+    github_token,
+    dryrun=False
 ):
     """
     Function that configure Git's `hub.oauthtoken` with the provided token.
@@ -28,6 +29,11 @@ def authenticate_github_token(
     github_token : string
         GitHub personal access token
 
+    dryrun : bool
+        If `True`, only generates the commands and
+        do not execute them
+        (Default: `False`)
+
     Returns
     -------
     proc : string
@@ -37,20 +43,23 @@ def authenticate_github_token(
     cmd = 'git config --global --add hub.oauthtoken '
     cmd += f'{github_token}'
 
-    # Execute the git config command in the dataset directory
-    try:
-        print(f'... cmd: {cmd}')
-        proc = run(cmd, cwd=f'{datalad_dataset_dir}')
-        return proc, cmd
-    except Exception as e:
-        print('Failed')
-        print(e)
-        return None, cmd
+    proc = None
+    if not dryrun:
+        # Execute the git config command in the dataset directory
+        try:
+            print(f'... cmd: {cmd}')
+            proc = run(cmd, cwd=f'{datalad_dataset_dir}')
+        except Exception as e:
+            print('Failed')
+            print(e)
+            return None, cmd
+    return proc, cmd
 
 
 def authenticate_github_email(
     datalad_dataset_dir,
-    github_email
+    github_email,
+    dryrun=False
 ):
     """
     Function that configure Git's `user.email` with the provided email.
@@ -67,21 +76,31 @@ def authenticate_github_email(
     github_email : string
         Email associated to your GitHub account
 
+    dryrun : bool
+        If `True`, only generates the commands and
+        do not execute them
+        (Default: `False`)
+
     Returns
     -------
     proc : string
         Output of `subprocess.run()`
+
+    cmd : string
+        Equivalent output command
     """
     # Create the git config command to set user.email
     cmd = 'git config --global user.email '
     cmd += f'{github_email}'
 
-    # Execute the git config command in the dataset directory
-    try:
-        print(f'... cmd: {cmd}')
-        proc = run(cmd, cwd=f'{datalad_dataset_dir}')
-        return proc, cmd
-    except Exception as e:
-        print('Failed')
-        print(e)
-        return None, cmd
+    proc = None
+    if not dryrun:
+        # Execute the git config command in the dataset directory
+        try:
+            print(f'... cmd: {cmd}')
+            proc = run(cmd, cwd=f'{datalad_dataset_dir}')
+        except Exception as e:
+            print('Failed')
+            print(e)
+            return None, cmd
+    return proc, cmd

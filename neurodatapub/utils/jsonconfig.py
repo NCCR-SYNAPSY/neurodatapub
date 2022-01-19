@@ -1,4 +1,4 @@
-# Copyright © 2021 Connectomics Lab
+# Copyright © 2021-2022 Connectomics Lab
 # University Hospital Center and University of Lausanne (UNIL-CHUV), Switzerland,
 # and contributors
 #
@@ -37,7 +37,7 @@ GITHUB_SIBLING_CONFIG_SCHEMA = {
     "properties": {
         "github_login": {
             "type": "string",
-            "pattern": "^[\\w-]+$"
+            "pattern": "^[\\w]+$"
         },
         "github_email": {
             "type": "string",
@@ -52,7 +52,7 @@ GITHUB_SIBLING_CONFIG_SCHEMA = {
         },
         "github_token": {
             "type": "string",
-            "pattern": "^[\\w-.]+$"
+            "pattern": "^[\\w.-]+$"
         },
         "github_repo_name": {
             "type": "string",

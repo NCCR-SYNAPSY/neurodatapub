@@ -1,4 +1,4 @@
-# Copyright © 2021 Connectomics Lab
+# Copyright © 2021-2022 Connectomics Lab
 # University Hospital Center and University of Lausanne (UNIL-CHUV), Switzerland,
 # and contributors
 #
@@ -8,14 +8,15 @@ import os
 import json
 from traits.api import (
     HasTraits, File, Directory, Str, Enum,
-    List, Password
+    List, Password, Bool
 )
 
 import datalad.api
 
 from neurodatapub.info import __version__
 from neurodatapub.utils.datalad import (
-    create_bids_dataset, create_ssh_sibling, create_github_sibling,
+    create_dataset, create_bids_dataset,
+    create_ssh_sibling, create_github_sibling,
     authenticate_osf, create_osf_sibling, publish_dataset,
     DEFAULT_SSH_REMOTE_NAME, DEFAULT_OSF_REMOTE_NAME
 )
@@ -31,8 +32,13 @@ class NeuroDataPubProject(HasTraits):
 
     Attributes
     ----------
-    input_bids_dir : Directory
+    input_dataset_dir : Directory
         Absolute path of the original BIDS dataset directory
+
+    dataset_is_bids : Bool
+        Indicate if the dataset is organized following the
+        Brain Imaging Data Structure (BIDS) standard [1]_
+        (Default: `True`)
 
     output_datalad_dataset_dir : Directory
         Absolute path of the datalad dataset to be created
@@ -93,82 +99,109 @@ class NeuroDataPubProject(HasTraits):
           * `"all"`: Perform all steps of `"create-only"` followed by
             all steps of `"publish-only"`, from Datalad dataset creation
             to publication.
+
+    generate_script : Bool
+        Dry run that generates a bash script called
+        `neurodatapub_DD-MM-YYYY_hh:mm:ss.sh` in the
+        `code/` folder of the input dataset that records
+        all commands for later execution"
+        (Default: `False`)
+
+    References
+    ----------
+    .. [1] https://bids-specification.readthedocs.io/en/stable/
     """
 
-    input_bids_dir = Directory(
+    input_dataset_dir = Directory(
         exists=True,
-        desc='Absolute path of the original BIDS dataset directory'
+        desc='the absolute path of the original BIDS dataset directory'
+    )
+    dataset_is_bids = Bool(
+        True,
+        desc='if the dataset is organized following the '
+             'Brain Imaging Data Structure (BIDS) standard'
     )
     output_datalad_dataset_dir = Directory(
-        desc='Absolute path of the datalad dataset to be created'
+        desc='the absolute path of the datalad dataset to be created'
     )
     git_annex_special_sibling_config = File(
-        desc='Absolute path of the Json file that describes '
+        desc='the absolute path of the Json file that describes '
              'configuration of the git-annex special sibling'
     )
     _types = List(["ssh", "osf"])
     sibling_type = Enum(
         values='_types',
-        desc='Type of git-annex special sibling '
+        desc='the type of git-annex special sibling '
              '(It can be a SSH-accessible server (`"ssh"`) '
              'or on the cloud to OSF (`"osf"`))'
     )
     github_sibling_config = File(
-        desc='Absolute path of the Json file that describes '
+        desc='the absolute path of the Json file that describes '
              'configuration of the github sibling'
     )
     github_login = Str(
-        desc='GitHub account login'
+        desc='the GitHub account login'
     )
     github_email = Str(
-        desc='Email associated with GitHub account'
+        desc='the email associated with GitHub account'
     )
     github_organization = Str(
-        desc='Github organization used for publication'
+        desc='the Github organization used for publication'
     )
     github_token = Password(
-        desc='Token to authenticate in GitHub'
+        desc='the token to authenticate in GitHub'
     )
     github_repo_name = Str(
-        desc='Name of the dataset repository published on GitHub'
+        desc='the name of the dataset repository published on GitHub'
     )
     remote_ssh_login = Str(
-        desc='User login to the git-annex special sibling'
+        desc='the user login to the git-annex special sibling'
     )
     remote_ssh_url = Str(
-        desc='SSH URL to the git-annex special sibling '
+        desc='the SSH URL to the git-annex special sibling '
              'in the form of `ssh://server.example.org`'
     )
     remote_sibling_dir = Directory(
-        desc='Remote absolute path of the sibling dataset on '
+        desc='the remote absolute path of the sibling dataset on '
              'the git-annex special sibling'
     )
     remote_sibling_name = Str(
-        desc='Datalad sibling name of the git-annex special sibling'
+        desc='the Datalad sibling name of the git-annex special sibling'
     )
     osf_token = Password(
         desc='Personal OSF token for authentication'
     )
     osf_dataset_title = Str(
-        desc='Dataset title published on OSF'
+        desc='the dataset title published on OSF'
     )
     _modes = List(["all", "create-only", "publish-only"])
     mode = Enum(
         values='_modes',
-        desc='Mode in which `neurodatapub` operates'
+        desc='the mode in which `neurodatapub` operates'
+    )
+    generate_script = Bool(
+        False,
+        desc='to not execute the commands but record them in a bash script called '
+             '`neurodatapub_DD-MM-YYYY_hh:mm:ss.sh` in the `code/` '
+             'folder of the input dataset '
+             'for later execution'
     )
 
     def __init__(
         self,
-        bids_dir,
-        datalad_dataset_dir,
+        dataset_dir=None,
+        dataset_is_bids=True,
+        datalad_dataset_dir=None,
         git_annex_special_sibling_config=None,
         sibling_type=None,
         github_sibling_config=None,
-        mode=None
+        mode=None,
+        generate_script=False
     ):
         """Constructor of :class:`NeuroDataPubProject` object."""
         HasTraits.__init__(self)
+
+        self.generate_script = generate_script
 
         if sibling_type is not None:
             self.sibling_type = sibling_type
@@ -184,13 +217,15 @@ class NeuroDataPubProject(HasTraits):
                 self.mode = "all"
             print(f'self.mode: {self.mode}')
 
-        if bids_dir:
-            self.input_bids_dir = bids_dir
+        if dataset_dir is not None:
+            self.input_dataset_dir = dataset_dir
 
-        if datalad_dataset_dir:
+        self.dataset_is_bids = dataset_is_bids
+
+        if datalad_dataset_dir is not None:
             self.output_datalad_dataset_dir = datalad_dataset_dir
 
-        if git_annex_special_sibling_config and os.path.exists(git_annex_special_sibling_config):
+        if git_annex_special_sibling_config is not None and os.path.exists(git_annex_special_sibling_config):
             self.git_annex_special_sibling_config = git_annex_special_sibling_config
             # Opening JSON file for the special remote sibling
             with open(git_annex_special_sibling_config, 'r') as f:
@@ -206,7 +241,7 @@ class NeuroDataPubProject(HasTraits):
                 if 'osf_dataset_title' in git_annex_special_sibling_config_dict.keys():
                     self.osf_dataset_title = git_annex_special_sibling_config_dict['osf_dataset_title']
 
-        if github_sibling_config and os.path.exists(github_sibling_config):
+        if github_sibling_config is not None and os.path.exists(github_sibling_config):
             self.github_sibling_config = github_sibling_config
             # Opening JSON file for the GitHub sibling
             with open(github_sibling_config, 'r') as f:
@@ -224,70 +259,107 @@ class NeuroDataPubProject(HasTraits):
 
     def __str__(self):
         """Define how a :class:`NeuroDataPubProject` object is rendered in `print()`."""
+        nb_char_shown = 10
+        encrypted_github_token = '*' * (len(self.github_token) - nb_char_shown) + self.github_token[-nb_char_shown:]
+        encrypted_osf_token = '*' * (len(self.osf_token) - nb_char_shown) + self.osf_token[-nb_char_shown:]
         desc = f"""
-        NeuroDataPubProject object attribute summary:
-        \tinput_bids_dir : {self.input_bids_dir}
-        \toutput_datalad_dataset_dir : {self.output_datalad_dataset_dir}
-        \tgit_annex_special_sibling_config : {self.git_annex_special_sibling_config}
-        \tgithub_sibling_config : {self.github_sibling_config}
-        \tgithub_email : {self.github_email}
-        \tgithub_login : {self.github_login}
-        \tgithub_organization : {self.github_organization}
-        \tgithub_token : {self.github_token}
-        \tgithub_repo_name : {self.github_repo_name}
-        \tremote_ssh_login : {self.remote_ssh_login}
-        \tremote_ssh_url : {self.remote_ssh_url}
-        \tremote_sibling_dir : {self.remote_sibling_dir}
-        \tremote_sibling_name : {self.remote_sibling_name}
-        \tosf_dataset_title : {self.osf_dataset_title}
-        \tosf_token : {self.osf_token}
-        """
+NeuroDataPubProject object attribute summary:
+\tgenerate_script : {self.generate_script}
+\tinput_dataset_dir : {self.input_dataset_dir}
+\tdataset_is_bids : {self.dataset_is_bids}
+\toutput_datalad_dataset_dir : {self.output_datalad_dataset_dir}
+\tgit_annex_special_sibling_config : {self.git_annex_special_sibling_config}
+\tgithub_sibling_config : {self.github_sibling_config}
+\tgithub_email : {self.github_email}
+\tgithub_login : {self.github_login}
+\tgithub_organization : {self.github_organization}
+\tgithub_token : {encrypted_github_token}
+\tgithub_repo_name : {self.github_repo_name}"""
+        if self.sibling_type == 'ssh':
+            desc += f"""
+\tremote_ssh_login : {self.remote_ssh_login}
+\tremote_ssh_url : {self.remote_ssh_url}
+\tremote_sibling_dir : {self.remote_sibling_dir}
+\tremote_sibling_name : {self.remote_sibling_name}"""
+        elif self.sibling_type == 'osf':
+            desc += f"""
+\tosf_dataset_title : {self.osf_dataset_title}
+\tosf_token : {encrypted_osf_token}"""
         return desc
 
     def create_datalad_dataset(self):
         """Create the Datalad dataset."""
+        # Initialize the command log of the method
+        cmd_fun_log = ''
         # Create the datalad dataset only if the directory is empty
         # and so the .datalad folder should not exist
         if not os.path.exists(
             os.path.join(self.output_datalad_dataset_dir, '.datalad')
         ):
-            print(f'> Initialize the Datalad dataset {self.output_datalad_dataset_dir}')
-            proc = create_bids_dataset(
-                datalad_dataset_dir=self.output_datalad_dataset_dir
-            )
-            if proc:
-                print(f'{proc}')
-            print(
-                f'> Copy content of {self.input_bids_dir} to '
-                f'{self.output_datalad_dataset_dir}'
-            )
+            if self.dataset_is_bids:
+                msg = f'Initialize the BIDS Datalad dataset {self.output_datalad_dataset_dir}'
+                print(f'> {msg}')
+                proc, cmd = create_bids_dataset(
+                    datalad_dataset_dir=self.output_datalad_dataset_dir,
+                    dryrun=self.generate_script
+                )
+                if proc:
+                    print(f'{proc}')
+            else:
+                msg = f'Initialize the Datalad dataset {self.output_datalad_dataset_dir}'
+                print(f'> {msg}')
+                proc, cmd = create_dataset(
+                    datalad_dataset_dir=self.output_datalad_dataset_dir,
+                    dryrun=self.generate_script
+                )
+                if proc:
+                    print(f'{proc}')
+            cmd_fun_log += f'# {msg}\n{cmd}\n\n'
+
+            msg = (f'Copy content of {self.input_dataset_dir} to '
+                   f'{self.output_datalad_dataset_dir}')
+            print(f'> {msg}')
             proc, cmd = copy_content_to_datalad_dataset(
-                bids_dir=self.input_bids_dir,
-                datalad_dataset_dir=self.output_datalad_dataset_dir
+                bids_dir=self.input_dataset_dir,
+                datalad_dataset_dir=self.output_datalad_dataset_dir,
+                dryrun=self.generate_script
             )
+            cmd_fun_log += f'# {msg}\n{cmd}\n\n'
+
             if proc is not None:
                 print(proc.stdout)
-            print('> Save dataset state...')
-            datalad.api.save(
-                dataset=self.output_datalad_dataset_dir,
-                message=f'Save dataset state after performing the command {cmd} '
-                        f'with neurodatapub {__version__}',
-                jobs='auto'
-            )
+            msg = 'Save dataset state...'
+            print(f'> {msg}')
+            save_msg = (f'Save dataset state after performing the rsync command '
+                        f'with neurodatapub {__version__}')
+            if not self.generate_script:
+                datalad.api.save(
+                    dataset=self.output_datalad_dataset_dir,
+                    message=save_msg,
+                    jobs='auto'
+                )
+            cmd = f'datalad save -d "{self.output_datalad_dataset_dir}" -m "{save_msg}" -J "auto"'
+            cmd_fun_log += f'# {msg}\n{cmd}\n'
         else:
             print(f'> Creation of Datalad dataset {self.output_datalad_dataset_dir} '
                   'skipped as a Datalad dataset is already present!')
-        return True
+        return True, cmd_fun_log
 
     def configure_ssh_sibling(self):
         """Configure a ssh sibling of the Datalad dataset for publication of annexed files."""
+        # Initialize the command log of the method
+        cmd_fun_log = ''
+
         # Update SSH config file to use self.remote_ssh_login
         # by default when connecting to self.remote_ssh_url
-        print('> Update SSH config with special remote entry')
-        update_ssh_config(
+        msg = 'Update SSH config with special remote entry'
+        print('> {msg}')
+        cmd = update_ssh_config(
             sshurl=self.remote_ssh_url,
-            user=self.remote_ssh_login
+            user=self.remote_ssh_login,
+            dryrun=self.generate_script
         )
+        cmd_fun_log += f'# {msg}\n{cmd}\n\n'
         # Configuration of git-annex special remote sibling to host annexed files
         git_annex_special_sibling_config_dict = dict(
             {
@@ -296,62 +368,94 @@ class NeuroDataPubProject(HasTraits):
                 "remote_sibling_dir": self.remote_sibling_dir
             }
         )
-        print(f'> Create the ssh remote sibling to {self.remote_ssh_url}')
-        proc = create_ssh_sibling(
-            datalad_dataset_dir=self.output_datalad_dataset_dir,
-            ssh_special_sibling_args=git_annex_special_sibling_config_dict
-        )
-        if proc:
-            print(proc)
-        print('> Make the ssh remote sibling "special git-annex remote"')
-        proc, _ = init_ssh_special_sibling(
+        msg = f'Create the ssh remote sibling to {self.remote_ssh_url}'
+        print(f'> {msg}')
+        proc, cmd = create_ssh_sibling(
             datalad_dataset_dir=self.output_datalad_dataset_dir,
             ssh_special_sibling_args=git_annex_special_sibling_config_dict,
-            ssh_special_sibling_name='ssh_remote'
+            dryrun=self.generate_script
         )
+        cmd_fun_log += f'# {msg}\n{cmd}\n\n'
+        if proc:
+            print(proc)
+        msg = 'Make the ssh remote sibling "special git-annex remote"'
+        print(f'> {msg}')
+        proc, cmd = init_ssh_special_sibling(
+            datalad_dataset_dir=self.output_datalad_dataset_dir,
+            ssh_special_sibling_args=git_annex_special_sibling_config_dict,
+            ssh_special_sibling_name='ssh_remote',
+            dryrun=self.generate_script
+        )
+        cmd_fun_log += f'# {msg}\n{cmd}\n\n'
         if proc is not None:
             print(proc.stdout)
-        print('> Enable the ssh remote sibling "special git-annex remote"')
+        msg = 'Enable the ssh remote sibling "special git-annex remote"'
+        print(f'> {msg}')
         proc, cmd = enable_ssh_special_sibling(
             datalad_dataset_dir=self.output_datalad_dataset_dir,
-            ssh_special_sibling_name='ssh_remote'
+            ssh_special_sibling_name='ssh_remote',
+            dryrun=self.generate_script
         )
+        cmd_fun_log += f'# {msg}\n{cmd}\n'
         if proc is not None:
             print(proc.stdout)
+
+        return cmd_fun_log
 
     def configure_osf_sibling(self):
         """Configure the osf sibling of the Datalad dataset for publication of annexed files."""
+        # Initialize the command log of the method
+        cmd_fun_log = ''
+
         # Authentication to OSF
-        print(f'> Authentication to OSF...')
-        proc = authenticate_osf(
-            osf_token=self.osf_token
+        msg = 'Authentication to OSF...'
+        print(f'> {msg}')
+        proc, cmd = authenticate_osf(
+            osf_token=self.osf_token,
+            dryrun=self.generate_script
         )
+        cmd_fun_log += f'# {msg}\n{cmd}\n\n'
         if proc:
             print(proc)
         # Creation of OSF dataset sibling
-        print(f'> Create the {self.osf_dataset_title} OSF sibling')
-        proc = create_osf_sibling(
+        msg = f'Create the {self.osf_dataset_title} OSF sibling'
+        print(f'> {msg}')
+        proc, cmd = create_osf_sibling(
+            dataset_dir=self.input_dataset_dir,
             datalad_dataset_dir=self.output_datalad_dataset_dir,
-            osf_dataset_title=self.osf_dataset_title
+            osf_dataset_title=self.osf_dataset_title,
+            dryrun=self.generate_script
         )
+        cmd_fun_log += f'# {msg}\n{cmd}\n'
         if proc:
             print(proc)
 
+        return cmd_fun_log
+
     def configure_github_sibling(self):
         """Configure Git and the github sibling of the Datalad dataset for publication of repository (no-annex)."""
+        # Initialize the command log of the method
+        cmd_fun_log = ''
+
         # Authentication to GitHub
-        print('> Set Git user.email associated with GitHub account"')
-        proc, _ = authenticate_github_email(
+        msg = 'Set Git user.email associated with GitHub account'
+        print(f'> {msg}')
+        proc, cmd = authenticate_github_email(
             datalad_dataset_dir=self.output_datalad_dataset_dir,
-            github_email=self.github_email
+            github_email=self.github_email,
+            dryrun=self.generate_script
         )
+        cmd_fun_log += f'# {msg}\n{cmd}\n\n'
         if proc is not None:
             print(proc.stdout)
-        print('> Set Git hub.oauthtoken with the associated GitHub token"')
-        proc, _ = authenticate_github_token(
+        msg = 'Set Git hub.oauthtoken with the associated GitHub token'
+        print(f'> {msg}')
+        proc, cmd = authenticate_github_token(
             datalad_dataset_dir=self.output_datalad_dataset_dir,
-            github_token=self.github_token
+            github_token=self.github_token,
+            dryrun=self.generate_script
         )
+        cmd_fun_log += f'# {msg}\n{cmd}\n\n'
         if proc is not None:
             print(proc.stdout)
 
@@ -363,46 +467,65 @@ class NeuroDataPubProject(HasTraits):
                 "github_repo_name": self.github_repo_name
             }
         )
-        print(f'> Create the {self.github_repo_name} github sibling')
+        msg = f'Create the {self.github_repo_name} github sibling'
+        print(f'> {msg}')
         if self.sibling_type == "ssh":
             gitannex_remote_name = DEFAULT_SSH_REMOTE_NAME
         else:
             gitannex_remote_name = DEFAULT_OSF_REMOTE_NAME
-
-        proc = create_github_sibling(
+        proc, cmd = create_github_sibling(
             datalad_dataset_dir=self.output_datalad_dataset_dir,
             github_sibling_args=github_sibling_config_dict,
-            gitannex_remote_name=gitannex_remote_name
+            gitannex_remote_name=gitannex_remote_name,
+            dryrun=self.generate_script
         )
+        cmd_fun_log += f'# {msg}\n{cmd}\n'
         if proc:
             print(proc)
 
+        return cmd_fun_log
+
     def configure_siblings(self):
         """Configure the siblings of the Datalad dataset for publication."""
+        # Initialize the command log of the method
+        cmd_fun_log = ''
         # Configuration of the git annex special remote sibling
         if self.sibling_type is None or self.sibling_type == 'ssh':
-            self.configure_ssh_sibling()
+            cmd_fun_log1 = self.configure_ssh_sibling()
         elif self.sibling_type == 'osf':
-            self.configure_osf_sibling()
+            cmd_fun_log1 = self.configure_osf_sibling()
         # Configuration of Github sibling to host dataset repository
-        self.configure_github_sibling()
-        return True
+        cmd_fun_log2 = self.configure_github_sibling()
+        cmd_fun_log += f'{cmd_fun_log1}\n{cmd_fun_log2}'
+        return True, cmd_fun_log
 
     def publish_datalad_dataset(self):
         """Publish the Datalad dataset."""
+        # Initialize the command log of the method
+        cmd_fun_log = ''
         if self.mode == "publish-only":
-            print('> Save dataset state ("publish-only" mode)...')
-            datalad.api.save(
-                    dataset=self.output_datalad_dataset_dir,
-                    message=f'Save dataset state before publication '
-                            f'with neurodatapub {__version__} ("publish-only" mode)',
-                    jobs='auto'
-            )
-        print(f'> Publish the dataset repo to {self.github_repo_name} and '
-              f'the annexed files to {self.remote_ssh_url}:{self.remote_sibling_dir}')
-        proc = publish_dataset(
-            datalad_dataset_dir=self.output_datalad_dataset_dir
+            msg = 'Save dataset state ("publish-only" mode)...'
+            print(f'> {msg}')
+            save_msg = ('Save dataset state before publication '
+                        f'with neurodatapub {__version__} ("publish-only" mode)')
+            if not self.generate_script:
+                datalad.api.save(
+                        dataset=self.output_datalad_dataset_dir,
+                        message=save_msg,
+                        jobs='auto'
+                )
+            cmd = f'datalad save -d "{self.output_datalad_dataset_dir}" '
+            cmd += f'-m "{save_msg}" -J "auto"'
+            cmd_fun_log += f'# {msg}\n{cmd}\n\n'
+
+        msg = (f'Publish the dataset repo to {self.github_repo_name} and '
+               f'the annexed files to {self.remote_ssh_url}:{self.remote_sibling_dir}')
+        print(f'> {msg}')
+        proc, cmd = publish_dataset(
+            datalad_dataset_dir=self.output_datalad_dataset_dir,
+            dryrun=self.generate_script
         )
+        cmd_fun_log += f'# {msg}\n{cmd}\n'
         if proc:
             print(str(proc))
-        return True
+        return True, cmd_fun_log

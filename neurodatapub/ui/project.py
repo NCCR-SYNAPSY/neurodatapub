@@ -1,10 +1,11 @@
-# Copyright © 2021 Connectomics Lab
+# Copyright © 2021-2022 Connectomics Lab
 # University Hospital Center and University of Lausanne (UNIL-CHUV), Switzerland,
 # and contributors
 #
 #  This software is distributed under the open-source license Apache 2.0.
 
 # General imports
+import datetime
 import os
 import pkg_resources
 import json
@@ -89,9 +90,10 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
         VGroup(
             Group(
                 VGroup(
-                    Item('input_bids_dir',
+                    Item('input_dataset_dir',
                          editor=DirectoryEditor(dialog_style='open'),
                          style_sheet=return_folder_button_style_sheet()),
+                    Item('dataset_is_bids'),
                     Item('output_datalad_dataset_dir',
                          editor=DirectoryEditor(dialog_style='save'),
                          style_sheet=return_folder_button_style_sheet()),
@@ -158,12 +160,12 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
             spring,
             HGroup(
                 spring,
-                Item('check_config', width=90), spring,
-                Item('create_and_publish_button', width=90, enabled_when='config_is_valid'), spring,
-                Item('create_only_button', width=90, enabled_when='config_is_valid'), spring,
-                Item('publish_only_button', width=90, enabled_when='config_is_valid'),
-                spring,
-                show_labels=False,
+                Item('check_config', width=90, show_label=False), spring,
+                Item('create_and_publish_button', width=90, enabled_when='config_is_valid', show_label=False), spring,
+                Item('create_only_button', width=90, enabled_when='config_is_valid', show_label=False), spring,
+                Item('publish_only_button', width=90, enabled_when='config_is_valid', show_label=False),
+                Item('generate_script', enabled_when='config_is_valid', label='Generate script only'),
+                spring
             )
         ),
         resizable=True,
@@ -176,7 +178,7 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
             'neurodatapub',
             "resources/neurodatapub_logo_100x100.png"
         ),
-        width=800,
+        width=1024,
         height=600,
         style_sheet=return_global_style_sheet()
     )
@@ -189,18 +191,19 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
             "# Check configuration\n"
             "############################################\n"
         )
-        if not os.path.exists(self.input_bids_dir):
+        if not os.path.exists(self.input_dataset_dir):
             print(
-                f"\t* input_bids_dir ({self.input_bids_dir}) does not exists"
+                f"\t* input_dataset_dir ({self.input_dataset_dir}) does not exists"
             )
             self.config_is_valid = False
 
-        try:
-            layout = BIDSLayout(self.input_bids_dir)
-            print(f'\t* PyBIDS summary:\n\t{layout}')
-        except Exception as e:
-            print(f'\t* BIDS ERROR: {e}')
-            self.config_is_valid = False
+        if self.dataset_is_bids:
+            try:
+                layout = BIDSLayout(self.input_dataset_dir)
+                print(f'\t* PyBIDS summary:\n\t{layout}')
+            except Exception as e:
+                print(f'\t* BIDS ERROR: {e}')
+                self.config_is_valid = False
             
         print(f'\t* git-annex special remote sibling type: {self.sibling_type}')
 
@@ -292,43 +295,100 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
             "# Creation of Datalad Dataset\n"
             "############################################\n"
         )
-        self.create_datalad_dataset()
+        # Initialize the script that will log all commands generated
+        cmd_log = '#!/bin/sh\n\n'
+        _, cmd_fun_log = self.create_datalad_dataset()
+        if self.generate_script:
+            # Create name of script with time stamp
+            now = datetime.datetime.now()
+            script_basename = f'neurodatapub_{now.strftime("%d-%m-%Y_%H-%M-%S")}.sh'
+            # Create the code folder if it does not exist
+            if not os.path.exists(os.path.join(self.input_dataset_dir, 'code')):
+                os.makedirs(os.path.join(self.input_dataset_dir, 'code'), exist_ok=True)
+            script_path = os.path.join(self.input_dataset_dir, 'code', script_basename)
+            print(
+                "\n############################################\n"
+                f"# Generation of script {script_path}\n"
+                "############################################\n"
+            )
+            cmd_log += f'{cmd_fun_log}\n'
+            with open(script_path, 'w') as f:
+                f.writelines(cmd_log)
 
     def _publish_only_button_fired(self):
         """Executed when `publish_only_button` is clicked."""
+        # Initialize the script that will log all commands generated
+        cmd_log = '#!/bin/sh\n\n'
         print(
             "\n############################################\n"
             "# Configuration of the publication siblings\n"
             "############################################\n"
         )
-        self.configure_siblings()
+        _, cmd_fun_log = self.configure_siblings()
+        cmd_log += f'{cmd_fun_log}\n'
         print(
             "\n############################################\n"
             "# Publication of Datalad Dataset\n"
             "############################################\n"
         )
-        self.publish_datalad_dataset()
+        _, cmd_fun_log = self.publish_datalad_dataset()
+        cmd_log += f'{cmd_fun_log}'
+        if self.generate_script:
+            # Create name of script with time stamp
+            now = datetime.datetime.now()
+            script_basename = f'neurodatapub_{now.strftime("%d-%m-%Y_%H-%M-%S")}.sh'
+            # Create the code folder if it does not exist
+            if not os.path.exists(os.path.join(self.input_dataset_dir, 'code')):
+                os.makedirs(os.path.join(self.input_dataset_dir, 'code'), exist_ok=True)
+            script_path = os.path.join(self.input_dataset_dir, 'code', script_basename)
+            print(
+                "\n############################################\n"
+                f"# Generation of script {script_path}\n"
+                "############################################\n"
+            )
+            with open(script_path, 'w') as f:
+                f.writelines(cmd_log)
 
     def _create_and_publish_button_fired(self):
         """Executed when `create_and_publish_button` is clicked."""
+        # Initialize the script that will log all commands generated
+        cmd_log = '#!/bin/sh\n\n'
         print(
             "\n############################################\n"
             "# Creation of Datalad Dataset\n"
             "############################################\n"
         )
-        self.create_datalad_dataset()
+        _, cmd_fun_log = self.create_datalad_dataset()
+        cmd_log += f'{cmd_fun_log}\n'
         print(
             "\n############################################\n"
             "# Configuration of the publication siblings\n"
             "############################################\n"
         )
-        self.configure_siblings()
+        _, cmd_fun_log = self.configure_siblings()
+        cmd_log += f'{cmd_fun_log}\n'
         print(
             "\n############################################\n"
             "# Publication of Datalad Dataset\n"
             "############################################\n"
         )
-        self.publish_datalad_dataset()
+        _, cmd_fun_log = self.publish_datalad_dataset()
+        cmd_log += f'{cmd_fun_log}'
+        if self.generate_script:
+            # Create name of script with time stamp
+            now = datetime.datetime.now()
+            script_basename = f'neurodatapub_{now.strftime("%d-%m-%Y_%H-%M-%S")}.sh'
+            # Create the code folder if it does not exist
+            if not os.path.exists(os.path.join(self.input_dataset_dir, 'code')):
+                os.makedirs(os.path.join(self.input_dataset_dir, 'code'), exist_ok=True)
+            script_path = os.path.join(self.input_dataset_dir, 'code', script_basename)
+            print(
+                "\n############################################\n"
+                f"# Generation of script {script_path}\n"
+                "############################################\n"
+            )
+            with open(script_path, 'w') as f:
+                f.writelines(cmd_log)
 
     def _save_special_sibling_config_button_fired(self):
         """Executed when `save_special_sibling_config_button` is clicked."""
@@ -348,7 +408,7 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
             dlg = FileDialog(
                 action='save as',
                 style='modal',
-                default_directory=self.input_bids_dir,
+                default_directory=self.input_dataset_dir,
                 title='Save special remote sibling configuration as...'
             )
         if dlg.open() == OK:
@@ -398,7 +458,7 @@ class NeuroDataPubProjectUI(NeuroDataPubProject):
             dlg = FileDialog(
                 action='save as',
                 style='modal',
-                default_directory=self.input_bids_dir,
+                default_directory=self.input_dataset_dir,
                 title='Save GitHub sibling configuration as...'
             )
         if dlg.open() == OK:

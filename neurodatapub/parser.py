@@ -1,4 +1,4 @@
-# Copyright © 2021 Connectomics Lab
+# Copyright © 2021-2022 Connectomics Lab
 # University Hospital Center and University of Lausanne (UNIL-CHUV), Switzerland,
 # and contributors
 #
@@ -21,18 +21,24 @@ def get_parser():
     p.add_argument(
         "--mode",
         help="Mode in which ``neurodatapub`` is run: "
-             '``"create-only"`` creates the datalad dataset only, '
-             '``"publish-only"`` creates the datalad dataset only, '
-             '``"all"`` creates the datalad dataset only, ',
+             '``"create-only"`` create the datalad dataset only, '
+             '``"publish-only"`` publish the datalad dataset only, '
+             '``"all"`` create and publish the datalad dataset.',
         choices=["all", "create-only", "publish-only"],
         required='--gui' not in " ".join(sys.argv),
         type=str
     )
     p.add_argument(
-        "--bids_dir",
+        "--dataset_dir",
         help="The directory with the input dataset "
              "formatted according to the BIDS standard.",
         required='--gui' not in " ".join(sys.argv),
+    )
+    p.add_argument(
+        "--is_not_bids",
+        action='store_true',
+        help="Specify if the directory with the input dataset "
+             "is not formatted according to the BIDS standard."
     )
     p.add_argument(
         "--datalad_dir",
@@ -42,7 +48,7 @@ def get_parser():
     p.add_argument(
         "--github_sibling_config",
         help="Path to a JSON file containing configuration "
-             "parameters for the GitHub dataset repository sibling",
+             "parameters for the GitHub dataset repository sibling.",
         required='--gui' not in " ".join(sys.argv),
         type=str
     )
@@ -52,20 +58,27 @@ def get_parser():
     storage_sibling_config.add_argument(
         "--git_annex_ssh_special_sibling_config",
         help="Path to a JSON file containing configuration "
-             "parameters for the git-annex SSH special remote dataset sibling",
+             "parameters for the git-annex SSH special remote dataset sibling.",
         type=str
     )
     storage_sibling_config.add_argument(
         "--osf_sibling_config",
         help="Path to a JSON file containing configuration "
-             "parameters for the git-annex OSF special remote dataset sibling",
+             "parameters for the git-annex OSF special remote dataset sibling.",
         type=str
     )
     p.add_argument(
         "--gui",
-        help="Run NeuroDataPub in GUI mode",
+        help="Run NeuroDataPub in GUI mode.",
         action="store_true",
-        default=False,
+        default=False
+    )
+    p.add_argument(
+        "--generate_script",
+        help="Dry run that generates a bash script called `neurodatapub_DD-MM-YYYY_hh:mm:ss.sh` "
+             "in the `code/` folder of the input dataset that records all commands for later execution.",
+        action="store_true",
+        default=False
     )
     p.add_argument(
         "-v",

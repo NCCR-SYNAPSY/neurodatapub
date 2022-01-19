@@ -41,6 +41,9 @@ Since `v0.3`, you can use either (1) a server accessible via `ssh` or (2) the
 Open Science Foundation (OSF) platform, as a git-annex special remote, to host
 your annexed files.
 
+Since `v0.4`, `NeuroDataPub` can handle datasets that do and do not follow the
+`Brain Imaging Data Structure <https://bids-specification.readthedocs.io>`_ standard.
+
 .. figure:: images/neurodatapub_illustration.png
     :align: center
     :width: 600
@@ -48,9 +51,11 @@ your annexed files.
 `NeuroDataPub` comes with its graphical user interface, aka the
 `NeuroDataPub Assistant`, created to facilitate:
 
-* the configuration of the siblings,
-* the creation of the JSON configuration files, as well as
-* the execution of `NeuroDataPub` in the three different modes.
+    *   the configuration of the siblings,
+    *   the creation of the JSON configuration files, as well as
+    *   the execution of `NeuroDataPub` in the three different modes, and
+    *   the creation of a Linux shell script for later execution
+        where all commands are recorded.
 
 
 Acknowledgment

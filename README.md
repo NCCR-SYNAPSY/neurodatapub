@@ -24,6 +24,9 @@ their SSH data server, in order to fully fulfill the implemented Neuroimaging Da
 Since ``v0.3``, you can use either (1) a server accessible via `ssh` or (2) the Open Science Foundation (OSF)
 platform, as a git-annex special remote, to host your annexed files.
 
+Since `v0.4`, `NeuroDataPub` can handle datasets that do and do not follow the
+  [Brain Imaging Data Structure](https://bids-specification.readthedocs.io) standard.
+
 ![](https://github.com/NCCR-SYNAPSY/neurodatapub/raw/main/docs/images/neurodatapub_illustration.png)
 
 `NeuroDataPub` comes with its graphical user interface, aka the `NeuroDataPub Assistant`,
@@ -37,6 +40,8 @@ created to facilitate:
     1.  creation and publication of a datalad dataset,
     2.  creation of a datalad dataset only,
     3.  publication of an existing datalad dataset only,
+
+*   the creation of a Linux shell script for later execution where all commands are recorded.
 
 `NeuroDataPub` is a Python 3.8 package that can be easily installed with `pip` as follows:
 
@@ -59,29 +64,42 @@ usage: neurodatapub [-h] --mode {all,create-only,publish-only} --bids_dir
                     GIT_ANNEX_SSH_SPECIAL_SIBLING_CONFIG
                     --github_sibling_config GITHUB_SIBLING_CONFIG [--gui] [-v]
 
-Command-line argument parser of NeuroDataPub (v0.1)
+usage: neurodatapub [-h] --mode {all,create-only,publish-only}
+                    --dataset_dir DATASET_DIR [--is_not_bids]
+                    --datalad_dir DATALAD_DIR
+                    --github_sibling_config GITHUB_SIBLING_CONFIG
+                    (--git_annex_ssh_special_sibling_config GIT_ANNEX_SSH_SPECIAL_SIBLING_CONFIG | --osf_sibling_config OSF_SIBLING_CONFIG)
+                    [--gui] [--generate_script] [-v]
+
+Command-line argument parser of `NeuroDataPub` (v0.4)
 
 optional arguments:
-  -h, --help            show this help message and exit
+  -h, --help            show this help message and exit.
   --mode {all,create-only,publish-only}
-                        Mode in which ``neurodatapub`` is run: ``"create-
-                        only"`` creates the datalad dataset only, ``"publish-
-                        only"`` creates the datalad dataset only, ``"all"``
-                        creates the datalad dataset only,
-  --bids_dir BIDS_DIR   The directory with the input dataset formatted
-                        according to the BIDS standard.
+                        Mode in which ``neurodatapub`` is run: ``"create-only"`` create
+                        the datalad dataset only, ``"publish-only"`` publish the datalad
+                        dataset only, ``"all"` create and publish the datalad dataset.
+  --dataset_dir DATASET_DIR
+                        The directory with the input dataset formatted according
+                        to the BIDS standard. Specify if the directory with the input
+                        dataset is not formatted according to the BIDS standard.
   --datalad_dir DATALAD_DIR
-                        The local directory where the Datalad dataset should
-                        be.
-  --git_annex_ssh_special_sibling_config GIT_ANNEX_SSH_SPECIAL_SIBLING_CONFIG
-                        Path to a JSON file containing configuration
-                        parameters for the git-annex SSH special remote
-                        dataset sibling
+                        The local directory where the Datalad dataset should be.
   --github_sibling_config GITHUB_SIBLING_CONFIG
-                        Path to a JSON file containing configuration
-                        parameters for the GitHub dataset repository sibling
-  --gui                 Run NeuroDataPub in GUI mode
-  -v, --version         show program's version number and exit
+                        Path to a JSON file containing configuration parameters for
+                        the GitHub dataset repository sibling.
+  --git_annex_ssh_special_sibling_config GIT_ANNEX_SSH_SPECIAL_SIBLING_CONFIG
+                        Path to a JSON file containing configuration parameters for
+                        the git-annex SSH special remote dataset sibling.
+  --osf_sibling_config OSF_SIBLING_CONFIG
+                        Path to a JSON file containing configuration parameters for
+                        the git-annex OSF special remote dataset sibling.
+  --gui                 Run NeuroDataPub in GUI mode.
+  --generate_script     Dry run that generates a bash script called
+                        `neurodatapub_DD-MM-YYYY_hh:mm:ss.sh` in the `code/` folder
+                        of the input dataset that records all commands for later execution.
+  -v, --version         show program's version number and exit.
+
 ```
 
 ## Acknowledgment

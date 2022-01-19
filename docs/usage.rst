@@ -120,6 +120,14 @@ For example, an invocation of the interface to create and publish a dataset
 .. note:: When you use directly the command-line interface, you would need to provide the JSON files with the option flags ``--github_sibling_config``, and ``--git_annex_ssh_special_sibling_config``, or ``--git_annex_osf_sibling_config`` to describe the configuration of the GitHub and special remote dataset siblings.
 
 
+Need more control?
+=======================
+
+Since `v0.4`, `NeuroDataPub` can be run with the `--generate_script` option to give more control to more advanced users familiar with the Linux shell.
+
+If enabled, `NeuroDataPub` will run in a "dryrun" mode and will only create a Linux shell script, called ``neurodatapub_%d-%m-%Y_%H-%M-%S.sh`` in the `code/` directory of your input dataset, that records all the underlined commands. If it appears that the `code/` folder does not exist yet, it will be automatically created.
+
+
 Support, bugs and new feature requests
 =======================================
 

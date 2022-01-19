@@ -112,6 +112,7 @@ For example, an invocation of the interface to create and publish a dataset
     .. code-block:: console
 
        $ neurodatapub --mode "all" \
+           (--generate_script \)
             --dataset_dir '/local/path/to/input/bids/dataset' \
             --datalad_dir  '/local/path/to/output/datalad/dataset' \
             --git_annex_ssh_special_sibling_config '/local/path/to/special_annex_sibling_config.json' \
@@ -123,7 +124,7 @@ For example, an invocation of the interface to create and publish a dataset
 Need more control?
 =======================
 
-Since `v0.4`, `NeuroDataPub` can be run with the `--generate_script` option to give more control to more advanced users familiar with the Linux shell.
+Since `v0.4`, `NeuroDataPub` can be run with the ``--generate_script`` option to give more control to more advanced users familiar with the Linux shell.
 
 If enabled, `NeuroDataPub` will run in a "dryrun" mode and will only create a Linux shell script, called ``neurodatapub_%d-%m-%Y_%H-%M-%S.sh`` in the `code/` directory of your input dataset, that records all the underlined commands. If it appears that the `code/` folder does not exist yet, it will be automatically created.
 

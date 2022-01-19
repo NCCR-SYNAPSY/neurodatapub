@@ -112,7 +112,7 @@ For example, an invocation of the interface to create and publish a dataset
     .. code-block:: console
 
        $ neurodatapub --mode "all" \
-            --bids_dir '/local/path/to/input/bids/dataset' \
+            --dataset_dir '/local/path/to/input/bids/dataset' \
             --datalad_dir  '/local/path/to/output/datalad/dataset' \
             --git_annex_ssh_special_sibling_config '/local/path/to/special_annex_sibling_config.json' \
             --github_sibling_config '/local/path/to/github_sibling_config.json'

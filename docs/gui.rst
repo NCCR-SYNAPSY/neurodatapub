@@ -59,6 +59,8 @@ Datalad dataset in the first tab of the `NeuroDataPub Assistant`.
     :align: center
     :width: 600
 
+|
+
 
 3. Configure the siblings
 ==========================
@@ -69,6 +71,8 @@ git-annex and GitHub remote siblings.
 .. figure:: images/neurodatapub_siblings_tab_window.png
     :align: center
     :width: 600
+
+|
 
 
 3.1 Special remote sibling settings
@@ -84,11 +88,13 @@ via `ssh` or (2) the Open Science Foundation (OSF) platform to host your annexed
     :align: center
     :width: 600
 
-* ``"remote_ssh_login"`` (mandatory): user's login to the remote
+|
 
-* ``"remote_ssh_url"`` (mandatory): SSH-URL of the remote in the form `"ssh://..."`
+*   ``"remote_ssh_login"`` (mandatory): user's login to the remote
 
-* ``"remote_sibling_dir"`` (mandatory): Remote .git/ directory of the sibling dataset
+*   ``"remote_ssh_url"`` (mandatory): SSH-URL of the remote in the form `"ssh://..."`
+
+*   ``"remote_sibling_dir"`` (mandatory): Remote .git/ directory of the sibling dataset
 
 
 3.1.2 OSF (Cloud)
@@ -98,9 +104,11 @@ via `ssh` or (2) the Open Science Foundation (OSF) platform to host your annexed
     :align: center
     :width: 600
 
-* ``"osf_dataset_title"`` (mandatory): Dataset title on OSF.
+|
 
-* ``"osf_token"`` (mandatory): user's OSF authentication token. To make a Personal Access Token, please go to the relevant `OSF settings page <https://osf.io/settings/tokens/>`_ and create one. If you do not an OSF account yet, you will need to create one a-priori.
+*   ``"osf_dataset_title"`` (mandatory): Dataset title on OSF.
+
+*   ``"osf_token"`` (mandatory): user's OSF authentication token. To make a Personal Access Token, please go to the relevant `OSF settings page <https://osf.io/settings/tokens/>`_ and create one. If you do not an OSF account yet, you will need to create one a-priori.
 
 
 3.2 GitHub sibling settings
@@ -110,15 +118,17 @@ via `ssh` or (2) the Open Science Foundation (OSF) platform to host your annexed
     :align: center
     :width: 600
 
-* ``"github_login"`` (mandatory): user's login to GitHub.
+|
 
-* ``"github_email"`` (mandatory): user's email associated with GitHub account.
+*   ``"github_login"`` (mandatory): user's login to GitHub.
 
-* ``"github_organization"`` (mandatory): GitHub organization the GitHub account has access to.
+*   ``"github_email"`` (mandatory): user's email associated with GitHub account.
 
-* ``"github_token"`` (mandatory): user's github authentication token. Please see `"Creating a personal access token" Github documentation <https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token>`_ for more details on how to get one. Make also sure that the `write:org` and `read:org` options are enabled.
+*   ``"github_organization"`` (mandatory): GitHub organization the GitHub account has access to.
 
-* ``"github_repo_name"`` (mandatory): Dataset repository name on GitHub.
+*   ``"github_token"`` (mandatory): user's github authentication token. Please see `"Creating a personal access token" Github documentation <https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token>`_ for more details on how to get one. Make also sure that the `write:org` and `read:org` options are enabled.
+
+*   ``"github_repo_name"`` (mandatory): Dataset repository name on GitHub.
 
 
 3.3 Create the JSON sibling configuration files
@@ -145,6 +155,8 @@ checking them out by clicking on the `Check config` button.
     :align: center
     :width: 800
 
+|
+
 If the configuration is completely valid, this will enable the
 `Create and Publish Dataset`, `Create Dataset`, and `Publish Dataset` buttons.
 
@@ -152,12 +164,16 @@ If the configuration is completely valid, this will enable the
     :align: center
     :width: 800
 
+|
+
 Then, you can execute `NeuroDataPub` in one of the three execution modes by clicking on one of the
 buttons.
 
 .. figure:: images/neurodatapub_execution.png
     :align: center
     :width: 800
+
+|
 
 .. note:: You can always see the execution progress by checking the standard outputs in the terminal,
     such as the following:

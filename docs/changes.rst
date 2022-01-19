@@ -6,7 +6,7 @@ Changes
 Version 0.4
 --------------
 
-Date: January 18, 2021
+Date: January 19, 2021
 
 Fourth beta release of `NeuroDataPub` that includes in particular the following changes.
 

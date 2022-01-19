@@ -42,7 +42,7 @@ Open Science Foundation (OSF) platform, as a git-annex special remote, to host
 your annexed files.
 
 Since `v0.4`, `NeuroDataPub` can handle datasets that do and do not follow the
-  `Brain Imaging Data Structure <https://bids-specification.readthedocs.io>`_ standard.
+`Brain Imaging Data Structure <https://bids-specification.readthedocs.io>`_ standard.
 
 .. figure:: images/neurodatapub_illustration.png
     :align: center

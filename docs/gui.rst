@@ -58,7 +58,6 @@ Datalad dataset in the first tab of the `NeuroDataPub Assistant`.
 .. figure:: images/neurodatapub_main_window.png
     :align: center
     :width: 600
-
 |
 
 
@@ -71,7 +70,6 @@ git-annex and GitHub remote siblings.
 .. figure:: images/neurodatapub_siblings_tab_window.png
     :align: center
     :width: 600
-
 |
 
 
@@ -87,7 +85,6 @@ via `ssh` or (2) the Open Science Foundation (OSF) platform to host your annexed
 .. figure:: images/neurodatapub_siblings_tab_ssh_config.png
     :align: center
     :width: 600
-
 |
 
 *   ``"remote_ssh_login"`` (mandatory): user's login to the remote
@@ -103,7 +100,6 @@ via `ssh` or (2) the Open Science Foundation (OSF) platform to host your annexed
 .. figure:: images/neurodatapub_siblings_tab_osf_config.png
     :align: center
     :width: 600
-
 |
 
 *   ``"osf_dataset_title"`` (mandatory): Dataset title on OSF.
@@ -117,7 +113,6 @@ via `ssh` or (2) the Open Science Foundation (OSF) platform to host your annexed
 .. figure:: images/neurodatapub_siblings_tab_github_config.png
     :align: center
     :width: 600
-
 |
 
 *   ``"github_login"`` (mandatory): user's login to GitHub.
@@ -154,7 +149,6 @@ checking them out by clicking on the `Check config` button.
 .. figure:: images/neurodatapub_check_config_button.png
     :align: center
     :width: 800
-
 |
 
 If the configuration is completely valid, this will enable the
@@ -163,7 +157,6 @@ If the configuration is completely valid, this will enable the
 .. figure:: images/neurodatapub_exec_buttons_enable.png
     :align: center
     :width: 800
-
 |
 
 Then, you can execute `NeuroDataPub` in one of the three execution modes by clicking on one of the
@@ -172,7 +165,6 @@ buttons.
 .. figure:: images/neurodatapub_execution.png
     :align: center
     :width: 800
-
 |
 
 .. note:: You can always see the execution progress by checking the standard outputs in the terminal,

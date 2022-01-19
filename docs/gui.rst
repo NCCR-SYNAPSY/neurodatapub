@@ -212,8 +212,8 @@ buttons.
     directory of your input dataset that records all the underlined commands.
 
     .. figure:: images/neurodatapub_generate_script_execution.png
-    :align: center
-    :width: 800
+        :align: center
+        :width: 800
 
 
 Support, bugs and new feature requests
